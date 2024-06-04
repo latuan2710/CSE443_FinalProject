@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    @* <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png"> *@
     <title>@ViewData["Title"] - DashBoard</title>
-    <link href="admin/css/bootstrap.min.css" rel="stylesheet">
-    <link href="admin/css/bootstrap-extension.css" rel="stylesheet">
-    <link href="admin/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="admin/css/buttons.dataTables.min.css" rel="stylesheet">
-    <link href="admin/css/sidebar-nav.min.css" rel="stylesheet">
-    <link href="admin/css/animate.css" rel="stylesheet">
-    <link href="admin/css/style.css" rel="stylesheet">
-    <link href="admin/css/blue-dark.css" id="theme" rel="stylesheet">
+    <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/css/bootstrap-extension.css" rel="stylesheet">
+    <link href="/admin/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/admin/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="/admin/css/sidebar-nav.min.css" rel="stylesheet">
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css" rel="stylesheet">
+    <link href="/admin/css/blue-dark.css" id="theme" rel="stylesheet">
 </head>
 
 <body>
@@ -31,12 +31,12 @@
                 <div class="top-left-part">
                     <a class="logo" asp-controller="AdminPage" asp-action="UserBoard">
                         <b>
-                            <img src="admin/images/eliteadmin-logo.png" alt="home" class="dark-logo" />
-                            <img src="admin/images/eliteadmin-logo-dark.png" alt="home" class="light-logo" />
+                            <img src="/admin/images/eliteadmin-logo.png" alt="home" class="dark-logo" />
+                            <img src="/admin/images/eliteadmin-logo-dark.png" alt="home" class="light-logo" />
                         </b>
                         <span class="hidden-xs">
-                            <img src="admin/images/eliteadmin-text.png" alt="home" class="dark-logo" />
-                            <img src="admin/images/eliteadmin-text-dark.png" alt="home" class="light-logo" />
+                            <img src="/admin/images/eliteadmin-text.png" alt="home" class="dark-logo" />
+                            <img src="/admin/images/eliteadmin-text-dark.png" alt="home" class="light-logo" />
                         </span>
                     </a>
                 </div>
@@ -54,7 +54,7 @@
                 <div class="user-profile">
                     <div class="dropdown user-pro-body">
                         <div>
-                            <img src="admin/images/varun.jpg" alt="user-img" class="img-circle">
+                            <img src="/admin/images/varun.jpg" alt="user-img" class="img-circle">
                         </div>
                         <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button"
                             aria-haspopup="true" aria-expanded="false">Steave Gection <span class="caret"></span>
@@ -119,25 +119,25 @@
             <footer class="footer text-center"> 2017 &copy; Elite Admin brought to you by themedesigner.in </footer>
         </div>
     </div>
-    <script src="admin/js/jquery.min.js"></script>
-    <script src="admin/js/tether.min.js"></script>
-    <script src="admin/js/bootstrap.min.js"></script>
-    <script src="admin/js/bootstrap-extension.min.js"></script>
-    <script src="admin/js/wp-sidebar.js"></script>
+    <script src="/admin/js/jquery.min.js"></script>
+    <script src="/admin/js/tether.min.js"></script>
+    <script src="/admin/js/bootstrap.min.js"></script>
+    <script src="/admin/js/bootstrap-extension.min.js"></script>
+    <script src="/admin/js/wp-sidebar.js"></script>
     <!--slimscroll JavaScript -->
-    <script src="admin/js/jquery.slimscroll.js"></script>
+    <script src="/admin/js/jquery.slimscroll.js"></script>
     <!--Wave Effects -->
-    <script src="admin/js/waves.js"></script>
-    <script src="admin/js/custom.min.js"></script>
-    <script src="admin/js/jquery.dataTables.min.js"></script>
-    <script src="admin/js/dataTables.buttons.min.js"></script>
-    <script src="admin/js/buttons.flash.min.js"></script>
-    <script src="admin/js/buttons.html5.min.js"></script>
-    <script src="admin/js/buttons.print.min.js"></script>
-    <script src="admin/js/jquery.peity.min.js"></script>
-    <script src="admin/js/jquery.peity.init.js"></script>
+    <script src="/admin/js/waves.js"></script>
+    <script src="/admin/js/custom.min.js"></script>
+    <script src="/admin/js/jquery.dataTables.min.js"></script>
+    <script src="/admin/js/dataTables.buttons.min.js"></script>
+    <script src="/admin/js/buttons.flash.min.js"></script>
+    <script src="/admin/js/buttons.html5.min.js"></script>
+    <script src="/admin/js/buttons.print.min.js"></script>
+    <script src="/admin/js/jquery.peity.min.js"></script>
+    <script src="/admin/js/jquery.peity.init.js"></script>
     <!--Style Switcher -->
-    <script src="admin/js/jQuery.style.switcher.js"></script>
+    <script src="/admin/js/jQuery.style.switcher.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
