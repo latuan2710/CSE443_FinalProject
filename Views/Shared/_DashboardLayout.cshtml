@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <title>Elite Admin Template - The Ultimate Multipurpose admin template</title>
+    <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="admin/css/bootstrap-extension.css" rel="stylesheet">
+    <link href="admin/css/sidebar-nav.min.css" rel="stylesheet">
+    <link href="admin/css/animate.css" rel="stylesheet">
+    <link href="admin/css/style.css" rel="stylesheet">
+    <link href="admin/css/blue-dark.css" id="theme" rel="stylesheet">
+</head>
+
+<body>
+    @RenderBody()
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-static-top m-b-0">
+            <div class="navbar-header">
+                <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                    <i class="ti-menu"></i>
+                </a>
+                <div class="top-left-part">
+                    <a class="logo" href="index.html" asp-controller="AdminPage" asp-action="">
+                        <b>
+                            <img src="admin/images/eliteadmin-logo.png" alt="home" class="dark-logo" />
+                            <img src="admin/images/eliteadmin-logo-dark.png" alt="home" class="light-logo" />
+                        </b>
+                        <span class="hidden-xs">
+                            <img src="admin/images/eliteadmin-text.png" alt="home" class="dark-logo" />
+                            <img src="admin/images/eliteadmin-text-dark.png" alt="home" class="light-logo" />
+                        </span>
+                    </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-left hidden-xs">
+                    <li>
+                        <a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light">
+                            <i class="icon-arrow-left-circle ti-menu"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="sidebar" role="navigation">
+            <div class="wp-sidebar-nav">
+                <div class="user-profile">
+                    <div class="dropdown user-pro-body">
+                        <div>
+                            <img src="admin/images/varun.jpg" alt="user-img" class="img-circle">
+                        </div>
+                        <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false">Steave Gection <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu animated flipInY">
+                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                            <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
+                            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="login.html"><i class="fa fa-power-off"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <ul class="wp-side-menu">
+                    <li>
+                        <a href="documentation.html">
+                            <i class="fa fa-circle-o text-danger"> </i>
+                            <span class="hide-menu">Documentation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="documentation.html">
+                            <i class="fa fa-circle-o text-danger"> </i>
+                            <span class="hide-menu">Documentation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="documentation.html">
+                            <i class="fa fa-circle-o text-danger"> </i>
+                            <span class="hide-menu">Documentation</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Basic Table</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Bordered Table</h3>
+                            <p class="text-muted m-b-20">Add<code>.table-bordered</code>for borders on all sides of the
+                                table and cells.</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Task</th>
+                                            <th>Progress</th>
+                                            <th>Deadline</th>
+                                            <th class="text-nowrap">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Lunar probe project</td>
+                                            <td>
+                                                <div class="progress progress-xs margin-vertical-10 ">
+                                                    <div class="progress-bar progress-bar-danger" style="width: 35%">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>May 15, 2015</td>
+                                            <td class="text-nowrap">
+                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i
+                                                        class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                <a href="#" data-toggle="tooltip" data-original-title="Close"> <i
+                                                        class="fa fa-close text-danger"></i> </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dream successful plan</td>
+                                            <td>
+                                                <div class="progress progress-xs margin-vertical-10 ">
+                                                    <div class="progress-bar progress-bar-warning" style="width: 50%">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>July 1, 2015</td>
+                                            <td class="text-nowrap">
+                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i
+                                                        class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                <a href="#" data-toggle="tooltip" data-original-title="Close"> <i
+                                                        class="fa fa-close text-danger"></i> </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office automatization</td>
+                                            <td>
+                                                <div class="progress progress-xs margin-vertical-10 ">
+                                                    <div class="progress-bar progress-bar-success" style="width: 100%">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>Apr 12, 2015</td>
+                                            <td class="text-nowrap">
+                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i
+                                                        class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                <a href="#" data-toggle="tooltip" data-original-title="Close"> <i
+                                                        class="fa fa-close text-danger"></i> </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>The sun climbing plan</td>
+                                            <td>
+                                                <div class="progress progress-xs margin-vertical-10 ">
+                                                    <div class="progress-bar progress-bar-primary" style="width: 70%">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>Aug 9, 2015</td>
+                                            <td class="text-nowrap">
+                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i
+                                                        class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                <a href="#" data-toggle="tooltip" data-original-title="Close"> <i
+                                                        class="fa fa-close text-danger"></i> </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Open strategy</td>
+                                            <td>
+                                                <div class="progress progress-xs margin-vertical-10 ">
+                                                    <div class="progress-bar progress-bar-primary" style="width: 85%">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>Apr 2, 2015</td>
+                                            <td class="text-nowrap">
+                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i
+                                                        class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                <a href="#" data-toggle="tooltip" data-original-title="Close"> <i
+                                                        class="fa fa-close text-danger"></i> </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tantas earum numeris</td>
+                                            <td>
+                                                <div class="progress progress-xs margin-vertical-10 ">
+                                                    <div class="progress-bar progress-bar-warning" style="width: 50%">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>July 11, 2015</td>
+                                            <td class="text-nowrap">
+                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i
+                                                        class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                <a href="#" data-toggle="tooltip" data-original-title="Close"> <i
+                                                        class="fa fa-close text-danger"></i> </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer text-center"> 2017 &copy; Elite Admin brought to you by themedesigner.in </footer>
+        </div>
+    </div>
+    <script src="admin/js/jquery.min.js"></script>
+    <script src="admin/js/tether.min.js"></script>
+    <script src="admin/js/bootstrap.min.js"></script>
+    <script src="admin/js/bootstrap-extension.min.js"></script>
+    <script src="admin/js/wp-sidebar.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="admin/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="admin/js/waves.js"></script>
+    <script src="admin/js/custom.min.js"></script>
+    <script src="admin/js/jquery.peity.min.js"></script>
+    <script src="admin/js/jquery.peity.init.js"></script>
+    <!--Style Switcher -->
+    <script src="admin/js/jQuery.style.switcher.js"></script>
+</body>
+
+
+</html>
