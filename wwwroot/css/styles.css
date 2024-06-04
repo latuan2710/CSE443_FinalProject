@@ -1,0 +1,385 @@
+@font-face {
+  font-family: Lora;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/lora_n4.0a0652f356f2b7896162c4887e16208805a241f6.woff2")
+      format("woff2"),
+    url("../fonts/lora_n4.0a0652f356f2b7896162c4887e16208805a241f6.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: Lora;
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/lora_n4.0a0652f356f2b7896162c4887e16208805a241f6.woff2")
+      format("woff2"),
+    url("../fonts/lora_n4.0a0652f356f2b7896162c4887e16208805a241f6.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: Lora;
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url("../fonts/lora_n4.0a0652f356f2b7896162c4887e16208805a241f6.woff2")
+      format("woff2"),
+    url("../fonts/lora_n4.0a0652f356f2b7896162c4887e16208805a241f6.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: Lora;
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+  src: url("../fonts/lora_n4.0a0652f356f2b7896162c4887e16208805a241f6.woff2")
+      format("woff2"),
+    url("../fonts/lora_n4.0a0652f356f2b7896162c4887e16208805a241f6.woff")
+      format("woff");
+}
+
+:root {
+  --font-body-family: Lora, serif;
+  --font-body-style: normal;
+  --font-body-weight: 400;
+  --font-heading-family: Lora, serif;
+  --font-heading-style: normal;
+  --font-heading-weight: 400;
+  --color-base-text: #222222;
+  --color-base-text-rgb: 34, 34, 34;
+  --color-base-background-1: #ffffff;
+  --color-base-background-1-rgb: 255, 255, 255;
+  --color-base-accent-1: #af8a64;
+  --color-base-accent-1-rgb: 175, 138, 100;
+  --color-base-accent-2: #666666;
+  --color-base-accent-2-rgb: 102, 102, 102;
+  --color-base-border: #dddddd;
+  --color-base-button-text: #ffffff;
+  --color-base-button-text-hover: #ffffff;
+  --color-base-button-background: #af8a64;
+  --color-base-button-background-hover: #411b1c;
+  --color-base-text-opacity-10-percent: #e9e9e9;
+  --color-base-text-opacity-20-percent: #d3d3d3;
+  --color-base-text-opacity-55-percent: #858585;
+  --color-base-text-opacity-85-percent: #434343;
+  --color-base-accent-1-opacity-10-percent: #f7f3f0;
+  --color-base-accent-2-opacity-10-percent: #f0f0f0;
+  --color-rating-empty: #ccc;
+  --color-rating-filled: #ffcc00;
+  --color-secondary-hover: #af8a64;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  height: 100%;
+}
+body {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-columns: 100%;
+  min-height: 100%;
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  line-height: 24px;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  color: var(--color-base-accent-2);
+}
+
+.rotating {
+  background-image: url("//cafebrew-codezeel.myshopify.com/cdn/shop/files/loading.webp");
+}
+.ttloader {
+  background-color: #ffffff;
+}
+.fancybox-margin {
+  margin-right: 17px;
+}
+.fancybox-margin {
+  margin-right: 17px;
+}
+header-drawer {
+  justify-self: start;
+}
+@media (max-width: 749px) {
+}
+@media (max-width: 479px) {
+  header-drawer {
+    margin-left: 0;
+  }
+}
+.shopify-section-header-sticky .header {
+  display: none;
+}
+.header__submenu.list-menu li {
+  min-width: 185px;
+}
+@media (max-width: 1269px) {
+  .header__submenu.list-menu li {
+    min-width: 160px;
+  }
+}
+
+.cart-title {
+  margin-left: 10px;
+  font-weight: 600;
+}
+.service-header:hover .header-service-icon {
+  background-position: 0 0;
+}
+.service-header:hover .header-service-title {
+  color: var(--color-secondary-hover);
+}
+.categories_title {
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.service-header.service-header-2 {
+  margin-right: 0;
+}
+.header-right {
+  float: right;
+}
+.header-service {
+  float: right;
+  position: relative;
+  width: auto;
+  margin-left: 45px;
+}
+.hearder-cart {
+  width: auto;
+  position: relative;
+}
+#services-header {
+  float: left;
+  position: relative;
+}
+.service-header {
+  float: left;
+  width: auto;
+}
+.tm_header-dropdown.site-header__icon {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.user-background {
+  display: flex;
+}
+.header-service-icon {
+  display: block !important;
+  height: 32px;
+  position: relative;
+  width: 30px;
+  margin-right: 10px;
+  float: left;
+  margin-top: 5px;
+  background-repeat: no-repeat;
+}
+.header-top-menu {
+  float: left;
+  width: 100%;
+  background: #ffcc1d;
+}
+.header-service-description {
+  color: var(--color-base-background-1);
+  display: flex;
+  flex-direction: column;
+}
+.header-service-title {
+  text-transform: capitalize;
+  font-size: 15px;
+  font-weight: 600;
+}
+.header-service-subtitle {
+  color: #ededed;
+  font-weight: 400;
+}
+.menu-drawer__account .visually-hidden {
+  position: relative !important;
+  text-transform: capitalize;
+  color: #fff;
+  font-size: 13px;
+  padding-inline: 20px;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  margin: 10px 0;
+}
+.menu-drawer-container.menu-opening .menu-drawer__menu.list-menu {
+  margin-top: 10px;
+}
+.menu-drawer-container {
+  display: flex;
+}
+.list-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.list-menu--inline {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+.list-menu__item {
+  display: flex;
+  align-items: center;
+}
+.list-menu__item--link {
+  text-decoration: none;
+  padding-bottom: 8px;
+  padding-top: 0;
+  line-height: 24px;
+}
+.header-wrapper {
+  background-color: #411b1c;
+}
+.header-top-menu {
+  background-color: #af8a64;
+}
+@-moz-keyframes fixedAnim {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes fixedAnim {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+.header-top-menu.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  right: 0;
+  color: #fff;
+  animation: 0.9s ease 0s normal both 1 running fixedAnim;
+  -webkit-animation: 0.9s ease 0s normal both 1 running fixedAnim;
+  -moz-animation: 0.9s ease 0s normal both 1 running fixedAnim;
+  -o-animation: 0.9s ease 0s normal both 1 running fixedAnim;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (min-width: 990px) {
+  header-drawer {
+    display: none;
+  }
+}
+@media (max-width: 1269px) {
+  .header-service {
+    margin-left: 30px;
+  }
+}
+@media (max-width: 989px) {
+  .header-service {
+    display: none;
+  }
+  .categories_title {
+    font-size: 0;
+    line-height: 0;
+  }
+  .header-right {
+    grid-area: icons-start;
+    text-align: end;
+  }
+  .menu_overlay {
+    position: fixed;
+    top: 0px;
+    left: 300px;
+    z-index: 999;
+    opacity: 0.7;
+    filter: alpha(opacity=80);
+    background: #000;
+    width: calc(100% - 300px);
+    height: 100%;
+    display: none;
+  }
+  .menu-opening .menu_overlay {
+    display: block;
+  }
+  .menu-drawer-container {
+    display: inline-block;
+  }
+}
+.service-iconb34c3877-68bd-447f-91fd-679a0affa23c {
+  background-image: url("//cafebrew-codezeel.myshopify.com/cdn/shop/files/headphone_56x.png");
+}
+.cls-2 {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2px;
+}
+.cart-notification {
+  display: none;
+}
+#TopColumnContent {
+  background-image: url("//cafebrew-codezeel.myshopify.com/cdn/shop/files/bredcrumb.jpg?v=1666331964");
+  background-repeat: no-repeat;
+}
+.service-block .services-wrapper {
+  background-color: #af8a64;
+}
+.service-icon4285c895-6095-49c7-b121-b6adef36951d {
+  background-image: url("//cafebrew-codezeel.myshopify.com/cdn/shop/files/service-1_1_39x.png");
+}
+.service-iconf03085c8-3b0c-4497-b624-3b9a2619cef0 {
+  background-image: url("//cafebrew-codezeel.myshopify.com/cdn/shop/files/service-2_1_39x.png");
+}
+.service-icon6ff97813-8fac-442d-8c95-8b37baf9e6fd {
+  background-image: url("//cafebrew-codezeel.myshopify.com/cdn/shop/files/service-3_1_39x.png");
+}
+.service-icon6fcb50a9-0fc2-4ff1-9c30-499211afaf88 {
+  background-image: url("//cafebrew-codezeel.myshopify.com/cdn/shop/files/service-4_1_39x.png");
+}
+.parallex-image {
+  background-image: url("//cafebrew-codezeel.myshopify.com/cdn/shop/files/parallax-img-1.jpg");
+}
+.cms_info {
+  background-color: #af8a64;
+}
+.cms_info .info-description {
+  color: #ffffff;
+}
+.newsletter {
+  background-color: #411b1c;
+}
+.footer,
+.footer__column--info {
+  background-color: #411b1c;
+}
+
+.copyright__content a,
+.footer-block__details-content .list-menu__item--link,
+.grid__item.footer-box.link-list a,
+.footer__copyright {
+  color: #ffffff;
+  text-transform: capitalize;
+}

@@ -1,0 +1,1183 @@
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html class="js" lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Coffee Store</title>
+
+    @* <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" /> *@
+
+    <link href="~/css/css2.css" rel="stylesheet" />
+    <link href="~/css/owl.carousel.css" rel="stylesheet" />
+    <link href="~/css/owl.theme.css" rel="stylesheet" />
+    <link href="~/css/component-price.css" rel="stylesheet" />
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/css/slick.css" rel="stylesheet" />
+    <link href="~/css/quickview.css" rel="stylesheet" />
+    <link href="~/css/styles.css" rel="stylesheet" media="screen" />
+    <link href="~/css/base.css" rel="stylesheet" />
+    <link href="~/css/component-predictive-search.css" rel="stylesheet" />
+    <link rel="stylesheet" media="screen"
+          href="~/css/spr-07102fd76ff4bc22a3e0c32f0cca9ee51c77c34bbc4bdac79abb48f698de10dd.css" />
+    <link href="~/css/component-list-menu.css" rel="stylesheet" />
+    <link href="~/css/component-search.css" rel="stylesheet" />
+    <link href="~/css/component-menu-drawer.css" rel="stylesheet" />
+    <link href="~/css/component-cart-notification.css" rel="stylesheet" />
+    <link href="~/css/tm-cart_template.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/tm-notification-products.css" as="style"
+          onload="this.onload=null;this.rel='stylesheet'" />
+    <link href="~/css/header-sidecategory.css" rel="stylesheet" />
+    <link href="~/css/tm_cms_info.css" rel="stylesheet" />
+    <link href="~/css/section-footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/component-newsletter.css" />
+    <link rel="stylesheet" href="~/css/component-accordion.css" />
+    <link rel="stylesheet" href="~/css/component-list-payment.css" />
+    <link rel="stylesheet" href="~/css/component-list-social.css" />
+    <link rel="stylesheet" href="~/css/component-rte.css" />
+    <link rel="stylesheet" href="~/css/disclosure.css" />
+    <link rel="stylesheet" href="~/css/customer.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="~/js/global.js" defer="defer"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/jquery-latest.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/quickview.js"></script>
+    <script src="~/js/details-disclosure.js" defer="defer"></script>
+    <script src="~/js/details-modal.js" defer="defer"></script>
+    <script src="~/js/cart-notification.js" defer="defer"></script>
+    <script src="~/js/slider.js" defer="defer"></script>
+    <script src="~/js/variants.js" defer="defer"></script>
+    <script src="~/js/predictive-search.js" defer="defer"></script>
+    <script src="~/js/wishlist.js" defer="defer"></script>
+    <script src="~/js/compare.js" defer="defer"></script>
+    <script src="~/js/script.js" defer="defer"></script>
+</head>
+
+<body class="template-index">
+    <div class="ttloader" style="display: none">
+        <span class="rotating"></span>
+    </div>
+    <a class="skip-to-content-link button visually-hidden" href="/MainContent">
+        Skip to content
+    </a>
+    <div id="shopify-section-header" class="shopify-section">
+        <div class="header-wrapper">
+            <header class="header header--top-center page-width header--has-menu">
+                <header-drawer>
+                    <details class="menu-drawer-container">
+                        <div class="menu_overlay"></div>
+                        <summary class="header__icon header__icon--menu header__icon--summary link link--text focus-inset"
+                                 aria-label="Menu" role="button" aria-expanded="false" aria-controls="menu-drawer">
+                            <span>
+                                <svg version="1.1" class="icon icon-hamburger" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000"
+                                     enable-background="new 0 0 1000 1000">
+                                    <g>
+                                        <path d="M928.8,261.7H71.3c-33.8,0-61.3-27.4-61.3-61.3c0-33.9,27.4-61.3,61.3-61.3h857.5c33.9,0,61.3,27.4,61.3,61.3C990,234.3,962.6,261.7,928.8,261.7z">
+                                        </path>
+                                        <path d="M928.8,561.2H71.3C37.4,561.2,10,533.9,10,500c0-33.9,27.4-61.3,61.3-61.3h857.5c33.9,0,61.3,27.4,61.3,61.3C990,533.9,962.6,561.2,928.8,561.2z">
+                                        </path>
+                                        <path d="M928.8,860.8H71.3c-33.8,0-61.3-27.4-61.3-61.3c0-33.9,27.4-61.3,61.3-61.3h857.5c33.9,0,61.3,27.4,61.3,61.3C990,833.4,962.6,860.8,928.8,860.8z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="menu-label">menu</span>
+                        </summary>
+                        <div id="menu-drawer" class="menu-drawer motion-reduce" tabindex="-1">
+                            <div class="menu-drawer__inner-container">
+                                <summary class="header__icon--menu close" aria-label="Menu" role="button"
+                                         aria-expanded="false" aria-controls="">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+                                             role="presentation" class="icon icon-close" viewBox="0 0 18 17">
+                                            <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                </summary>
+                                <div class="menu-drawer__navigation-container">
+                                    <nav class="menu-drawer__navigation">
+                                        <ul class="menu-drawer__menu list-menu" role="list">
+                                            <li>
+                                                <a href="/"
+                                                   class="menu-drawer__menu-item list-menu__item link link--text focus-inset menu-drawer__menu-item--active"
+                                                   aria-current="page">
+                                                    Home
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                   class="menu-drawer__menu-item list-menu__item link link--text focus-inset">
+                                                    Catalog
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Page" asp-action="About"
+                                                   class="menu-drawer__menu-item list-menu__item link link--text focus-inset">
+                                                    About Us
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://cafebrew-codezeel.myshopify.com/blogs/news"
+                                                   class="menu-drawer__menu-item list-menu__item link link--text focus-inset">
+                                                    Blog
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-controller="Page" asp-action="Contact"
+                                                   class="menu-drawer__menu-item list-menu__item link link--text focus-inset">
+                                                    Contact
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <div class="menu-drawer__utility-links">
+                                        <ul class="list list-social list-unstyled" role="list">
+                                            <li class="list-social__item">
+                                                <a href="/"
+                                                   class="link link--text list-social__link"
+                                                   aria-describedby="a11y-external-message">
+                                                    <svg aria-hidden="true" focusable="false" role="presentation"
+                                                         class="icon icon-twitter" viewBox="0 0 18 15">
+                                                        <path d="M17.64 2.6a7.33 7.33 0 01-1.75 1.82c0 .05 0 .13.02.23l.02.23a9.97 9.97 0 01-1.69 5.54c-.57.85-1.24 1.62-2.02 2.28a9.09 9.09 0 01-2.82 1.6 10.23 10.23 0 01-8.9-.98c.34.02.61.04.83.04 1.64 0 3.1-.5 4.38-1.5a3.6 3.6 0 01-3.3-2.45A2.91 2.91 0 004 9.35a3.47 3.47 0 01-2.02-1.21 3.37 3.37 0 01-.8-2.22v-.03c.46.24.98.37 1.58.4a3.45 3.45 0 01-1.54-2.9c0-.61.14-1.2.45-1.79a9.68 9.68 0 003.2 2.6 10 10 0 004.08 1.07 3 3 0 01-.13-.8c0-.97.34-1.8 1.03-2.48A3.45 3.45 0 0112.4.96a3.49 3.49 0 012.54 1.1c.8-.15 1.54-.44 2.23-.85a3.4 3.4 0 01-1.54 1.94c.74-.1 1.4-.28 2.01-.54z">
+                                                        </path>
+                                                    </svg>
+                                                    <span class="visually-hidden">Twitter</span>
+                                                </a>
+                                            </li>
+                                            <li class="list-social__item">
+                                                <a href="/"
+                                                   class="link link--text list-social__link"
+                                                   aria-describedby="a11y-external-message">
+                                                    <svg aria-hidden="true" focusable="false" role="presentation"
+                                                         class="icon icon-facebook" viewBox="0 0 18 18">
+                                                        <path d="M16.42.61c.27 0 .5.1.69.28.19.2.28.42.28.7v15.44c0 .27-.1.5-.28.69a.94.94 0 01-.7.28h-4.39v-6.7h2.25l.31-2.65h-2.56v-1.7c0-.4.1-.72.28-.93.18-.2.5-.32 1-.32h1.37V3.35c-.6-.06-1.27-.1-2.01-.1-1.01 0-1.83.3-2.45.9-.62.6-.93 1.44-.93 2.53v1.97H7.04v2.65h2.24V18H.98c-.28 0-.5-.1-.7-.28a.94.94 0 01-.28-.7V1.59c0-.27.1-.5.28-.69a.94.94 0 01.7-.28h15.44z">
+                                                        </path>
+                                                    </svg>
+                                                    <span class="visually-hidden">Facebook</span>
+                                                </a>
+                                            </li>
+                                            <li class="list-social__item">
+                                                <a href="/"
+                                                   class="link link--text list-social__link"
+                                                   aria-describedby="a11y-external-message">
+                                                    <svg aria-hidden="true" focusable="false" role="presentation"
+                                                         class="icon icon-pinterest" viewBox="0 0 17 18">
+                                                        <path d="M8.48.58a8.42 8.42 0 015.9 2.45 8.42 8.42 0 011.33 10.08 8.28 8.28 0 01-7.23 4.16 8.5 8.5 0 01-2.37-.32c.42-.68.7-1.29.85-1.8l.59-2.29c.14.28.41.52.8.73.4.2.8.31 1.24.31.87 0 1.65-.25 2.34-.75a4.87 4.87 0 001.6-2.05 7.3 7.3 0 00.56-2.93c0-1.3-.5-2.41-1.49-3.36a5.27 5.27 0 00-3.8-1.43c-.93 0-1.8.16-2.58.48A5.23 5.23 0 002.85 8.6c0 .75.14 1.41.43 1.98.28.56.7.96 1.27 1.2.1.04.19.04.26 0 .07-.03.12-.1.15-.2l.18-.68c.05-.15.02-.3-.11-.45a2.35 2.35 0 01-.57-1.63A3.96 3.96 0 018.6 4.8c1.09 0 1.94.3 2.54.89.61.6.92 1.37.92 2.32 0 .8-.11 1.54-.33 2.21a3.97 3.97 0 01-.93 1.62c-.4.4-.87.6-1.4.6-.43 0-.78-.15-1.06-.47-.27-.32-.36-.7-.26-1.13a111.14 111.14 0 01.47-1.6l.18-.73c.06-.26.09-.47.09-.65 0-.36-.1-.66-.28-.89-.2-.23-.47-.35-.83-.35-.45 0-.83.2-1.13.62-.3.41-.46.93-.46 1.56a4.1 4.1 0 00.18 1.15l.06.15c-.6 2.58-.95 4.1-1.08 4.54-.12.55-.16 1.2-.13 1.94a8.4 8.4 0 01-5-7.65c0-2.3.81-4.28 2.44-5.9A8.04 8.04 0 018.48.57z">
+                                                        </path>
+                                                    </svg>
+                                                    <span class="visually-hidden">Pinterest</span>
+                                                </a>
+                                            </li>
+                                            <li class="list-social__item">
+                                                <a href="/"
+                                                   class="link link--text list-social__link"
+                                                   aria-describedby="a11y-external-message">
+                                                    <svg aria-hidden="true" focusable="false" role="presentation"
+                                                         class="icon icon-instagram" viewBox="0 0 18 18">
+                                                        <path d="M8.77 1.58c2.34 0 2.62.01 3.54.05.86.04 1.32.18 1.63.3.41.17.7.35 1.01.66.3.3.5.6.65 1 .12.32.27.78.3 1.64.05.92.06 1.2.06 3.54s-.01 2.62-.05 3.54a4.79 4.79 0 01-.3 1.63c-.17.41-.35.7-.66 1.01-.3.3-.6.5-1.01.66-.31.12-.77.26-1.63.3-.92.04-1.2.05-3.54.05s-2.62 0-3.55-.05a4.79 4.79 0 01-1.62-.3c-.42-.16-.7-.35-1.01-.66-.31-.3-.5-.6-.66-1a4.87 4.87 0 01-.3-1.64c-.04-.92-.05-1.2-.05-3.54s0-2.62.05-3.54c.04-.86.18-1.32.3-1.63.16-.41.35-.7.66-1.01.3-.3.6-.5 1-.65.32-.12.78-.27 1.63-.3.93-.05 1.2-.06 3.55-.06zm0-1.58C6.39 0 6.09.01 5.15.05c-.93.04-1.57.2-2.13.4-.57.23-1.06.54-1.55 1.02C1 1.96.7 2.45.46 3.02c-.22.56-.37 1.2-.4 2.13C0 6.1 0 6.4 0 8.77s.01 2.68.05 3.61c.04.94.2 1.57.4 2.13.23.58.54 1.07 1.02 1.56.49.48.98.78 1.55 1.01.56.22 1.2.37 2.13.4.94.05 1.24.06 3.62.06 2.39 0 2.68-.01 3.62-.05.93-.04 1.57-.2 2.13-.41a4.27 4.27 0 001.55-1.01c.49-.49.79-.98 1.01-1.56.22-.55.37-1.19.41-2.13.04-.93.05-1.23.05-3.61 0-2.39 0-2.68-.05-3.62a6.47 6.47 0 00-.4-2.13 4.27 4.27 0 00-1.02-1.55A4.35 4.35 0 0014.52.46a6.43 6.43 0 00-2.13-.41A69 69 0 008.77 0z">
+                                                        </path>
+                                                        <path d="M8.8 4a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 7.43a2.92 2.92 0 110-5.85 2.92 2.92 0 010 5.85zM13.43 5a1.05 1.05 0 100-2.1 1.05 1.05 0 000 2.1z">
+                                                        </path>
+                                                    </svg>
+                                                    <span class="visually-hidden">Instagram</span>
+                                                </a>
+                                            </li>
+                                            <li class="list-social__item">
+                                                <a href="/"
+                                                   class="link link--text list-social__link"
+                                                   aria-describedby="a11y-external-message">
+                                                    <svg aria-hidden="true" focusable="false" role="presentation"
+                                                         class="icon icon-youtube" viewBox="0 0 100 70">
+                                                        <path d="M98 11c2 7.7 2 24 2 24s0 16.3-2 24a12.5 12.5 0 01-9 9c-7.7 2-39 2-39 2s-31.3 0-39-2a12.5 12.5 0 01-9-9c-2-7.7-2-24-2-24s0-16.3 2-24c1.2-4.4 4.6-7.8 9-9 7.7-2 39-2 39-2s31.3 0 39 2c4.4 1.2 7.8 4.6 9 9zM40 50l26-15-26-15v30z">
+                                                        </path>
+                                                    </svg>
+                                                    <span class="visually-hidden">YouTube</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </header-drawer>
+                <h1 class="header__heading">
+                    <a href="/" class="header__heading-link link link--text focus-inset">
+                        <img srcset="
+                  //cafebrew-codezeel.myshopify.com/cdn/shop/files/Logo_230x.png?v=1666257842    1x,
+                  //cafebrew-codezeel.myshopify.com/cdn/shop/files/Logo_230x@2x.png?v=1666257842 2x
+                " src="images/Logo_230x.png" loading="lazy" class="header__heading-logo" width="223" height="57"
+                             alt="Cafebrew - Coffee Store" />
+                    </a>
+                </h1>
+                <div class="header-right">
+                    <div class="cm-account-button">
+                        
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Manage/Index"
+                               class="menu-drawer__account link link--text focus-inset h5">
+                                <svg class="icon icon-account" viewBox="-42 0 512 512.001" fill="#fff"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m210.351562 246.632812c33.882813 0 63.21875-12.152343 87.195313-36.128906 23.96875-23.972656 36.125-53.304687 36.125-87.191406 0-33.875-12.152344-63.210938-36.128906-87.191406-23.976563-23.96875-53.3125-36.121094-87.191407-36.121094-33.886718 0-63.21875 12.152344-87.191406 36.125s-36.128906 53.308594-36.128906 87.1875c0 33.886719 12.15625 63.222656 36.128906 87.195312 23.980469 23.96875 53.316406 36.125 87.191406 36.125zm-65.972656-189.292968c18.394532-18.394532 39.972656-27.335938 65.972656-27.335938 25.996094 0 47.578126 8.941406 65.976563 27.335938 18.394531 18.398437 27.339844 39.980468 27.339844 65.972656 0 26-8.945313 47.578125-27.339844 65.976562-18.398437 18.398438-39.980469 27.339844-65.976563 27.339844-25.992187 0-47.570312-8.945312-65.972656-27.339844-18.398437-18.394531-27.34375-39.976562-27.34375-65.976562 0-25.992188 8.945313-47.574219 27.34375-65.972656zm0 0">
+                                    </path>
+                                    <path d="m426.128906 393.703125c-.691406-9.976563-2.089844-20.859375-4.148437-32.351563-2.078125-11.578124-4.753907-22.523437-7.957031-32.527343-3.3125-10.339844-7.808594-20.550781-13.375-30.335938-5.769532-10.15625-12.550782-19-20.160157-26.277343-7.957031-7.613282-17.699219-13.734376-28.964843-18.199219-11.226563-4.441407-23.667969-6.691407-36.976563-6.691407-5.226563 0-10.28125 2.144532-20.042969 8.5-6.007812 3.917969-13.035156 8.449219-20.878906 13.460938-6.707031 4.273438-15.792969 8.277344-27.015625 11.902344-10.949219 3.542968-22.066406 5.339844-33.042969 5.339844-10.96875 0-22.085937-1.796876-33.042968-5.339844-11.210938-3.621094-20.300782-7.625-26.996094-11.898438-7.769532-4.964844-14.800782-9.496094-20.898438-13.46875-9.753906-6.355468-14.808594-8.5-20.035156-8.5-13.3125 0-25.75 2.253906-36.972656 6.699219-11.257813 4.457031-21.003906 10.578125-28.96875 18.199219-7.609375 7.28125-14.390625 16.121094-20.15625 26.273437-5.558594 9.785157-10.058594 19.992188-13.371094 30.339844-3.199219 10.003906-5.875 20.945313-7.953125 32.523437-2.0625 11.476563-3.457031 22.363282-4.148437 32.363282-.679688 9.777344-1.023438 19.953125-1.023438 30.234375 0 26.726562 8.496094 48.363281 25.25 64.320312 16.546875 15.746094 38.4375 23.730469 65.066406 23.730469h246.53125c26.621094 0 48.511719-7.984375 65.0625-23.730469 16.757813-15.945312 25.253906-37.589843 25.253906-64.324219-.003906-10.316406-.351562-20.492187-1.035156-30.242187zm-44.90625 72.828125c-10.933594 10.40625-25.449218 15.464844-44.378906 15.464844h-246.527344c-18.933594 0-33.449218-5.058594-44.378906-15.460938-10.722656-10.207031-15.933594-24.140625-15.933594-42.585937 0-9.59375.316406-19.066407.949219-28.160157.617187-8.921874 1.878906-18.722656 3.75-29.136718 1.847656-10.285156 4.199219-19.9375 6.996094-28.675782 2.683593-8.378906 6.34375-16.675781 10.882812-24.667968 4.332031-7.617188 9.316407-14.152344 14.816407-19.417969 5.144531-4.925781 11.628906-8.957031 19.269531-11.980469 7.066406-2.796875 15.007812-4.328125 23.628906-4.558594 1.050781.558594 2.921875 1.625 5.953125 3.601563 6.167969 4.019531 13.277344 8.605469 21.136719 13.625 8.859375 5.648437 20.273437 10.75 33.910156 15.152344 13.941406 4.507812 28.160156 6.796875 42.273437 6.796875 14.113282 0 28.335938-2.289063 42.269532-6.792969 13.648437-4.410156 25.058594-9.507813 33.929687-15.164063 8.042969-5.140624 14.953125-9.59375 21.121094-13.617187 3.03125-1.972656 4.902344-3.042969 5.953125-3.601563 8.625.230469 16.566406 1.761719 23.636719 4.558594 7.636719 3.023438 14.121093 7.058594 19.265625 11.980469 5.5 5.261719 10.484375 11.796875 14.816406 19.421875 4.542969 7.988281 8.207031 16.289062 10.886719 24.660156 2.800781 8.75 5.15625 18.398438 7 28.675782 1.867187 10.433593 3.132812 20.238281 3.75 29.144531v.007812c.636719 9.058594.957031 18.527344.960937 28.148438-.003906 18.449219-5.214844 32.378906-15.9375 42.582031zm0 0">
+                                    </path>
+                                </svg>
+                                <span class="icon__fallback-text">Account</span>
+                                <span class="acc_subtitle">Hello @UserManager.GetUserName(User)!</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Login"
+                               class="menu-drawer__account link link--text focus-inset h5">
+                                <svg class="icon icon-account" viewBox="-42 0 512 512.001" fill="#fff"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m210.351562 246.632812c33.882813 0 63.21875-12.152343 87.195313-36.128906 23.96875-23.972656 36.125-53.304687 36.125-87.191406 0-33.875-12.152344-63.210938-36.128906-87.191406-23.976563-23.96875-53.3125-36.121094-87.191407-36.121094-33.886718 0-63.21875 12.152344-87.191406 36.125s-36.128906 53.308594-36.128906 87.1875c0 33.886719 12.15625 63.222656 36.128906 87.195312 23.980469 23.96875 53.316406 36.125 87.191406 36.125zm-65.972656-189.292968c18.394532-18.394532 39.972656-27.335938 65.972656-27.335938 25.996094 0 47.578126 8.941406 65.976563 27.335938 18.394531 18.398437 27.339844 39.980468 27.339844 65.972656 0 26-8.945313 47.578125-27.339844 65.976562-18.398437 18.398438-39.980469 27.339844-65.976563 27.339844-25.992187 0-47.570312-8.945312-65.972656-27.339844-18.398437-18.394531-27.34375-39.976562-27.34375-65.976562 0-25.992188 8.945313-47.574219 27.34375-65.972656zm0 0">
+                                    </path>
+                                    <path d="m426.128906 393.703125c-.691406-9.976563-2.089844-20.859375-4.148437-32.351563-2.078125-11.578124-4.753907-22.523437-7.957031-32.527343-3.3125-10.339844-7.808594-20.550781-13.375-30.335938-5.769532-10.15625-12.550782-19-20.160157-26.277343-7.957031-7.613282-17.699219-13.734376-28.964843-18.199219-11.226563-4.441407-23.667969-6.691407-36.976563-6.691407-5.226563 0-10.28125 2.144532-20.042969 8.5-6.007812 3.917969-13.035156 8.449219-20.878906 13.460938-6.707031 4.273438-15.792969 8.277344-27.015625 11.902344-10.949219 3.542968-22.066406 5.339844-33.042969 5.339844-10.96875 0-22.085937-1.796876-33.042968-5.339844-11.210938-3.621094-20.300782-7.625-26.996094-11.898438-7.769532-4.964844-14.800782-9.496094-20.898438-13.46875-9.753906-6.355468-14.808594-8.5-20.035156-8.5-13.3125 0-25.75 2.253906-36.972656 6.699219-11.257813 4.457031-21.003906 10.578125-28.96875 18.199219-7.609375 7.28125-14.390625 16.121094-20.15625 26.273437-5.558594 9.785157-10.058594 19.992188-13.371094 30.339844-3.199219 10.003906-5.875 20.945313-7.953125 32.523437-2.0625 11.476563-3.457031 22.363282-4.148437 32.363282-.679688 9.777344-1.023438 19.953125-1.023438 30.234375 0 26.726562 8.496094 48.363281 25.25 64.320312 16.546875 15.746094 38.4375 23.730469 65.066406 23.730469h246.53125c26.621094 0 48.511719-7.984375 65.0625-23.730469 16.757813-15.945312 25.253906-37.589843 25.253906-64.324219-.003906-10.316406-.351562-20.492187-1.035156-30.242187zm-44.90625 72.828125c-10.933594 10.40625-25.449218 15.464844-44.378906 15.464844h-246.527344c-18.933594 0-33.449218-5.058594-44.378906-15.460938-10.722656-10.207031-15.933594-24.140625-15.933594-42.585937 0-9.59375.316406-19.066407.949219-28.160157.617187-8.921874 1.878906-18.722656 3.75-29.136718 1.847656-10.285156 4.199219-19.9375 6.996094-28.675782 2.683593-8.378906 6.34375-16.675781 10.882812-24.667968 4.332031-7.617188 9.316407-14.152344 14.816407-19.417969 5.144531-4.925781 11.628906-8.957031 19.269531-11.980469 7.066406-2.796875 15.007812-4.328125 23.628906-4.558594 1.050781.558594 2.921875 1.625 5.953125 3.601563 6.167969 4.019531 13.277344 8.605469 21.136719 13.625 8.859375 5.648437 20.273437 10.75 33.910156 15.152344 13.941406 4.507812 28.160156 6.796875 42.273437 6.796875 14.113282 0 28.335938-2.289063 42.269532-6.792969 13.648437-4.410156 25.058594-9.507813 33.929687-15.164063 8.042969-5.140624 14.953125-9.59375 21.121094-13.617187 3.03125-1.972656 4.902344-3.042969 5.953125-3.601563 8.625.230469 16.566406 1.761719 23.636719 4.558594 7.636719 3.023438 14.121093 7.058594 19.265625 11.980469 5.5 5.261719 10.484375 11.796875 14.816406 19.421875 4.542969 7.988281 8.207031 16.289062 10.886719 24.660156 2.800781 8.75 5.15625 18.398438 7 28.675782 1.867187 10.433593 3.132812 20.238281 3.75 29.144531v.007812c.636719 9.058594.957031 18.527344.960937 28.148438-.003906 18.449219-5.214844 32.378906-15.9375 42.582031zm0 0">
+                                    </path>
+                                </svg>
+                                <div class="acc_desc">
+                                    <span class="myaccount">My Account</span>
+                                    <span class="acc_subtitle">Sign In-Register</span>
+                                </div>
+                            </a>
+                        }
+
+                    </div>
+                    <div class="header-service">
+                        <div class="services" id="services-header">
+                            <a href="/" class="service-header service-header-1">
+                                <div class="header-service-icon service-iconb34c3877-68bd-447f-91fd-679a0affa23c"></div>
+                                <div class="header-service-description">
+                                    <div class="header-service-title">Call Now:</div>
+                                    <div class="header-service-subtitle">2-100-56-55</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="site-header__search">
+                        <predictive-search data-loading-text="Loading...">
+                            <form action="https://cafebrew-codezeel.myshopify.com/search" method="get" role="search"
+                                  class="search-header search">
+                                <div class="field">
+                                    <input class="search-header__input search__input" id="Search-In-Template"
+                                           type="search" name="q" value="" placeholder="Search Product Here..."
+                                           role="combobox" aria-expanded="false" aria-owns="predictive-search-results-list"
+                                           aria-controls="predictive-search-results-list" aria-haspopup="listbox"
+                                           aria-autocomplete="list" autocorrect="off" autocomplete="off"
+                                           autocapitalize="off" spellcheck="false" />
+                                    <div class="predictive-search predictive-search--search-template" tabindex="-1"
+                                         data-predictive-search="">
+                                        <div class="predictive-search__loading-state">
+                                            <svg aria-hidden="true" focusable="false" role="presentation"
+                                                 class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33"
+                                                        r="30">
+                                                </circle>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <span class="predictive-search-status visually-hidden" role="status"
+                                          aria-hidden="true"></span>
+                                    <button class="search-header__submit button" type="Search">
+                                        <span class="icon__fallback-text">Search</span>
+                                        <svg class="header-search icon icon-search" aria-hidden="true" focusable="false"
+                                             role="presentation">
+                                            <use href="#icon-search"></use>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+                                            <symbol id="icon-search" viewBox="0 0 18 19" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                      d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z"
+                                                      fill="currentColor"></path>
+                                            </symbol>
+                                            <symbol id="icon-close" class="icon icon-close" fill="none"
+                                                    viewBox="0 0 18 17">
+                                                <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z"
+                                                      fill="currentColor"></path>
+                                            </symbol>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </predictive-search>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="header-top-menu">
+            <div class="page-width">
+                <div class="header-menu">
+                    <!---- Side Category  ----->
+                    <div class="header-category">
+                        <nav class="category_box" id="CategoryBox" role="categorybox">
+                            <span class="side-categories">
+                                <span class="categories_title">
+                                    All Categories
+                                    <svg version="1.1" class="icon icon-header-menu" xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000"
+                                         enable-background="new 0 0 1000 1000">
+                                        <metadata>
+                                            Svg Vector Icons : http://www.onlinewebfonts.com/icon
+                                        </metadata>
+                                        <g>
+                                            <path d="M928.8,261.7H71.3c-33.8,0-61.3-27.4-61.3-61.3c0-33.9,27.4-61.3,61.3-61.3h857.5c33.9,0,61.3,27.4,61.3,61.3C990,234.3,962.6,261.7,928.8,261.7z">
+                                            </path>
+                                            <path d="M928.8,561.2H71.3C37.4,561.2,10,533.9,10,500c0-33.9,27.4-61.3,61.3-61.3h857.5c33.9,0,61.3,27.4,61.3,61.3C990,533.9,962.6,561.2,928.8,561.2z">
+                                            </path>
+                                            <path d="M928.8,860.8H71.3c-33.8,0-61.3-27.4-61.3-61.3c0-33.9,27.4-61.3,61.3-61.3h857.5c33.9,0,61.3,27.4,61.3,61.3C990,833.4,962.6,860.8,928.8,860.8z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down"
+                                         class="icon icon-caret" role="img" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 448 512">
+                                        <path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </span>
+                            <div class="header-sidecategory">
+                                <ul class="site-cat" id="header-SiteCat">
+                                    <li class="site-cat--has-dropdown">
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/ice-coffee"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Iced Coffee
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-caret"
+                                                 viewBox="0 0 240.823 240.823">
+                                                <path d="M57.633 129.007L165.93 237.268c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0L57.621 111.816c-4.679 4.691-4.679 12.511.012 17.191z">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                        <div class="site-cat__dropdown site-nav__childlist-drop"
+                                             id="SiteCatLabel-iced-coffee">
+                                            <ul class="has-dropdown">
+                                                <li class="site-nav__childlist-item-dropdown">
+                                                    <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                       class="site-nav__link site-nav__child-link site-nav__child-link--parent">
+                                                        Americano
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-caret"
+                                                             viewBox="0 0 240.823 240.823">
+                                                            <path d="M57.633 129.007L165.93 237.268c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0L57.621 111.816c-4.679 4.691-4.679 12.511.012 17.191z">
+                                                            </path>
+                                                        </svg>
+                                                    </a>
+                                                    <div class="header-nav__childlist site-cat__dropdown">
+                                                        <ul class="grand-child-has-dropdown">
+                                                            <li>
+                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                                   class="site-nav__link site-nav__child-link">Cappuccino</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                                   class="site-nav__link site-nav__child-link">Carajillo</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                                   class="site-nav__link site-nav__child-link">Cortado</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li class="site-nav__childlist-item-dropdown">
+                                                    <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                       class="site-nav__link site-nav__child-link site-nav__child-link--parent">
+                                                        Espresso
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-caret"
+                                                             viewBox="0 0 240.823 240.823">
+                                                            <path d="M57.633 129.007L165.93 237.268c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0L57.621 111.816c-4.679 4.691-4.679 12.511.012 17.191z">
+                                                            </path>
+                                                        </svg>
+                                                    </a>
+                                                    <div class="header-nav__childlist site-cat__dropdown">
+                                                        <ul class="grand-child-has-dropdown">
+                                                            <li>
+                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                                   class="site-nav__link site-nav__child-link">Eiskaffee</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                                   class="site-nav__link site-nav__child-link">Frappuccino</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                                   class="site-nav__link site-nav__child-link">
+                                                                    Instant
+                                                                    Coffee
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li class="site-nav__childlist-item-dropdown">
+                                                    <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                       class="site-nav__link site-nav__child-link site-nav__child-link--parent">
+                                                        Specialty
+                                                        Lattes
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-caret"
+                                                             viewBox="0 0 240.823 240.823">
+                                                            <path d="M57.633 129.007L165.93 237.268c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0L57.621 111.816c-4.679 4.691-4.679 12.511.012 17.191z">
+                                                            </path>
+                                                        </svg>
+                                                    </a>
+                                                    <div class="header-nav__childlist site-cat__dropdown">
+                                                        <ul class="grand-child-has-dropdown">
+                                                            <li>
+                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                                   class="site-nav__link site-nav__child-link">
+                                                                    Flate
+                                                                    White
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                                   class="site-nav__link site-nav__child-link">
+                                                                    Irish
+                                                                    Coffee
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                                                   class="site-nav__link site-nav__child-link">
+                                                                    Liqueur
+                                                                    Coffee
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cafe-mocha"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Cafe Mocha
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cappuccino"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Cappuccino
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cinnamon-dolce"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Cinnamon Dolce
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/filter-coffee"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Filter Coffee
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cuban-espresso"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Cuban Espresso
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/eiskaffee"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Eiskaffee
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/specialty-lattes"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Specialty Lattes
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cortado"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Instant Coffee
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/breve"
+                                           class="site-cat__link site-cat__link--main">
+                                            <svg class="icon icon-left-caret" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
+                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
+-325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
+1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
+-330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
+17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
+                                                </g>
+                                            </svg>Breve
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <!---- Side Category  ----->
+                </div>
+                <nav class="header__inline-menu">
+                    <ul id="header-nav" class="list-menu list-menu--inline" role="list">
+                        <li>
+                            <a href="/"
+                               class="header__menu-item header__menu-item list-menu__item link link--text focus-inset"
+                               aria-current="page">
+                                <span class="header__active-menu-item">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                               class="header__menu-item header__menu-item list-menu__item link link--text focus-inset">
+                                <span>Catalog</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Page" asp-action="About"
+                               class="header__menu-item header__menu-item list-menu__item link link--text focus-inset">
+                                <span>About Us</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://cafebrew-codezeel.myshopify.com/blogs/news"
+                               class="header__menu-item header__menu-item list-menu__item link link--text focus-inset">
+                                <span>Blog</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Page" asp-action="Contact"
+                               class="header__menu-item header__menu-item list-menu__item link link--text focus-inset">
+                                <span>Contact</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="header__icons">
+                    <details-modal class="header__search">
+                        <details>
+                            <summary class="header__icon header__icon--search header__icon--summary link link--text focus-inset modal__toggle"
+                                     aria-haspopup="dialog" aria-label="Search Product Here..." role="button"
+                                     aria-expanded="false">
+                                <span>
+                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                         class="icon icon-header-search" width="895.000000pt" height="884.000000pt"
+                                         viewBox="0 0 895.000000 884.000000" preserveAspectRatio="xMidYMid meet">
+                                        <g transform="translate(0.000000,884.000000) scale(0.100000,-0.100000)"
+                                           stroke="none">
+                                            <path d="M3660 8824 c-1230 -83 -2317 -703 -2998 -1712 -299 -443 -500 -938
+-596 -1472 -38 -207 -66 -499 -66 -680 0 -168 28 -469 60 -663 123 -720 462
+-1417 948 -1947 664 -724 1503 -1150 2487 -1262 146 -16 627 -16 775 1 638 72
+1238 287 1740 624 58 38 123 78 145 88 49 23 114 24 162 4 24 -10 323 -301
+914 -889 654 -651 889 -879 924 -896 37 -18 55 -21 93 -15 46 6 55 15 369 328
+348 348 345 344 328 434 -6 34 -108 140 -910 943 -731 733 -905 912 -915 943
+-7 22 -10 66 -8 100 4 57 12 74 93 207 362 592 555 1285 555 1990 0 1565 -948
+2980 -2400 3583 -455 189 -917 284 -1415 291 -126 2 -255 2 -285 0z m475 -914
+c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
+-845 -846 -1135 -712 -587 -1667 -814 -2559 -607 -536 124 -1018 390 -1416
+780 -411 404 -705 938 -823 1494 -50 241 -60 342 -60 625 0 283 10 386 60 619
+157 728 574 1361 1189 1803 426 306 947 496 1490 541 94 8 379 6 480 -3z"></path>
+                                        </g>
+                                    </svg>
+                                    <svg class="modal__toggle-close icon icon-close" aria-hidden="true"
+                                         focusable="false" role="presentation">
+                                        <use href="#icon-close"></use>
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="search-modal modal__content" role="dialog" aria-modal="true"
+                                 aria-label="Search Product Here...">
+                                <div class="search-modal__content" tabindex="-1">
+                                    <predictive-search class="search-modal__form" data-loading-text="Loading...">
+                                        <form action="https://cafebrew-codezeel.myshopify.com/search" method="get"
+                                              role="search" class="search search-modal__form">
+                                            <div class="field">
+                                                <input class="search__input field__input" id="Search-In-Modal"
+                                                       type="search" name="q" value="" placeholder="Search Product Here..."
+                                                       role="combobox" aria-expanded="false"
+                                                       aria-owns="predictive-search-results-list"
+                                                       aria-controls="predictive-search-results-list"
+                                                       aria-haspopup="listbox" aria-autocomplete="list" autocorrect="off"
+                                                       autocomplete="off" autocapitalize="off" spellcheck="false" />
+                                                <label class="field__label" for="Search-In-Modal">
+                                                    Search Product
+                                                    Here...
+                                                </label>
+                                                <input type="hidden" name="options[prefix]" value="last" />
+                                                <button class="search__button field__button"
+                                                        aria-label="Search Product Here...">
+                                                    <svg class="icon icon-search" aria-hidden="true" focusable="false"
+                                                         role="presentation">
+                                                        <use href="#icon-search"></use>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div class="predictive-search predictive-search--header" tabindex="-1"
+                                                 data-predictive-search="">
+                                                <div class="predictive-search__loading-state">
+                                                    <svg aria-hidden="true" focusable="false" role="presentation"
+                                                         class="spinner" viewBox="0 0 66 66"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <circle class="path" fill="none" stroke-width="6" cx="33"
+                                                                cy="33" r="30"></circle>
+                                                    </svg>
+                                                </div>
+                                            </div> <span class="predictive-search-status visually-hidden" role="status"
+                                                         aria-hidden="true"></span>
+                                        </form>
+                                    </predictive-search><button type="button"
+                                                                class="search-modal__close-button modal__close-button link link--text focus-inset"
+                                                                aria-label="Close">
+                                        <svg class="icon icon-close" aria-hidden="true" focusable="false"
+                                             role="presentation">
+                                            <use href="#icon-close"></use>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </details>
+                    </details-modal>
+                    <div class="header__icon cm-compare-button small-hide medium-hide">
+                        <a href="https://cafebrew-codezeel.myshopify.com/pages/compare"
+                           class="cm-compare-icon js-popup-button" data-js-information-input="compare"
+                           data-js-popup-button="compare-full">
+                            <svg class="icon icon-compare" fill="#fff" width="50px" height="50px" version="1.1"
+                                 id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                                 style="enable-background: new 0 0 512 512" xml:space="preserve">
+                            <g>
+                            <g>
+                            <path d="M493.815,70.629c-11.001-1.003-20.73,7.102-21.733,18.102l-2.65,29.069C424.473,47.194,346.429,0,256,0
+			C158.719,0,72.988,55.522,30.43,138.854c-5.024,9.837-1.122,21.884,8.715,26.908c9.839,5.024,21.884,1.123,26.908-8.715
+			C102.07,86.523,174.397,40,256,40c74.377,0,141.499,38.731,179.953,99.408l-28.517-20.367c-8.989-6.419-21.48-4.337-27.899,4.651
+			c-6.419,8.989-4.337,21.479,4.651,27.899l86.475,61.761c12.674,9.035,30.155,0.764,31.541-14.459l9.711-106.53
+			C512.919,81.362,504.815,71.632,493.815,70.629z"></path>
+                                    </g>
+                                </g>
+                            <g>
+                            <g>
+                            <path d="M472.855,346.238c-9.838-5.023-21.884-1.122-26.908,8.715C409.93,425.477,337.603,472,256,472
+			c-74.377,0-141.499-38.731-179.953-99.408l28.517,20.367c8.989,6.419,21.479,4.337,27.899-4.651
+			c6.419-8.989,4.337-21.479-4.651-27.899l-86.475-61.761c-12.519-8.944-30.141-0.921-31.541,14.459l-9.711,106.53
+			c-1.003,11,7.102,20.73,18.101,21.733c11.014,1.001,20.731-7.112,21.733-18.102l2.65-29.069C87.527,464.806,165.571,512,256,512
+			c97.281,0,183.012-55.522,225.57-138.854C486.594,363.309,482.692,351.262,472.855,346.238z"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div class="cm-compare-counter" data-js-compare-count="0">
+                                0
+                            </div>
+                        </a>
+                    </div>
+                    <div class="header__icon cm-wishlist-button small-hide medium-hide">
+                        <a href="https://cafebrew-codezeel.myshopify.com/pages/wishlist"
+                           class="cm-wishlist-icon js-popup-button" data-js-information-input="wishlist"
+                           data-js-popup-button="wishlist-full">
+                            <svg id="Layer_1" class="icon icon-cmheart" data-name="Layer 1"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.9 20.23">
+                                <path class="cls-2"
+                                      d="M20.84,4.61a5.5,5.5,0,0,0-7.78,0h0L12,5.67,10.94,4.61a5.5,5.5,0,0,0-7.78,7.78l1.06,1.06L12,21.23l7.78-7.78,1.06-1.06a5.5,5.5,0,0,0,0-7.78Z"
+                                      transform="translate(-0.55 -2)"></path>
+                            </svg>
+                            <div class="cm-wishlist-counter" data-js-wishlist-count="0">
+                                0
+                            </div>
+                        </a>
+                    </div>
+                    <div class="hearder-cart">
+                        <div class="overlay"></div>
+                        <a class="header__icon header__icon--cart link link--text focus-inset" id="cart-icon-bubble">
+                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                 class="icon icon-cart-empty" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 viewBox="0 0 432 522" style="enable-background: new 0 0 432 522" xml:space="preserve">
+                            <g>
+                            <path d="M412,130h-60.9C343.1,62.5,285.6,0,216,0S88.9,62.5,80.9,130H20c-11,0-20,9-20,20v352c0,11,9,20,20,20h392c11,0,20-9,20-20
+		V150C432,139,423,130,412,130z M216,40c47.5,0,87,44.7,94.7,90H121.3C129,84.7,168.5,40,216,40z M392,482H40V170h40v30
+		c0,11,9,20,20,20s20-9,20-20v-30h192v30c0,11,9,20,20,20s20-9,20-20v-30h40V482z"></path>
+                                </g>
+                            </svg>
+                            <div class="cart-count-bubble">
+                                <span aria-hidden="true">0</span>
+                            </div>
+                        </a>
+                        <div class="cart-content">
+                            <div class="close-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+                                     role="presentation" class="icon icon-close" viewBox="0 0 18 17">
+                                    <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div id="cart_reload">
+                                <div class="cart_content">
+                                    <div class="top-block-cart">
+                                        <div class="toggle-title">Your cart(0)</div>
+                                    </div>
+                                    <div class="cart-block-content">
+                                        <ul class="cart_content-block"></ul>
+                                    </div>
+                                    <div class="no-more-item">
+                                        <div class="no-cart">
+                                            <svg class="icon icon-empty-cart" version="1.0"
+                                                 xmlns="http://www.w3.org/2000/svg" width="320.000000pt"
+                                                 height="258.000000pt" viewBox="0 0 320.000000 258.000000"
+                                                 preserveAspectRatio="xMidYMid meet">
+                                                <g transform="translate(0.000000,258.000000) scale(0.100000,-0.100000)"
+                                                   fill="#000000" stroke="none">
+                                                    <path d="M58 2568 c-25 -21 -28 -46 -9 -69 16 -20 39 -25 207 -46 103 -12 191
+-26 195 -30 4 -5 57 -298 119 -653 62 -355 134 -773 162 -930 27 -156 54 -290
+60 -297 7 -9 56 -13 161 -15 127 -3 152 -5 155 -18 2 -10 -10 -20 -31 -28 -63
+-23 -113 -68 -142 -126 -24 -48 -27 -65 -23 -125 5 -88 42 -152 112 -196 42
+-25 61 -30 125 -33 67 -2 82 1 126 25 98 55 148 164 125 269 -19 84 -82 158
+-158 185 -21 7 -32 18 -32 30 0 18 18 19 670 19 596 0 670 -2 670 -15 0 -9
+-19 -24 -43 -34 -125 -54 -184 -180 -146 -315 15 -53 100 -138 155 -154 218
+-64 405 150 304 348 -24 47 -88 104 -134 121 -23 8 -36 19 -36 31 0 16 12 18
+133 18 117 0 136 2 150 18 21 23 22 46 1 66 -14 14 -122 16 -1039 16 l-1023 0
+-11 68 c-7 37 -14 75 -17 85 -5 16 50 17 1060 17 954 0 1066 2 1080 16 9 8 16
+17 16 20 0 2 43 295 95 650 52 355 95 656 95 669 0 13 -6 27 -12 32 -7 4 -591
+10 -1297 13 l-1284 5 -28 149 c-15 82 -32 153 -38 159 -8 8 -362 60 -452 67
+-3 0 -12 -6 -21 -12z m3027 -490 c-2 -13 -41 -270 -85 -573 -44 -302 -83 -562
+-86 -577 l-6 -28 -1044 0 -1044 0 -5 23 c-2 12 -48 270 -100 572 -52 303 -98
+562 -101 578 l-6 27 1241 0 1241 0 -5 -22z m-1857 -1704 c43 -25 65 -63 70
+-118 3 -41 -1 -58 -20 -86 -61 -90 -185 -91 -245 -1 -43 64 -23 158 42 201 37
+24 116 27 153 4z m1449 -4 c47 -28 66 -72 61 -137 -9 -106 -113 -164 -207
+-115 -47 23 -72 61 -78 114 -6 53 12 93 57 132 40 33 118 36 167 6z"></path>
+                                                    <path d="M1550 1730 c-30 -30 -27 -83 6 -109 43 -34 86 -24 112 26 18 32 15
+51 -13 78 -30 31 -77 33 -105 5z"></path>
+                                                    <path d="M2050 1730 c-33 -33 -30 -75 6 -107 34 -31 60 -29 96 7 24 25 29 36
+24 58 -14 58 -86 82 -126 42z"></path>
+                                                    <path d="M1735 1450 c-125 -50 -232 -204 -165 -240 27 -14 44 -3 79 52 103
+162 326 155 411 -13 11 -20 27 -39 36 -43 21 -8 64 19 64 40 0 48 -90 153
+-165 192 -69 35 -188 41 -260 12z"></path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="cart-empty">Your shopping cart is empty!</div>
+                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
+                                           class="toggle-continue button">
+                                            Continue shopping
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <cart-notification>
+            <div class="cart-notification-wrapper page-width">
+                <div id="cart-notification" class="cart-notification focus-inset" aria-modal="true"
+                     aria-label="Item added to your cart" role="dialog" tabindex="-1">
+                    <div class="cart-notification-inner">
+                        <div class="cart-notification__header">
+                            <button type="button"
+                                    class="cart-notification__close modal__close-button link link--text focus-inset"
+                                    aria-label="Close">
+                                <svg class="icon icon-close" aria-hidden="true" focusable="false">
+                                    <use href="#icon-close"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="cart-notification-product" class="cart-notification-product"></div>
+                        <div class="cart-notification__links">
+                            <a href="https://cafebrew-codezeel.myshopify.com/cart" id="cart-notification-button"
+                               class="button button--secondary button--full-width"></a>
+                            <form action="https://cafebrew-codezeel.myshopify.com/cart" method="post" id="cart">
+                                <button class="button button--primary button--full-width" name="checkout" form="cart">
+                                    Check out
+                                </button>
+                            </form>
+                        </div>
+                        <button type="button" class="link button-label">
+                            Continue shopping
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </cart-notification>
+    </div>
+    @RenderBody()
+    <section id="shopify-section-tm_cms_info"
+             class="shopify-section spaced-section cms_info-section spaced-section--full-width">
+        <div class="cms_info" data-section-id="tm_cms_info" data-section-type="info-section">
+            <div class="page-width page-width-desktop">
+                <div class="info-wrapper">
+                    <div class="cms_information">
+                        <a href="/" class="info_service info_service-1">
+                            <div class="info-block info-block-1">
+                                <div class="info-description">
+                                    <div class="info-title">Our Address</div>
+                                    <div class="info-subtitle">
+                                        12, Lorem Ipsum Amet, Australiya 395
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/" class="info_service info_service-2">
+                            <div class="info-block info-block-2">
+                                <div class="info-description">
+                                    <div class="info-title">Call Us Free</div>
+                                    <div class="info-subtitle">
+                                        (+91) 0123456789 / 098 7654 321
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/" class="info_service info_service-3">
+                            <div class="info-block info-block-3">
+                                <div class="info-description">
+                                    <div class="info-title">Send Email Now</div>
+                                    <div class="info-subtitle">
+                                        support.information@company.com
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="shopify-section-footer" class="shopify-section">
+        <footer class="footer">
+            <div class="footer__column footer__column--info">
+                <div class="page-width">
+                    <div class="grid__item footer-box link-list">
+                        <ul class="site-footer__linklist footer-content">
+                            <li class="site-footer__linklist-item">
+                                <a href="https://cafebrew-codezeel.myshopify.com/search">Search</a>
+                            </li>
+                            <li class="site-footer__linklist-item">
+                                <a asp-controller="Page" asp-action="Sitemap">Site Map</a>
+                            </li>
+                            <li class="site-footer__linklist-item">
+                                <a asp-controller="Page" asp-action="Terms">Terms</a>
+                            </li>
+                            <li class="site-footer__linklist-item">
+                                <a href="https://cafebrew-codezeel.myshopify.com/search">Advanced Search</a>
+                            </li>
+                            <li class="site-footer__linklist-item">
+                                <a asp-controller="Page" asp-action="Contact">Contact Us</a>
+                            </li>
+                            <li class="site-footer__linklist-item">
+                                <a asp-controller="Page" asp-action="About">About Us</a>
+                            </li>
+                            <li class="site-footer__linklist-item">
+                                <a href="/">Customer Service</a>
+                            </li>
+                            <li class="site-footer__linklist-item">
+                                <a asp-controller="Page" asp-action="Privacy">
+                                    Privacy
+                                    Policy
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__copyright">
+                        <span class="copyright__content">
+                            © 2024,
+                            <a href="/" title="">Cafebrew - Coffee Store</a>
+                        </span>
+                        <span class="copyright__content">
+                            <a target="_blank" rel="nofollow"
+                               href="https://www.shopify.com/?utm_campaign=poweredby&amp;utm_medium=shopify&amp;utm_source=onlinestore">
+                                Powered
+                                by Shopify
+                            </a>
+                        </span>
+                    </div>
+                    <div class="footer__payment">
+                        <span class="visually-hidden">Payment methods</span>
+                        <ul class="list list-payment" role="list">
+                            <li class="list-payment__item">
+                                <svg class="icon icon--full-color" viewBox="0 0 38 24"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24"
+                                     aria-labelledby="pi-visa">
+                                    <title id="pi-visa">Visa</title>
+                                    <path opacity=".07"
+                                          d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z">
+                                    </path>
+                                    <path fill="#fff"
+                                          d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32">
+                                    </path>
+                                    <path d="M28.3 10.1H28c-.4 1-.7 1.5-1 3h1.9c-.3-1.5-.3-2.2-.6-3zm2.9 5.9h-1.7c-.1 0-.1 0-.2-.1l-.2-.9-.1-.2h-2.4c-.1 0-.2 0-.2.2l-.3.9c0 .1-.1.1-.1.1h-2.1l.2-.5L27 8.7c0-.5.3-.7.8-.7h1.5c.1 0 .2 0 .2.2l1.4 6.5c.1.4.2.7.2 1.1.1.1.1.1.1.2zm-13.4-.3l.4-1.8c.1 0 .2.1.2.1.7.3 1.4.5 2.1.4.2 0 .5-.1.7-.2.5-.2.5-.7.1-1.1-.2-.2-.5-.3-.8-.5-.4-.2-.8-.4-1.1-.7-1.2-1-.8-2.4-.1-3.1.6-.4.9-.8 1.7-.8 1.2 0 2.5 0 3.1.2h.1c-.1.6-.2 1.1-.4 1.7-.5-.2-1-.4-1.5-.4-.3 0-.6 0-.9.1-.2 0-.3.1-.4.2-.2.2-.2.5 0 .7l.5.4c.4.2.8.4 1.1.6.5.3 1 .8 1.1 1.4.2.9-.1 1.7-.9 2.3-.5.4-.7.6-1.4.6-1.4 0-2.5.1-3.4-.2-.1.2-.1.2-.2.1zm-3.5.3c.1-.7.1-.7.2-1 .5-2.2 1-4.5 1.4-6.7.1-.2.1-.3.3-.3H18c-.2 1.2-.4 2.1-.7 3.2-.3 1.5-.6 3-1 4.5 0 .2-.1.2-.3.2M5 8.2c0-.1.2-.2.3-.2h3.4c.5 0 .9.3 1 .8l.9 4.4c0 .1 0 .1.1.2 0-.1.1-.1.1-.1l2.1-5.1c-.1-.1 0-.2.1-.2h2.1c0 .1 0 .1-.1.2l-3.1 7.3c-.1.2-.1.3-.2.4-.1.1-.3 0-.5 0H9.7c-.1 0-.2 0-.2-.2L7.9 9.5c-.2-.2-.5-.5-.9-.6-.6-.3-1.7-.5-1.9-.5L5 8.2z"
+                                          fill="#142688"></path>
+                                </svg>
+                            </li>
+                            <li class="list-payment__item">
+                                <svg class="icon icon--full-color" viewBox="0 0 38 24"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24"
+                                     aria-labelledby="pi-master">
+                                    <title id="pi-master">Mastercard</title>
+                                    <path opacity=".07"
+                                          d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z">
+                                    </path>
+                                    <path fill="#fff"
+                                          d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32">
+                                    </path>
+                                    <circle fill="#EB001B" cx="15" cy="12" r="7"></circle>
+                                    <circle fill="#F79E1B" cx="23" cy="12" r="7"></circle>
+                                    <path fill="#FF5F00"
+                                          d="M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z">
+                                    </path>
+                                </svg>
+                            </li>
+                            <li class="list-payment__item">
+                                <svg class="icon icon--full-color" xmlns="http://www.w3.org/2000/svg" role="img"
+                                     aria-labelledby="pi-american_express" viewBox="0 0 38 24" width="38" height="24">
+                                    <title id="pi-american_express">American Express</title>
+                                    <path fill="#000"
+                                          d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3Z"
+                                          opacity=".07"></path>
+                                    <path fill="#006FCF"
+                                          d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32Z">
+                                    </path>
+                                    <path fill="#FFF"
+                                          d="M22.012 19.936v-8.421L37 11.528v2.326l-1.732 1.852L37 17.573v2.375h-2.766l-1.47-1.622-1.46 1.628-9.292-.02Z">
+                                    </path>
+                                    <path fill="#006FCF"
+                                          d="M23.013 19.012v-6.57h5.572v1.513h-3.768v1.028h3.678v1.488h-3.678v1.01h3.768v1.531h-5.572Z">
+                                    </path>
+                                    <path fill="#006FCF"
+                                          d="m28.557 19.012 3.083-3.289-3.083-3.282h2.386l1.884 2.083 1.89-2.082H37v.051l-3.017 3.23L37 18.92v.093h-2.307l-1.917-2.103-1.898 2.104h-2.321Z">
+                                    </path>
+                                    <path fill="#FFF"
+                                          d="M22.71 4.04h3.614l1.269 2.881V4.04h4.46l.77 2.159.771-2.159H37v8.421H19l3.71-8.421Z">
+                                    </path>
+                                    <path fill="#006FCF"
+                                          d="m23.395 4.955-2.916 6.566h2l.55-1.315h2.98l.55 1.315h2.05l-2.904-6.566h-2.31Zm.25 3.777.875-2.09.873 2.09h-1.748Z">
+                                    </path>
+                                    <path fill="#006FCF"
+                                          d="M28.581 11.52V4.953l2.811.01L32.84 9l1.456-4.046H37v6.565l-1.74.016v-4.51l-1.644 4.494h-1.59L30.35 7.01v4.51h-1.768Z">
+                                    </path>
+                                </svg>
+                            </li>
+                            <li class="list-payment__item">
+                                <svg class="icon icon--full-color" viewBox="0 0 38 24"
+                                     xmlns="http://www.w3.org/2000/svg" width="38" height="24" role="img"
+                                     aria-labelledby="pi-paypal">
+                                    <title id="pi-paypal">PayPal</title>
+                                    <path opacity=".07"
+                                          d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z">
+                                    </path>
+                                    <path fill="#fff"
+                                          d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32">
+                                    </path>
+                                    <path fill="#003087"
+                                          d="M23.9 8.3c.2-1 0-1.7-.6-2.3-.6-.7-1.7-1-3.1-1h-4.1c-.3 0-.5.2-.6.5L14 15.6c0 .2.1.4.3.4H17l.4-3.4 1.8-2.2 4.7-2.1z">
+                                    </path>
+                                    <path fill="#3086C8"
+                                          d="M23.9 8.3l-.2.2c-.5 2.8-2.2 3.8-4.6 3.8H18c-.3 0-.5.2-.6.5l-.6 3.9-.2 1c0 .2.1.4.3.4H19c.3 0 .5-.2.5-.4v-.1l.4-2.4v-.1c0-.2.3-.4.5-.4h.3c2.1 0 3.7-.8 4.1-3.2.2-1 .1-1.8-.4-2.4-.1-.5-.3-.7-.5-.8z">
+                                    </path>
+                                    <path fill="#012169"
+                                          d="M23.3 8.1c-.1-.1-.2-.1-.3-.1-.1 0-.2 0-.3-.1-.3-.1-.7-.1-1.1-.1h-3c-.1 0-.2 0-.2.1-.2.1-.3.2-.3.4l-.7 4.4v.1c0-.3.3-.5.6-.5h1.3c2.5 0 4.1-1 4.6-3.8v-.2c-.1-.1-.3-.2-.5-.2h-.1z">
+                                    </path>
+                                </svg>
+                            </li>
+                            <li class="list-payment__item">
+                                <svg class="icon icon--full-color" viewBox="0 0 38 24"
+                                     xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24"
+                                     aria-labelledby="pi-diners_club">
+                                    <title id="pi-diners_club">Diners Club</title>
+                                    <path opacity=".07"
+                                          d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z">
+                                    </path>
+                                    <path fill="#fff"
+                                          d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32">
+                                    </path>
+                                    <path d="M12 12v3.7c0 .3-.2.3-.5.2-1.9-.8-3-3.3-2.3-5.4.4-1.1 1.2-2 2.3-2.4.4-.2.5-.1.5.2V12zm2 0V8.3c0-.3 0-.3.3-.2 2.1.8 3.2 3.3 2.4 5.4-.4 1.1-1.2 2-2.3 2.4-.4.2-.4.1-.4-.2V12zm7.2-7H13c3.8 0 6.8 3.1 6.8 7s-3 7-6.8 7h8.2c3.8 0 6.8-3.1 6.8-7s-3-7-6.8-7z"
+                                          fill="#3086C8"></path>
+                                </svg>
+                            </li>
+                            <li class="list-payment__item">
+                                <svg class="icon icon--full-color" viewBox="0 0 38 24" width="38" height="24" role="img"
+                                     aria-labelledby="pi-discover" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <title id="pi-discover">Discover</title>
+                                    <path fill="#000" opacity=".07"
+                                          d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z">
+                                    </path>
+                                    <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32z"
+                                          fill="#fff">
+                                    </path>
+                                    <path d="M3.57 7.16H2v5.5h1.57c.83 0 1.43-.2 1.96-.63.63-.52 1-1.3 1-2.11-.01-1.63-1.22-2.76-2.96-2.76zm1.26 4.14c-.34.3-.77.44-1.47.44h-.29V8.1h.29c.69 0 1.11.12 1.47.44.37.33.59.84.59 1.37 0 .53-.22 1.06-.59 1.39zm2.19-4.14h1.07v5.5H7.02v-5.5zm3.69 2.11c-.64-.24-.83-.4-.83-.69 0-.35.34-.61.8-.61.32 0 .59.13.86.45l.56-.73c-.46-.4-1.01-.61-1.62-.61-.97 0-1.72.68-1.72 1.58 0 .76.35 1.15 1.35 1.51.42.15.63.25.74.31.21.14.32.34.32.57 0 .45-.35.78-.83.78-.51 0-.92-.26-1.17-.73l-.69.67c.49.73 1.09 1.05 1.9 1.05 1.11 0 1.9-.74 1.9-1.81.02-.89-.35-1.29-1.57-1.74zm1.92.65c0 1.62 1.27 2.87 2.9 2.87.46 0 .86-.09 1.34-.32v-1.26c-.43.43-.81.6-1.29.6-1.08 0-1.85-.78-1.85-1.9 0-1.06.79-1.89 1.8-1.89.51 0 .9.18 1.34.62V7.38c-.47-.24-.86-.34-1.32-.34-1.61 0-2.92 1.28-2.92 2.88zm12.76.94l-1.47-3.7h-1.17l2.33 5.64h.58l2.37-5.64h-1.16l-1.48 3.7zm3.13 1.8h3.04v-.93h-1.97v-1.48h1.9v-.93h-1.9V8.1h1.97v-.94h-3.04v5.5zm7.29-3.87c0-1.03-.71-1.62-1.95-1.62h-1.59v5.5h1.07v-2.21h.14l1.48 2.21h1.32l-1.73-2.32c.81-.17 1.26-.72 1.26-1.56zm-2.16.91h-.31V8.03h.33c.67 0 1.03.28 1.03.82 0 .55-.36.85-1.05.85z"
+                                          fill="#231F20"></path>
+                                    <path d="M20.16 12.86a2.931 2.931 0 100-5.862 2.931 2.931 0 000 5.862z"
+                                          fill="url(#pi-paint0_linear)">
+                                    </path>
+                                    <path opacity=".65"
+                                          d="M20.16 12.86a2.931 2.931 0 100-5.862 2.931 2.931 0 000 5.862z"
+                                          fill="url(#pi-paint1_linear)"></path>
+                                    <path d="M36.57 7.506c0-.1-.07-.15-.18-.15h-.16v.48h.12v-.19l.14.19h.14l-.16-.2c.06-.01.1-.06.1-.13zm-.2.07h-.02v-.13h.02c.06 0 .09.02.09.06 0 .05-.03.07-.09.07z"
+                                          fill="#231F20"></path>
+                                    <path d="M36.41 7.176c-.23 0-.42.19-.42.42 0 .23.19.42.42.42.23 0 .42-.19.42-.42 0-.23-.19-.42-.42-.42zm0 .77c-.18 0-.34-.15-.34-.35 0-.19.15-.35.34-.35.18 0 .33.16.33.35 0 .19-.15.35-.33.35z"
+                                          fill="#231F20"></path>
+                                    <path d="M37 12.984S27.09 19.873 8.976 23h26.023a2 2 0 002-1.984l.024-3.02L37 12.985z"
+                                          fill="#F48120">
+                                    </path>
+                                    <defs>
+                                        <lineargradient id="pi-paint0_linear" x1="21.657" y1="12.275" x2="19.632"
+                                                        y2="9.104" gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#F89F20"></stop>
+                                            <stop offset=".25" stop-color="#F79A20"></stop>
+                                            <stop offset=".533" stop-color="#F68D20"></stop>
+                                            <stop offset=".62" stop-color="#F58720"></stop>
+                                            <stop offset=".723" stop-color="#F48120"></stop>
+                                            <stop offset="1" stop-color="#F37521"></stop>
+                                        </lineargradient>
+                                        <lineargradient id="pi-paint1_linear" x1="21.338" y1="12.232" x2="18.378"
+                                                        y2="6.446" gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#F58720"></stop>
+                                            <stop offset=".359" stop-color="#E16F27"></stop>
+                                            <stop offset=".703" stop-color="#D4602C"></stop>
+                                            <stop offset=".982" stop-color="#D05B2E"></stop>
+                                        </lineargradient>
+                                    </defs>
+                                </svg>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <ul hidden="">
+        <li id="a11y-refresh-page-message">
+            Choosing a selection results in a full page refresh.
+        </li>
+    </ul>
+    <a href="/" class="top_button" title="Back to top" style="display: none">
+        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-chevron-up"
+             viewBox="0 0 498.98 284.49">
+            <path d="M579.91 486.24A35 35 0 0 1 520.16 511L330.42 321.25 140.68 511a35 35 0 1 1-49.5-49.5L305.67 247a35 35 0 0 1 49.5 0l214.49 214.5a34.89 34.89 0 0 1 10.25 24.74z"
+                  transform="translate(-80.93 -236.76)"></path>
+        </svg>
+    </a>
+</body>
+
+</html>
