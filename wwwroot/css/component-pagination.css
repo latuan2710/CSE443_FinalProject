@@ -1,0 +1,87 @@
+﻿.pagination-wrapper {
+    margin-top: 4rem
+}
+
+.pagination-wrapper-small {
+    margin-top: 2rem
+}
+
+.pagination__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right
+}
+
+    .pagination__list > li {
+        flex: 1 0 4.4rem;
+        max-width: 3.4rem
+    }
+
+.pagination__item {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    text-decoration: none;
+    background-color: var(--color-base-button-background);
+    color: var(--color-base-background-1);
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 4px
+}
+
+a.pagination__item:hover:after {
+    height: .2rem
+}
+
+.pagination__item .icon-caret {
+    height: 14px
+}
+
+.pagination__item--current {
+    background-color: var(--color-base-button-background-hover);
+    color: var(--color-base-button-text-hover)
+}
+
+    .pagination__item--current:after {
+        height: .1rem
+    }
+
+.pagination__item--next .icon {
+    margin-left: -.2rem;
+    transform: rotate(90deg);
+    width: 20px;
+    height: 20px
+}
+
+.pagination__item--next:hover .icon {
+    transform: rotate(90deg) scale(1.07)
+}
+
+.pagination__item--prev .icon {
+    margin-right: -.2rem;
+    transform: rotate(-90deg);
+    width: 20px;
+    height: 20px
+}
+
+.pagination__item--prev:hover .icon {
+    transform: rotate(-90deg)
+}
+
+.pagination__item-arrow {
+    fill: var(--color-base-background-1)
+}
+
+    .pagination__item-arrow:hover .icon {
+        color: var(--color-foreground)
+    }
+
+    .pagination__item-arrow:hover:after {
+        display: none
+    }
+
+/*# sourceMappingURL=/cdn/shop/t/2/assets/component-pagination.css.map?v=107723387094086917021666256838 */

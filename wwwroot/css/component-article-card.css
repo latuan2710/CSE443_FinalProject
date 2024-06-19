@@ -1,2 +1,126 @@
-.articles-wrapper .article{max-width:100%;width:25%}@media screen and (max-width: 749px){.articles-wrapper .article{width:100%}}.article{display:flex;align-items:center}.article-card{align-self:flex-start;flex:0 1 100%;align-items:flex-start;height:auto}.article-card__info .caption-with-letter-spacing{color:var(--color-base-button-background);font-weight:500;font-size:13px;letter-spacing:.5px;text-transform:uppercase}.grid--peek .article-card{box-sizing:border-box}@media screen and (min-width: 750px){.article-card__info{padding:15px 0}}.article-card__info{padding:15px 0 0;display:flex;flex-direction:column;flex-grow:1}.article-content{width:100%;display:block}.article-card__image{overflow:hidden}.article-content img{transition:transform var(--duration-long) ease}.article-content:hover img{transform:scale(1.07)}.article-card__image-wrapper>a{display:block}.blog-articles .article-card__info .circle-divider{float:left;margin-bottom:5px}.article-card__title{width:100%;margin:10px 0;font-weight:600;font-size:16px;letter-spacing:.3px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;line-height:23px}.article-card__title:hover{color:var(--color-base-button-background)}.article-card__info .article-card__excerpt{margin:0;color:var(--color-base-accent-2)}.article-card__link{text-underline-offset:.3rem}.article-card__footer{letter-spacing:.1rem;font-size:1.4rem;float:left;position:relative;margin:0 5px}.article-card__footer:last-child{margin:0;padding:5px 0 0;display:none}.article-card__link:not(:only-child){margin-right:3rem}@media screen and (max-width: 1269px){.articles-wrapper .article{width:33.5%}}
-/*# sourceMappingURL=/cdn/shop/t/2/assets/component-article-card.css.map?v=153672856303727348101666335870 */
+.articles-wrapper .article {
+    max-width: 100%;
+    width: 25%
+}
+
+@media screen and (max-width: 749px) {
+    .articles-wrapper .article {
+        width: 100%
+    }
+}
+
+.article {
+    display: flex;
+    align-items: center
+}
+
+.article-card {
+    align-self: flex-start;
+    flex: 0 1 100%;
+    align-items: flex-start;
+    height: auto
+}
+
+.article-card__info .caption-with-letter-spacing {
+    color: var(--color-base-button-background);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: .5px;
+    text-transform: uppercase
+}
+
+.grid--peek .article-card {
+    box-sizing: border-box
+}
+
+@media screen and (min-width: 750px) {
+    .article-card__info {
+        padding: 15px 0
+    }
+}
+
+.article-card__info {
+    padding: 15px 0 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1
+}
+
+.article-content {
+    width: 100%;
+    display: block
+}
+
+.article-card__image {
+    overflow: hidden
+}
+
+.article-content img {
+    transition: transform var(--duration-long) ease
+}
+
+.article-content:hover img {
+    transform: scale(1.07)
+}
+
+.article-card__image-wrapper > a {
+    display: block
+}
+
+.blog-articles .article-card__info .circle-divider {
+    float: left;
+    margin-bottom: 5px
+}
+
+.article-card__title {
+    width: 100%;
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: .3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    line-height: 23px
+}
+
+    .article-card__title:hover {
+        color: var(--color-base-button-background)
+    }
+
+.article-card__info .article-card__excerpt {
+    margin: 0;
+    color: var(--color-base-accent-2)
+}
+
+.article-card__link {
+    text-underline-offset: .3rem
+}
+
+.article-card__footer {
+    letter-spacing: .1rem;
+    font-size: 1.4rem;
+    float: left;
+    position: relative;
+    margin: 0 5px
+}
+
+    .article-card__footer:last-child {
+        margin: 0;
+        padding: 5px 0 0;
+        display: none
+    }
+
+.article-card__link:not(:only-child) {
+    margin-right: 3rem
+}
+
+@media screen and (max-width: 1269px) {
+    .articles-wrapper .article {
+        width: 33.5%
+    }
+}
+
+/*# sourceMappingURL=/cdn/shop/t/2/assets/component-article-card.css.map */

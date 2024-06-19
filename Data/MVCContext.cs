@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using CSE443_FinalProject.Models;
+using System.Reflection.Emit;
 
 namespace CSE443_FinalProject.Data;
 
-public class MVCContext : IdentityDbContext<IdentityUser>
+public class MVCContext : IdentityDbContext<AppUser, IdentityRole<int>, int>
 {
     public MVCContext(DbContextOptions<MVCContext> options)
         : base(options)
@@ -15,4 +17,12 @@ public class MVCContext : IdentityDbContext<IdentityUser>
     {
         base.OnModelCreating(builder);
     }
+
+    public DbSet<Brand> Brand { get; set; }
+
+    public DbSet<Coffee> Coffee { get; set; }
+
+    public DbSet<Blog> Blog { get; set; }
+    public DbSet<Contact> Contact { get; set; }
+
 }

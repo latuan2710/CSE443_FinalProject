@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Coffee>
+
+@{
+    ViewData["Title"] = "Product";
+    ViewData["Table"] = "Product Table";
+    ViewData["Controller"] = "Coffees";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<table class="table table-striped" id="products">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="align-middle" style="height: 150px;width: 300px;">
+                    <img class="mh-100 mw-100" src="@item.Image" />
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Brand.Name)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td class="align-middle">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        $('#products').DataTable();
+    </script>
+}

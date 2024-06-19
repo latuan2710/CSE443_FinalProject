@@ -16,7 +16,7 @@
     <link href="/admin/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="/admin/css/sidebar-nav.min.css" rel="stylesheet">
     <link href="/admin/css/animate.css" rel="stylesheet">
-    <link href="/admin/css/style.css" rel="stylesheet">
+    <link href="/admin/css/style.css" rel="stylesheet"> 
     <link href="/admin/css/blue-dark.css" id="theme" rel="stylesheet">
 </head>
 
@@ -25,11 +25,11 @@
         <nav class="navbar navbar-default navbar-static-top m-b-0">
             <div class="navbar-header">
                 <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse"
-                    data-target=".navbar-collapse">
+                   data-target=".navbar-collapse">
                     <i class="ti-menu"></i>
                 </a>
                 <div class="top-left-part">
-                    <a class="logo" asp-controller="AdminPage" asp-action="UserBoard">
+                    <a class="logo" asp-controller="Page" asp-action="Home">
                         <b>
                             <img src="/admin/images/eliteadmin-logo.png" alt="home" class="dark-logo" />
                             <img src="/admin/images/eliteadmin-logo-dark.png" alt="home" class="light-logo" />
@@ -57,7 +57,8 @@
                             <img src="/admin/images/varun.jpg" alt="user-img" class="img-circle">
                         </div>
                         <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false">Steave Gection <span class="caret"></span>
+                           aria-haspopup="true" aria-expanded="false">
+                            Steave Gection <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu animated flipInY">
                             <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
@@ -71,22 +72,34 @@
                     </div>
                 </div>
                 <ul class="wp-side-menu">
-                    <li>
-                        <a asp-controller="AdminPage" asp-action="UserBoard">
+                    <li class="@(@ViewData["Title"]as string =="User"?"selected":"")">
+                        <a asp-controller="Users" asp-action="Index">
                             <i class="fa fa-circle-o text-danger"> </i>
-                            <span class="hide-menu">Documentation</span>
+                            <span class="hide-menu">Users</span>
                         </a>
                     </li>
-                    <li>
-                        <a asp-controller="AdminPage" asp-action="UserBoard">
+                    <li class="@(@ViewData["Title"]as string =="Brand"?"selected":"")">
+                        <a asp-controller="Brands" asp-action="Index">
                             <i class="fa fa-circle-o text-danger"> </i>
-                            <span class="hide-menu">Documentation</span>
+                            <span class="hide-menu">Brands</span>
                         </a>
                     </li>
-                    <li>
-                        <a asp-controller="AdminPage" asp-action="UserBoard">
+                    <li class="@(@ViewData["Title"]as string =="Product"?"selected":"")">
+                        <a asp-controller="Coffees" asp-action="Index">
                             <i class="fa fa-circle-o text-danger"> </i>
-                            <span class="hide-menu">Documentation</span>
+                            <span class="hide-menu">Coffees</span>
+                        </a>
+                    </li>
+                    <li class="@(@ViewData["Title"]as string =="Blog"?"selected":"")">
+                        <a asp-controller="Blogs" asp-action="Index">
+                            <i class="fa fa-circle-o text-danger"> </i>
+                            <span class="hide-menu">Blogs</span>
+                        </a>
+                    </li>
+                    <li class="@(@ViewData["Title"]as string =="Contact"?"selected":"")">
+                        <a asp-controller="Contacts" asp-action="Index">
+                            <i class="fa fa-circle-o text-danger"> </i>
+                            <span class="hide-menu">Contacts</span>
                         </a>
                     </li>
                 </ul>
@@ -98,20 +111,20 @@
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">@ViewData["Table"]</h4>
                     </div>
-                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                        <a asp-controller='@ViewData["Controller"]' asp-action="Create" target="_blank"
-                            class="btn btn-info pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">
-                            Create
-                        </a>
-
-                    </div>
+                    @if (!string.IsNullOrEmpty(@ViewData["Controller"] as string))
+                    {
+                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                            <a asp-controller='@ViewData["Controller"]' asp-action="Create"
+                               class="btn btn-info pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">
+                                Create
+                            </a>
+                        </div>
+                    }
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <div class="table-responsive">
-                                @RenderBody()
-                            </div>
+                            @RenderBody()
                         </div>
                     </div>
                 </div>

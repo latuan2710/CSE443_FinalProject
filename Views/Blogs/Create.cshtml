@@ -1,0 +1,49 @@
+﻿@model Blog
+
+@{
+    ViewData["Title"] = "Blog";
+    ViewData["Table"] = "Add Blog";
+    //ViewData["Controller"] = "Blogs";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="row">
+    <form asp-action="Create" class="w-100" enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="formFile" class="control-label">Image</label>
+                <input id="formFile" type="file" class="dropify" name="formFile" data-height="300" required>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea id="desciption" class="form-control" rows="15" placeholder="Enter text ..." asp-for="Description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-info" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <link href="/admin/css/dropify.min.css" rel="stylesheet">
+    <link href="/admin/css/bootstrap-wysihtml5.css" rel="stylesheet">
+    <script src="/admin/js/dropify.min.js"></script>
+    <script src="/admin/js/wysihtml5-0.3.0.js"></script>
+    <script src="/admin/js/bootstrap-wysihtml5.js"></script>
+    <script>
+        $('.dropify').dropify();
+        $('#desciption').wysihtml5();
+    </script>
+}

@@ -1,0 +1,103 @@
+﻿@model PaginatedList<Blog>
+
+@{
+    ViewData["Title"] = "News";
+}
+
+<partial name="_BreadcrumbsPartial" />
+<link href="/css/section-main-blog.css" rel="stylesheet">
+<link href="/css/component-pagination.css" rel="stylesheet">
+<main class="main-content" id="MainContent" role="main" tabindex="-1">
+    <div class="page-width contents">
+        <div class="main-container medium-up--three-quarters without-sidebar-main-container">
+            <section id="shopify-section-template--16631469080869__main" class="shopify-section spaced-section">
+                <div class="main-blog page-width">
+                    <div class="blog-articles">
+                        @foreach (var blog in Model)
+                        {
+                            <div class="blog-articles__article article">
+                                <article class="article-card" aria-labelledby="Article-604293660965">
+                                    <a href="/blogs/news/coffee-beans-delivered-was-started-by-a-reformed-coffee-hater-1" class="article-content motion-reduce">
+                                        <div class="article-card__image-wrapper">
+                                            <div class="article-card__image media media--landscape">
+                                                <img src="@blog.Image" alt="@blog.Title" width="900" height="692" loading="lazy" class="motion-reduce">
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="article-card__info">
+                                        <header class="article-card__header">
+                                            <span class="circle-divider caption-with-letter-spacing">
+                                                <time datetime="@blog.CreatedAt">@blog.CreatedAt </time>
+                                            </span>
+                                            <div class="article-card__footer">
+                                            </div>
+                                            <h2 class="article-card__title" id="Article-604293660965">
+                                                <a href="/blogs/news/coffee-beans-delivered-was-started-by-a-reformed-coffee-hater-1">
+                                                    @blog.Title
+                                                </a>
+                                            </h2>
+                                        </header>
+                                        <p class="article-card__excerpt rte-width">
+                                            Donec tellus Nulla lorem Nullam elit id ut elit feugiat lacus. Congue eget dapibus congue...
+                                        </p>
+                                        <div class="article-card__footer">
+                                            <span class="link button article-card__link" aria-label="Read more: Coffee Beans Delivered was started by a reformed coffee-hater">
+                                                Read more
+                                            </span>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        }
+                    </div>
+                    <div class="pagination-wrapper">
+                        <nav class="pagination" role="navigation" aria-label="Pagination">
+                            <ul class="pagination__list list-unstyled" role="list">
+                                @if (Model.HasPreviousPage)
+                                {
+                                    <li>
+                                        <a asp-action="Blog" asp-route-pageNumber="@(Model.PageIndex-1)"
+                                           class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce" aria-label="Previous page">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lag" viewBox="0 0 24 24">
+                                                <path d="M24 24H0V0h24v24z" fill="none" opacity=".87"></path>
+                                                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                }
+                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                {
+
+                                    if (i == Model.PageIndex)
+                                    {
+                                        <li>
+                                            <span class="pagination__item pagination__item--current" aria-current="page" aria-label="Page @i">@i</span>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a asp-action="Blog" asp-route-pageNumber="@i" class="pagination__item link" aria-label="Page @i">@i</a>
+                                        </li>
+                                    }
+                                }
+                                @if (Model.HasNextPage)
+                                {
+                                    <li>
+                                        <a asp-action="Blog" asp-route-pageNumber="@(Model.PageIndex+1)"
+                                           class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce" aria-label="Next page">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lag" viewBox="0 0 24 24">
+                                                <path d="M24 24H0V0h24v24z" fill="none" opacity=".87"></path>
+                                                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>

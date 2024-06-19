@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\admin\css\" />
-    <Folder Include="wwwroot\admin\js\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Blog>
+
+@{
+    Layout = "_DashboardLayout";
+    ViewData["Title"] = "Blog";
+    ViewData["Table"] = "Blog Table";
+    ViewData["Controller"] = "Blogs";
+}
+
+<table class="table table-striped" id="blogs">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="align-middle" style="height: 150px;width: 300px;">
+                    <img class="mh-100 mw-100" src="@item.Image" />
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td class="align-middle">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        $('#blogs').DataTable();
+    </script>
+}
