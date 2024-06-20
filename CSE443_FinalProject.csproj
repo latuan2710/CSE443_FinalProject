@@ -6,10 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Shared\_CartModalPartial.cshtml" />
     <Content Remove="wwwroot\js\facets.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Page\Cart.cshtml" />
     <_ContentIncludedByDefault Remove="wwwroot\js\facets.js" />
   </ItemGroup>
 
@@ -30,7 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Shared\_CartModalPartial.cshtml" />
     <None Include="wwwroot\js\facets.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Page\Cart.cshtml" />
   </ItemGroup>
 
 </Project>

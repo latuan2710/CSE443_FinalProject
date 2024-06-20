@@ -79,7 +79,8 @@ namespace CSE443_FinalProject.Controllers
 
             if (minPrice != null && maxPrice != null)
             {
-                products = products.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
+                if (maxPrice != 0)
+                    products = products.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
             }
             else if (minPrice == null && maxPrice != null)
             {
@@ -106,10 +107,26 @@ namespace CSE443_FinalProject.Controllers
         public async Task<IActionResult> ProductDetail(string id)
         {
             var product = await _context.Coffee
+                .AsNoTracking()
                 .Include(p => p.Brand)
                 .FirstOrDefaultAsync(c => c.Name == id);
 
             return View(product);
+        }
+
+        public async Task<IActionResult> Cart()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var cart = await _context.Cart
+                .Include(c => c.CartItems).ThenInclude(c => c.Coffee)
+                .FirstOrDefaultAsync(c => c.User.Email.Equals(User.Identity.Name));
+                return View(cart.CartItems);
+            }
+            else
+            {
+                return View();
+            }
         }
 
 
