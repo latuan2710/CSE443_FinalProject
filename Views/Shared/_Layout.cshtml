@@ -1,5 +1,6 @@
 ﻿@inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
+@inject CSE443_FinalProject.Data.MVCContext Context
 
 <!DOCTYPE html>
 <html class="js" lang="en">
@@ -480,290 +481,18 @@
                             </span>
                             <div class="header-sidecategory">
                                 <ul class="site-cat" id="header-SiteCat">
-                                    <li class="site-cat--has-dropdown">
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/ice-coffee"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Iced Coffee
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-caret"
-                                                 viewBox="0 0 240.823 240.823">
-                                                <path d="M57.633 129.007L165.93 237.268c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0L57.621 111.816c-4.679 4.691-4.679 12.511.012 17.191z">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                        <div class="site-cat__dropdown site-nav__childlist-drop"
-                                             id="SiteCatLabel-iced-coffee">
-                                            <ul class="has-dropdown">
-                                                <li class="site-nav__childlist-item-dropdown">
-                                                    <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                       class="site-nav__link site-nav__child-link site-nav__child-link--parent">
-                                                        Americano
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-caret"
-                                                             viewBox="0 0 240.823 240.823">
-                                                            <path d="M57.633 129.007L165.93 237.268c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0L57.621 111.816c-4.679 4.691-4.679 12.511.012 17.191z">
-                                                            </path>
-                                                        </svg>
-                                                    </a>
-                                                    <div class="header-nav__childlist site-cat__dropdown">
-                                                        <ul class="grand-child-has-dropdown">
-                                                            <li>
-                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                                   class="site-nav__link site-nav__child-link">Cappuccino</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                                   class="site-nav__link site-nav__child-link">Carajillo</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                                   class="site-nav__link site-nav__child-link">Cortado</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li class="site-nav__childlist-item-dropdown">
-                                                    <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                       class="site-nav__link site-nav__child-link site-nav__child-link--parent">
-                                                        Espresso
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-caret"
-                                                             viewBox="0 0 240.823 240.823">
-                                                            <path d="M57.633 129.007L165.93 237.268c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0L57.621 111.816c-4.679 4.691-4.679 12.511.012 17.191z">
-                                                            </path>
-                                                        </svg>
-                                                    </a>
-                                                    <div class="header-nav__childlist site-cat__dropdown">
-                                                        <ul class="grand-child-has-dropdown">
-                                                            <li>
-                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                                   class="site-nav__link site-nav__child-link">Eiskaffee</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                                   class="site-nav__link site-nav__child-link">Frappuccino</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                                   class="site-nav__link site-nav__child-link">
-                                                                    Instant
-                                                                    Coffee
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li class="site-nav__childlist-item-dropdown">
-                                                    <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                       class="site-nav__link site-nav__child-link site-nav__child-link--parent">
-                                                        Specialty
-                                                        Lattes
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-caret"
-                                                             viewBox="0 0 240.823 240.823">
-                                                            <path d="M57.633 129.007L165.93 237.268c4.752 4.74 12.451 4.74 17.215 0 4.752-4.74 4.752-12.439 0-17.179l-99.707-99.671 99.695-99.671c4.752-4.74 4.752-12.439 0-17.191-4.752-4.74-12.463-4.74-17.215 0L57.621 111.816c-4.679 4.691-4.679 12.511.012 17.191z">
-                                                            </path>
-                                                        </svg>
-                                                    </a>
-                                                    <div class="header-nav__childlist site-cat__dropdown">
-                                                        <ul class="grand-child-has-dropdown">
-                                                            <li>
-                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                                   class="site-nav__link site-nav__child-link">
-                                                                    Flate
-                                                                    White
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                                   class="site-nav__link site-nav__child-link">
-                                                                    Irish
-                                                                    Coffee
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="https://cafebrew-codezeel.myshopify.com/collections/all"
-                                                                   class="site-nav__link site-nav__child-link">
-                                                                    Liqueur
-                                                                    Coffee
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cafe-mocha"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Cafe Mocha
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cappuccino"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Cappuccino
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cinnamon-dolce"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Cinnamon Dolce
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/filter-coffee"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Filter Coffee
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cuban-espresso"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Cuban Espresso
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/eiskaffee"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Eiskaffee
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/specialty-lattes"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Specialty Lattes
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/cortado"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Instant Coffee
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://cafebrew-codezeel.myshopify.com/collections/breve"
-                                           class="site-cat__link site-cat__link--main">
-                                            <svg class="icon icon-left-caret" version="1.0"
-                                                 xmlns="http://www.w3.org/2000/svg" width="304.000000pt"
-                                                 height="186.000000pt" viewBox="0 0 304.000000 186.000000"
-                                                 preserveAspectRatio="xMidYMid meet">
-                                                <g transform="translate(0.000000,186.000000) scale(0.100000,-0.100000)"
-                                                   fill="#000000" stroke="none">
-                                                    <path d="M2063 1838 c-11 -5 -29 -25 -38 -42 -37 -68 -34 -72 320 -426 l325
--325 -1297 -5 c-1430 -6 -1327 0 -1359 -68 -20 -43 -11 -85 28 -117 l30 -25
-1299 0 c714 0 1299 -3 1299 -7 0 -4 -148 -156 -330 -338 -298 -299 -330 -334
--330 -363 0 -68 44 -112 112 -112 28 0 78 46 462 428 237 235 436 436 443 447
-17 27 16 60 -1 93 -18 33 -832 845 -863 861 -27 13 -71 13 -100 -1z"></path>
-                                                </g>
-                                            </svg>Breve
-                                        </a>
-                                    </li>
+                                    @{
+                                        var brands = Context.Brand.ToList();
+
+                                        foreach (var item in brands)
+                                        {
+                                            <li>
+                                                <a asp-action="Catalog" asp-route-brands="@item.Name" class="site-cat__link site-cat__link--main">
+                                                    Cafe @item.Name
+                                                </a>
+                                            </li>
+                                        }
+                                    }
                                 </ul>
                             </div>
                         </nav>
@@ -1107,9 +836,6 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
                                 <a asp-controller="Page" asp-action="Terms">Terms</a>
                             </li>
                             <li class="site-footer__linklist-item">
-                                <a href="https://cafebrew-codezeel.myshopify.com/search">Advanced Search</a>
-                            </li>
-                            <li class="site-footer__linklist-item">
                                 <a asp-controller="Page" asp-action="Contact">Contact Us</a>
                             </li>
                             <li class="site-footer__linklist-item">
@@ -1305,6 +1031,17 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
                   transform="translate(-80.93 -236.76)"></path>
         </svg>
     </a>
+    <script>
+        // Restore the scroll position after the page reloads
+        window.addEventListener('load', function () {
+            const scrollPosition = JSON.parse(sessionStorage.getItem('scrollPosition'));
+            if (scrollPosition) {
+                window.scrollTo(scrollPosition.left, scrollPosition.top);
+                sessionStorage.removeItem('scrollPosition'); // Clear the stored position
+            }
+        });
+
+    </script>
 </body>
 
 </html>

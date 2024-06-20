@@ -15,7 +15,7 @@
                 <div class="filter-total side-box" style="border: 1px solid var(--color-base-border);">
                     <div class="facets-container">
                         <facet-filters-form class="facets small-hide">
-                            <form id="FacetFiltersForm" class="facets__form">
+                            <form id="FacetFiltersForm" class="facets__form" asp-action="Catalog">
                                 <div class="FacetsWrapperDesktop">
                                     <h3 class="box-heading">Filter by</h3>
                                     <div class="box-content">
@@ -40,42 +40,18 @@
                                                 <ul class="facets__list list-unstyled" role="list">
                                                     <li class="list-menu__item facets__item" id="Availability">
                                                         <label for="Filter-Availability-1" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.v.availability"
+                                                            <input type="radio" name="availability"
+                                                            @(ViewBag.Availability == 1 ? "checked" : null)
                                                                    value="1" id="Filter-Availability-1" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            In stock (17)
+                                                            In stock
                                                         </label>
                                                     </li>
                                                     <li class="list-menu__item facets__item" id="Availability">
                                                         <label for="Filter-Availability-2" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.v.availability"
+                                                            <input type="radio" name="availability"
+                                                            @(ViewBag.Availability==0 ? "checked" : null)
                                                                    value="0" id="Filter-Availability-2" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Out of stock (2)
+                                                            Out of stock
                                                         </label>
                                                     </li>
                                                 </ul>
@@ -97,16 +73,14 @@
                                                 <price-range class="facets__price">
                                                     <div class="field">
                                                         <span class="field__currency">$</span>
-                                                        <input class="field__input" name="filter.v.price.gte"
-                                                               id="Filter-Price-2" type="number" placeholder="0" min="0"
-                                                               max="370.00" />
+                                                        <input class="field__input" name="minPrice" value="@(ViewBag.MinPrice??0)"
+                                                               id="Filter-Price-2" type="number" placeholder="0" min="0" />
                                                         <label class="field__label" for="Search-In-Modal">From</label>
                                                     </div>
                                                     <div class="field">
                                                         <span class="field__currency">$</span>
-                                                        <input class="field__input" name="filter.v.price.lte"
-                                                               id="Filter-Price-2" type="number" placeholder="370.00"
-                                                               min="0" max="370.00" />
+                                                        <input class="field__input" name="maxPrice" value="@(ViewBag.MaxPrice??0)"
+                                                               id="Filter-Price-2" type="number" placeholder="0" min="0" />
                                                         <label class="field__label" for="Search-In-Modal">To</label>
                                                     </div>
                                                 </price-range>
@@ -131,126 +105,40 @@
                                                        class="facets__reset link underlined-link js-facet-remove">Reset</a>
                                                 </div>
                                                 <ul class="facets__list list-unstyled" role="list">
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-1" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor"
-                                                                   value="Costa Coffee" id="Filter-Brand-1" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Costa Coffee (6)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-2" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor" value="McCafé"
-                                                                   id="Filter-Brand-2" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            McCafé (3)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-3" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor"
-                                                                   value="Nescafé" id="Filter-Brand-3" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Nescafé (4)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-4" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor"
-                                                                   value="Nescafe'" id="Filter-Brand-4" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Nescafe' (1)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-5" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor" value="Olabi"
-                                                                   id="Filter-Brand-5" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Olabi (1)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-6" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor"
-                                                                   value="Starbucks" id="Filter-Brand-6" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Starbucks (3)
-                                                        </label>
-                                                    </li>
+                                                    @{
+                                                        string[] selectedBrands = ViewBag.SelectedBrands as string[];
+                                                    }
+                                                    @foreach (var item in ViewBag.Brands)
+                                                    {
+                                                        <li class="list-menu__item facets__item" id="Brand">
+                                                            <label for="@item.Name" class="facet-checkbox">
+                                                                @if (selectedBrands != null && selectedBrands.Contains(item.Name as string))
+                                                                {
+                                                                    <input type="checkbox" name="brands" checked
+                                                                           value="@item.Name" id="@item.Name" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="checkbox" name="brands"
+                                                                           value="@item.Name" id="@item.Name" />
+                                                                }
+                                                                <svg width="16" height="16" viewBox="0 0 16 16"
+                                                                     aria-hidden="true" focusable="false">
+                                                                    <rect width="16" height="16" stroke="currentColor"
+                                                                          fill="none" stroke-width="1"></rect>
+                                                                </svg>
+                                                                <svg class="icon icon-checkmark" aria-hidden="true"
+                                                                     focusable="false" xmlns="http://www.w3.org/2000/svg"
+                                                                     viewBox="0 0 12 9" fill="none" width="10px"
+                                                                     height="10px">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                          d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
+                                                                          fill="currentColor"></path>
+                                                                </svg>
+                                                                @item.Name
+                                                            </label>
+                                                        </li>
+                                                    }
                                                 </ul>
                                             </div>
                                         </div>
@@ -271,18 +159,6 @@
                 <link rel="stylesheet"
                       href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/component-rte.css?v=48186499454965788961666256838"
                       as="style" onload="this.onload=null;this.rel='stylesheet'" />
-                <noscript>
-                    <link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/component-price.css?v=36297916317652221621666265776"
-                          rel="stylesheet" type="text/css" media="all" />
-                </noscript>
-                <noscript>
-                    <link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/component-badge.css?v=137203610565563894031666256837"
-                          rel="stylesheet" type="text/css" media="all" />
-                </noscript>
-                <noscript>
-                    <link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/component-rte.css?v=48186499454965788961666256838"
-                          rel="stylesheet" type="text/css" media="all" />
-                </noscript>
                 <link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/tm-sidebar.css?v=144335064839150544121666337131"
                       rel="stylesheet" type="text/css" media="all" />
                 <div class="collection-hero__description rte"></div>
@@ -290,341 +166,8 @@
                      data-id="template--16631469146405__product-grid">
                     <link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/component-facets.css?v=105876335990235907981666336927"
                           rel="stylesheet" type="text/css" media="all" />
-                    <script src="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/facets.js?v=24507377924194758081666256839"
+                    <script src="/js/facets.js"
                             defer="defer"></script>
-                    <div class="facets-container desktop">
-                        <facet-filters-form class="facets small-hide">
-                            <form id="FacetFiltersForm" class="facets__form">
-                                <div class="FacetsWrapperDesktop">
-                                    <h3 class="box-heading">Filter by</h3>
-                                    <div class="box-content">
-                                        <div class="disclosure-has-popup facets__disclosure js-filter" data-index="1">
-                                            <summary class="facets__summary">
-                                                <div>
-                                                    <span class="filter-title">Availability</span>
-                                                    <span class="count-bubble"></span>
-                                                    <svg class="icon icon-caret" data-name="Layer 1"
-                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.95 531.49">
-                                                        <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                              transform="translate(-10.07 -234.26)"></path>
-                                                    </svg>
-                                                </div>
-                                            </summary>
-                                            <div class="facets__display">
-                                                <div class="facets__header">
-                                                    <span class="facets__selected no-js-hidden">0 selected</span>
-                                                    <a href="/collections/all"
-                                                       class="facets__reset link underlined-link js-facet-remove">Reset</a>
-                                                </div>
-                                                <ul class="facets__list list-unstyled" role="list">
-                                                    <li class="list-menu__item facets__item" id="Availability">
-                                                        <label for="Filter-Availability-1" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.v.availability"
-                                                                   value="1" id="Filter-Availability-1" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            In stock (17)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Availability">
-                                                        <label for="Filter-Availability-2" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.v.availability"
-                                                                   value="0" id="Filter-Availability-2" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Out of stock (2)
-                                                        </label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="disclosure-has-popup facets__disclosure js-filter" data-index="2">
-                                            <summary class="facets__summary">
-                                                <div>
-                                                    <span class="filter-title">Price</span>
-                                                    <span class="count-bubble"></span>
-                                                    <svg class="icon icon-caret" data-name="Layer 1"
-                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.95 531.49">
-                                                        <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                              transform="translate(-10.07 -234.26)"></path>
-                                                    </svg>
-                                                </div>
-                                            </summary>
-                                            <div class="facets__display">
-                                                <price-range class="facets__price">
-                                                    <div class="field">
-                                                        <span class="field__currency">$</span>
-                                                        <input class="field__input" name="filter.v.price.gte"
-                                                               id="Filter-Price-2" type="number" placeholder="0" min="0"
-                                                               max="370.00" />
-                                                        <label class="field__label" for="Search-In-Modal">From</label>
-                                                    </div>
-                                                    <div class="field">
-                                                        <span class="field__currency">$</span>
-                                                        <input class="field__input" name="filter.v.price.lte"
-                                                               id="Filter-Price-2" type="number" placeholder="370.00"
-                                                               min="0" max="370.00" />
-                                                        <label class="field__label" for="Search-In-Modal">To</label>
-                                                    </div>
-                                                </price-range>
-                                            </div>
-                                        </div>
-                                        <div class="disclosure-has-popup facets__disclosure js-filter" data-index="3">
-                                            <summary class="facets__summary">
-                                                <div>
-                                                    <span class="filter-title">Brand</span>
-                                                    <span class="count-bubble"></span>
-                                                    <svg class="icon icon-caret" data-name="Layer 1"
-                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.95 531.49">
-                                                        <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                              transform="translate(-10.07 -234.26)"></path>
-                                                    </svg>
-                                                </div>
-                                            </summary>
-                                            <div class="facets__display">
-                                                <div class="facets__header">
-                                                    <span class="facets__selected no-js-hidden">0 selected</span>
-                                                    <a href="/collections/all"
-                                                       class="facets__reset link underlined-link js-facet-remove">Reset</a>
-                                                </div>
-                                                <ul class="facets__list list-unstyled" role="list">
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-1" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor"
-                                                                   value="Costa Coffee" id="Filter-Brand-1" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Costa Coffee (6)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-2" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor" value="McCafé"
-                                                                   id="Filter-Brand-2" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            McCafé (3)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-3" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor"
-                                                                   value="Nescafé" id="Filter-Brand-3" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Nescafé (4)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-4" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor"
-                                                                   value="Nescafe'" id="Filter-Brand-4" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Nescafe' (1)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-5" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor" value="Olabi"
-                                                                   id="Filter-Brand-5" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Olabi (1)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Brand">
-                                                        <label for="Filter-Brand-6" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.p.vendor"
-                                                                   value="Starbucks" id="Filter-Brand-6" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            Starbucks (3)
-                                                        </label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="disclosure-has-popup facets__disclosure js-filter" data-index="4">
-                                            <summary class="facets__summary">
-                                                <div>
-                                                    <span class="filter-title">Pack Sizes</span>
-                                                    <span class="count-bubble"></span>
-                                                    <svg class="icon icon-caret" data-name="Layer 1"
-                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.95 531.49">
-                                                        <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                              transform="translate(-10.07 -234.26)"></path>
-                                                    </svg>
-                                                </div>
-                                            </summary>
-                                            <div class="facets__display">
-                                                <div class="facets__header">
-                                                    <span class="facets__selected no-js-hidden">0 selected</span>
-                                                    <a href="/collections/all"
-                                                       class="facets__reset link underlined-link js-facet-remove">Reset</a>
-                                                </div>
-                                                <ul class="facets__list list-unstyled" role="list">
-                                                    <li class="list-menu__item facets__item" id="Pack Sizes">
-                                                        <label for="Filter-Pack Sizes-1" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.v.option.pack sizes"
-                                                                   value="350 ML" id="Filter-Pack Sizes-1" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            350 ML (12)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Pack Sizes">
-                                                        <label for="Filter-Pack Sizes-2" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.v.option.pack sizes"
-                                                                   value="650 ML" id="Filter-Pack Sizes-2" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            650 ML (12)
-                                                        </label>
-                                                    </li>
-                                                    <li class="list-menu__item facets__item" id="Pack Sizes">
-                                                        <label for="Filter-Pack Sizes-3" class="facet-checkbox">
-                                                            <input type="checkbox" name="filter.v.option.pack sizes"
-                                                                   value="950 ML" id="Filter-Pack Sizes-3" />
-                                                            <svg width="16" height="16" viewBox="0 0 16 16"
-                                                                 aria-hidden="true" focusable="false">
-                                                                <rect width="16" height="16" stroke="currentColor"
-                                                                      fill="none" stroke-width="1"></rect>
-                                                            </svg>
-                                                            <svg class="icon icon-checkmark" aria-hidden="true"
-                                                                 focusable="false" xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 12 9" fill="none" width="10px"
-                                                                 height="10px">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                            950 ML (9)
-                                                        </label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <noscript>
-                                            <button type="submit" class="facets__button button">
-                                                Filter
-                                            </button>
-                                        </noscript>
-                                    </div>
-                                </div>
-                            </form>
-                        </facet-filters-form>
-                    </div>
                     <div class="collection-btn">
                         <div class="btn-group">
                             <a href="#" id="col_4" class="btn btn-default btn-sm active">
@@ -733,967 +276,6 @@
                             </div>
                         </div>
                     </div>
-                    <menu-drawer class="mobile-facets__wrapper" data-breakpoint="mobile">
-                        <details class="mobile-facets__disclosure disclosure-has-popup">
-                            <summary class="mobile-facets__open-wrapper focus-offset" role="button"
-                                     aria-expanded="false" aria-controls="">
-                                <span class="mobile-facets__open button">
-                                    <span class="mobile-facets__open-label button-label">
-                                        Filter and sort
-                                    </span>
-                                </span>
-                                <span tabindex="0" class="mobile-facets__close mobile-facets__close--no-js">
-                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
-                                         role="presentation" class="icon icon-close" viewBox="0 0 18 17">
-                                        <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z">
-                                        </path>
-                                    </svg>
-                                </span>
-                            </summary>
-                            <facet-filters-form>
-                                <form id="FacetFiltersFormMobile" class="mobile-facets">
-                                    <div class="mobile-facets__inner">
-                                        <div class="mobile-facets__header">
-                                            <div class="mobile-facets__header-inner">
-                                                <h2 class="mobile-facets__heading">
-                                                    Filter and sort
-                                                </h2>
-                                                <p class="mobile-facets__count">18 products</p>
-                                            </div>
-                                        </div>
-                                        <div class="mobile-facets__main">
-                                            <details id="Details-Mobile-1-template--16631469146405__product-grid"
-                                                     class="mobile-facets__details js-filter" data-index="mobile-1">
-                                                <summary class="mobile-facets__summary focus-inset" role="button"
-                                                         aria-expanded="false"
-                                                         aria-controls="FacetMobile-1-template--16631469146405__product-grid">
-                                                    <div>
-                                                        <span>Availability</span>
-                                                        <span class="mobile-facets__arrow no-js-hidden">
-                                                            <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                                 focusable="false" role="presentation"
-                                                                 class="icon icon-arrow"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <noscript>
-                                                            <svg class="icon icon-caret" data-name="Layer 1"
-                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 979.95 531.49">
-                                                                <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                                      transform="translate(-10.07 -234.26)" />
-                                                            </svg>
-                                                        </noscript>
-                                                    </div>
-                                                </summary>
-                                                <div id="FacetMobile-1-template--16631469146405__product-grid"
-                                                     class="mobile-facets__submenu">
-                                                    <button class="mobile-facets__close-button link link--text focus-inset"
-                                                            aria-expanded="true" type="button">
-                                                        <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                             focusable="false" role="presentation"
-                                                             class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                  d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                  fill="currentColor"></path>
-                                                        </svg>
-                                                        Availability
-                                                    </button>
-                                                    <ul class="mobile-facets__list list-unstyled" role="list">
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Availability">
-                                                            <label for="Filter-Availability-mobile-1"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.v.availability" value="1"
-                                                                       id="Filter-Availability-mobile-1" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                In stock (17)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Availability">
-                                                            <label for="Filter-Availability-mobile-2"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.v.availability" value="0"
-                                                                       id="Filter-Availability-mobile-2" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Out of stock (2)
-                                                            </label>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="no-js-hidden mobile-facets__footer">
-                                                        <facet-remove class="mobile-facets__clear-wrapper">
-                                                            <a href="/collections/all"
-                                                               class="mobile-facets__clear button">Clear</a>
-                                                        </facet-remove>
-                                                        <button type="button"
-                                                                class="no-js-hidden button button--primary"
-                                                                onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()">
-                                                            Apply
-                                                        </button>
-                                                        <noscript>
-                                                            <button class="button button--primary">
-                                                                Apply
-                                                            </button>
-                                                        </noscript>
-                                                    </div>
-                                                </div>
-                                            </details>
-                                            <details id="Details-Mobile-2-template--16631469146405__product-grid"
-                                                     class="mobile-facets__details js-filter" data-index="mobile-2">
-                                                <summary class="mobile-facets__summary focus-inset" role="button"
-                                                         aria-expanded="false"
-                                                         aria-controls="FacetMobile-2-template--16631469146405__product-grid">
-                                                    <div>
-                                                        <span>Price</span>
-                                                        <span class="mobile-facets__arrow no-js-hidden">
-                                                            <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                                 focusable="false" role="presentation"
-                                                                 class="icon icon-arrow"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <noscript>
-                                                            <svg class="icon icon-caret" data-name="Layer 1"
-                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 979.95 531.49">
-                                                                <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                                      transform="translate(-10.07 -234.26)" />
-                                                            </svg>
-                                                        </noscript>
-                                                    </div>
-                                                </summary>
-                                                <div id="FacetMobile-2-template--16631469146405__product-grid"
-                                                     class="mobile-facets__submenu">
-                                                    <button class="mobile-facets__close-button link link--text focus-inset"
-                                                            aria-expanded="true" type="button">
-                                                        <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                             focusable="false" role="presentation"
-                                                             class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                  d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                  fill="currentColor"></path>
-                                                        </svg>
-                                                        Price
-                                                    </button>
-                                                    <p class="mobile-facets__info">
-                                                        The highest price is $370.00
-                                                    </p>
-                                                    <price-range class="facets__price">
-                                                        <span class="field-currency">$</span>
-                                                        <div class="field">
-                                                            <input class="field__input" name="filter.v.price.gte"
-                                                                   id="Mobile-Filter-Price-GTE" type="number"
-                                                                   placeholder="0" min="0" inputmode="decimal"
-                                                                   max="370.00" />
-                                                            <label class="field__label"
-                                                                   for="Mobile-Filter-Price-GTE">From</label>
-                                                        </div>
-                                                        <span class="field-currency">$</span>
-                                                        <div class="field">
-                                                            <input class="field__input" name="filter.v.price.lte"
-                                                                   id="Mobile-Filter-Price-LTE" type="number" min="0"
-                                                                   inputmode="decimal" placeholder="370.00" max="370.00" />
-                                                            <label class="field__label"
-                                                                   for="Mobile-Filter-Price-LTE">To</label>
-                                                        </div>
-                                                    </price-range>
-                                                    <div class="no-js-hidden mobile-facets__footer">
-                                                        <facet-remove class="mobile-facets__clear-wrapper">
-                                                            <a href="/collections/all"
-                                                               class="mobile-facets__clear button">Clear</a>
-                                                        </facet-remove>
-                                                        <button type="button"
-                                                                class="no-js-hidden button button--primary"
-                                                                onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()">
-                                                            Apply
-                                                        </button>
-                                                        <noscript>
-                                                            <button class="button button--primary">
-                                                                Apply
-                                                            </button>
-                                                        </noscript>
-                                                    </div>
-                                                </div>
-                                            </details>
-                                            <details id="Details-Mobile-3-template--16631469146405__product-grid"
-                                                     class="mobile-facets__details js-filter" data-index="mobile-3">
-                                                <summary class="mobile-facets__summary focus-inset" role="button"
-                                                         aria-expanded="false"
-                                                         aria-controls="FacetMobile-3-template--16631469146405__product-grid">
-                                                    <div>
-                                                        <span>Product type</span>
-                                                        <span class="mobile-facets__arrow no-js-hidden">
-                                                            <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                                 focusable="false" role="presentation"
-                                                                 class="icon icon-arrow"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <noscript>
-                                                            <svg class="icon icon-caret" data-name="Layer 1"
-                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 979.95 531.49">
-                                                                <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                                      transform="translate(-10.07 -234.26)" />
-                                                            </svg>
-                                                        </noscript>
-                                                    </div>
-                                                </summary>
-                                                <div id="FacetMobile-3-template--16631469146405__product-grid"
-                                                     class="mobile-facets__submenu">
-                                                    <button class="mobile-facets__close-button link link--text focus-inset"
-                                                            aria-expanded="true" type="button">
-                                                        <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                             focusable="false" role="presentation"
-                                                             class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                  d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                  fill="currentColor"></path>
-                                                        </svg>
-                                                        Product type
-                                                    </button>
-                                                    <ul class="mobile-facets__list list-unstyled" role="list">
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-1"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Beans"
-                                                                       id="Filter-Product type-mobile-1" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Beans (1)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-2"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Beans Powder"
-                                                                       id="Filter-Product type-mobile-2" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Beans Powder (1)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-3"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Beverages"
-                                                                       id="Filter-Product type-mobile-3" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Beverages (3)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-4"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Biscuits"
-                                                                       id="Filter-Product type-mobile-4" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Biscuits (1)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-5"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Coffee Beans"
-                                                                       id="Filter-Product type-mobile-5" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Coffee Beans (1)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-6"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Coffee Powder"
-                                                                       id="Filter-Product type-mobile-6" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Coffee Powder (2)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-7"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Dairy products"
-                                                                       id="Filter-Product type-mobile-7" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Dairy products (3)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-8"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Drinkware"
-                                                                       id="Filter-Product type-mobile-8" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Drinkware (1)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-9"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Liquid"
-                                                                       id="Filter-Product type-mobile-9" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Liquid (1)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-10"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Mug"
-                                                                       id="Filter-Product type-mobile-10" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Mug (2)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-11"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Plastic"
-                                                                       id="Filter-Product type-mobile-11" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Plastic (1)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item"
-                                                            id="Product type">
-                                                            <label for="Filter-Product type-mobile-12"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.product_type" value="Spice"
-                                                                       id="Filter-Product type-mobile-12" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Spice (1)
-                                                            </label>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="no-js-hidden mobile-facets__footer">
-                                                        <facet-remove class="mobile-facets__clear-wrapper">
-                                                            <a href="/collections/all"
-                                                               class="mobile-facets__clear button">Clear</a>
-                                                        </facet-remove>
-                                                        <button type="button"
-                                                                class="no-js-hidden button button--primary"
-                                                                onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()">
-                                                            Apply
-                                                        </button>
-                                                        <noscript>
-                                                            <button class="button button--primary">
-                                                                Apply
-                                                            </button>
-                                                        </noscript>
-                                                    </div>
-                                                </div>
-                                            </details>
-                                            <details id="Details-Mobile-4-template--16631469146405__product-grid"
-                                                     class="mobile-facets__details js-filter" data-index="mobile-4">
-                                                <summary class="mobile-facets__summary focus-inset" role="button"
-                                                         aria-expanded="false"
-                                                         aria-controls="FacetMobile-4-template--16631469146405__product-grid">
-                                                    <div>
-                                                        <span>Brand</span>
-                                                        <span class="mobile-facets__arrow no-js-hidden">
-                                                            <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                                 focusable="false" role="presentation"
-                                                                 class="icon icon-arrow"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <noscript>
-                                                            <svg class="icon icon-caret" data-name="Layer 1"
-                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 979.95 531.49">
-                                                                <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                                      transform="translate(-10.07 -234.26)" />
-                                                            </svg>
-                                                        </noscript>
-                                                    </div>
-                                                </summary>
-                                                <div id="FacetMobile-4-template--16631469146405__product-grid"
-                                                     class="mobile-facets__submenu">
-                                                    <button class="mobile-facets__close-button link link--text focus-inset"
-                                                            aria-expanded="true" type="button">
-                                                        <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                             focusable="false" role="presentation"
-                                                             class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                  d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                  fill="currentColor"></path>
-                                                        </svg>
-                                                        Brand
-                                                    </button>
-                                                    <ul class="mobile-facets__list list-unstyled" role="list">
-                                                        <li class="mobile-facets__item list-menu__item" id="Brand">
-                                                            <label for="Filter-Brand-mobile-1"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.vendor" value="Costa Coffee"
-                                                                       id="Filter-Brand-mobile-1" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Costa Coffee (6)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item" id="Brand">
-                                                            <label for="Filter-Brand-mobile-2"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.vendor" value="McCafé"
-                                                                       id="Filter-Brand-mobile-2" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                McCafé (3)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item" id="Brand">
-                                                            <label for="Filter-Brand-mobile-3"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.vendor" value="Nescafé"
-                                                                       id="Filter-Brand-mobile-3" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Nescafé (4)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item" id="Brand">
-                                                            <label for="Filter-Brand-mobile-4"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.vendor" value="Nescafe'"
-                                                                       id="Filter-Brand-mobile-4" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Nescafe' (1)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item" id="Brand">
-                                                            <label for="Filter-Brand-mobile-5"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.vendor" value="Olabi"
-                                                                       id="Filter-Brand-mobile-5" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Olabi (1)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item" id="Brand">
-                                                            <label for="Filter-Brand-mobile-6"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.p.vendor" value="Starbucks"
-                                                                       id="Filter-Brand-mobile-6" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                Starbucks (3)
-                                                            </label>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="no-js-hidden mobile-facets__footer">
-                                                        <facet-remove class="mobile-facets__clear-wrapper">
-                                                            <a href="/collections/all"
-                                                               class="mobile-facets__clear button">Clear</a>
-                                                        </facet-remove>
-                                                        <button type="button"
-                                                                class="no-js-hidden button button--primary"
-                                                                onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()">
-                                                            Apply
-                                                        </button>
-                                                        <noscript>
-                                                            <button class="button button--primary">
-                                                                Apply
-                                                            </button>
-                                                        </noscript>
-                                                    </div>
-                                                </div>
-                                            </details>
-                                            <details id="Details-Mobile-5-template--16631469146405__product-grid"
-                                                     class="mobile-facets__details js-filter" data-index="mobile-5">
-                                                <summary class="mobile-facets__summary focus-inset" role="button"
-                                                         aria-expanded="false"
-                                                         aria-controls="FacetMobile-5-template--16631469146405__product-grid">
-                                                    <div>
-                                                        <span>Pack Sizes</span>
-                                                        <span class="mobile-facets__arrow no-js-hidden">
-                                                            <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                                 focusable="false" role="presentation"
-                                                                 class="icon icon-arrow"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                      d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                      fill="currentColor"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <noscript>
-                                                            <svg class="icon icon-caret" data-name="Layer 1"
-                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 979.95 531.49">
-                                                                <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                                      transform="translate(-10.07 -234.26)" />
-                                                            </svg>
-                                                        </noscript>
-                                                    </div>
-                                                </summary>
-                                                <div id="FacetMobile-5-template--16631469146405__product-grid"
-                                                     class="mobile-facets__submenu">
-                                                    <button class="mobile-facets__close-button link link--text focus-inset"
-                                                            aria-expanded="true" type="button">
-                                                        <svg viewBox="0 0 14 10" fill="none" aria-hidden="true"
-                                                             focusable="false" role="presentation"
-                                                             class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                  d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z"
-                                                                  fill="currentColor"></path>
-                                                        </svg>
-                                                        Pack Sizes
-                                                    </button>
-                                                    <ul class="mobile-facets__list list-unstyled" role="list">
-                                                        <li class="mobile-facets__item list-menu__item" id="Pack Sizes">
-                                                            <label for="Filter-Pack Sizes-mobile-1"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.v.option.pack sizes" value="350 ML"
-                                                                       id="Filter-Pack Sizes-mobile-1" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                350 ML (12)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item" id="Pack Sizes">
-                                                            <label for="Filter-Pack Sizes-mobile-2"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.v.option.pack sizes" value="650 ML"
-                                                                       id="Filter-Pack Sizes-mobile-2" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                650 ML (12)
-                                                            </label>
-                                                        </li>
-                                                        <li class="mobile-facets__item list-menu__item" id="Pack Sizes">
-                                                            <label for="Filter-Pack Sizes-mobile-3"
-                                                                   class="mobile-facets__label">
-                                                                <input class="mobile-facets__checkbox" type="checkbox"
-                                                                       name="filter.v.option.pack sizes" value="950 ML"
-                                                                       id="Filter-Pack Sizes-mobile-3" />
-                                                                <span class="mobile-facets__highlight"></span>
-                                                                <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16"
-                                                                     aria-hidden="true" focusable="false">
-                                                                    <rect width="16" height="16" stroke="currentColor"
-                                                                          fill="none" stroke-width="1"></rect>
-                                                                </svg>
-                                                                <svg class="icon icon-checkmark" width="1.1rem"
-                                                                     height="0.7rem" viewBox="0 0 11 7" fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                                          stroke="currentColor" stroke-width="1.75"
-                                                                          stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                                950 ML (9)
-                                                            </label>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="no-js-hidden mobile-facets__footer">
-                                                        <facet-remove class="mobile-facets__clear-wrapper">
-                                                            <a href="/collections/all"
-                                                               class="mobile-facets__clear button">Clear</a>
-                                                        </facet-remove>
-                                                        <button type="button"
-                                                                class="no-js-hidden button button--primary"
-                                                                onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()">
-                                                            Apply
-                                                        </button>
-                                                        <noscript>
-                                                            <button class="button button--primary">
-                                                                Apply
-                                                            </button>
-                                                        </noscript>
-                                                    </div>
-                                                </div>
-                                            </details>
-                                            <div class="mobile-facets__details js-filter" data-index="mobile-">
-                                                <div class="mobile-facets__summary">
-                                                    <div class="mobile-facets__sort">
-                                                        <label for="SortBy-mobile">Sort by:</label>
-                                                        <div class="select">
-                                                            <select name="sort_by" class="select__select"
-                                                                    id="SortBy-mobile"
-                                                                    aria-describedby="a11y-refresh-page-message">
-                                                                <option value="manual">Featured</option>
-                                                                <option value="best-selling">
-                                                                    Best selling
-                                                                </option>
-                                                                <option value="title-ascending" selected="selected">
-                                                                    Alphabetically, A-Z
-                                                                </option>
-                                                                <option value="title-descending">
-                                                                    Alphabetically, Z-A
-                                                                </option>
-                                                                <option value="price-ascending">
-                                                                    Price, low to high
-                                                                </option>
-                                                                <option value="price-descending">
-                                                                    Price, high to low
-                                                                </option>
-                                                                <option value="created-ascending">
-                                                                    Date, old to new
-                                                                </option>
-                                                                <option value="created-descending">
-                                                                    Date, new to old
-                                                                </option>
-                                                            </select>
-                                                            <svg class="icon icon-caret" data-name="Layer 1"
-                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                 viewBox="0 0 979.95 531.49">
-                                                                <path d="M22.14,246a40.74,40.74,0,0,0-.3,57.6l445.9,450a40.68,40.68,0,0,0,57.6.3c.2-.1.2-.3.4-.5.7-.6,1.6-.8,2.3-1.5L977.94,306a40.77,40.77,0,1,0-57.4-57.9l-423.3,419.5L79.74,246.24a40.83,40.83,0,0,0-57.6-.2Z"
-                                                                      transform="translate(-10.07 -234.26)"></path>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mobile-facets__footer">
-                                                <facet-remove class="mobile-facets__clear-wrapper">
-                                                    <a href="/collections/all"
-                                                       class="mobile-facets__clear button">Clear</a>
-                                                </facet-remove>
-                                                <button type="button" class="no-js-hidden button button--primary"
-                                                        onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()">
-                                                    Apply
-                                                </button>
-                                                <noscript>
-                                                    <button class="button button--primary">
-                                                        Apply
-                                                    </button>
-                                                </noscript>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </facet-filters-form>
-                        </details>
-                    </menu-drawer>
-                    <div class="active-facets active-facets-mobile">
-                        <facet-remove class="active-facets__button-wrapper">
-                            <a href="/collections/all" class="active-facets__button-remove button underlined-link">
-                                <span>Clear</span>
-                            </a>
-                        </facet-remove>
-                    </div>
                 </div>
                 <div id="ProductGridContainer">
                     <div class="collection page-width">
@@ -1706,7 +288,7 @@
                                         <span class="products">
                                             <div class="card-wrapper">
                                                 <div class="card-img">
-                                                    <a href="/products/copy-of-duis-sit-amet-massa-1"
+                                                    <a asp-action="ProductDetail" asp-route-id="@item.Name"
                                                        class="full-unstyled-link">
                                                         <span class="visually-hidden">Agglomerated Instant Coffee</span>
                                                         <div class="card card--product" tabindex="-1">
@@ -1748,18 +330,17 @@
                 c1.901,1.754,3.73,3.583,5.484,5.484l20.804,21.948c6.856,6.812,17.925,6.812,24.781,0l20.804-21.931
                 c36.125-39.154,97.152-41.609,136.306-5.484c1.901,1.754,3.73,3.583,5.484,5.484C453.913,125.078,454.207,191.516,413.787,234.226
                 z"></path>
-                                                                                </g>
-                                                                            </g>
-                                                                        </svg><!--?xml version="1.0" encoding="iso-8859-1"?-->
-                                                        <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </svg>
                                                         <svg class="icon added icon-solidheart" version="1.1" id="Capa_1"
                                                              xmlns="http://www.w3.org/2000/svg"
                                                              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                              width="510px" height="510px" viewBox="0 0 512 512"
                                                              style="enable-background: new 0 0 510 510" xml:space="preserve">
                                                         <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z">
-                                                                            </path>
-                                                                        </svg>
+                                                                                                </path>
+                                                                                            </svg>
                                                     </button>
                                                     <button type="button" aria-label="Add to compare"
                                                             class="cm-link btn--status" button-compare=""
@@ -1777,8 +358,8 @@
                 C102.07,86.523,174.397,40,256,40c74.377,0,141.499,38.731,179.953,99.408l-28.517-20.367c-8.989-6.419-21.48-4.337-27.899,4.651
                 c-6.419,8.989-4.337,21.479,4.651,27.899l86.475,61.761c12.674,9.035,30.155,0.764,31.541-14.459l9.711-106.53
                 C512.919,81.362,504.815,71.632,493.815,70.629z"></path>
-                                                                                </g>
-                                                                            </g>
+                                                                                                    </g>
+                                                                                                </g>
                                                         <g>
                                                         <g>
                                                         <path d="M472.855,346.238c-9.838-5.023-21.884-1.122-26.908,8.715C409.93,425.477,337.603,472,256,472
@@ -1786,9 +367,9 @@
                 c6.419-8.989,4.337-21.479-4.651-27.899l-86.475-61.761c-12.519-8.944-30.141-0.921-31.541,14.459l-9.711,106.53
                 c-1.003,11,7.102,20.73,18.101,21.733c11.014,1.001,20.731-7.112,21.733-18.102l2.65-29.069C87.527,464.806,165.571,512,256,512
                 c97.281,0,183.012-55.522,225.57-138.854C486.594,363.309,482.692,351.262,472.855,346.238z"></path>
-                                                                                </g>
-                                                                            </g>
-                                                                        </svg><!--?xml version='1.0' encoding='iso-8859-1'?-->
+                                                                                                    </g>
+                                                                                                </g>
+                                                                                            </svg>
                                                         <svg class="icon added icon-checked" version="1.1"
                                                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"
                                                              xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -1807,8 +388,8 @@
                                                                     <path d="M412,130h-60.9C343.1,62.5,285.6,0,216,0S88.9,62.5,80.9,130H20c-11,0-20,9-20,20v352c0,11,9,20,20,20h392c11,0,20-9,20-20
 		V150C432,139,423,130,412,130z M216,40c47.5,0,87,44.7,94.7,90H121.3C129,84.7,168.5,40,216,40z M392,482H40V170h40v30
 		c0,11,9,20,20,20s20-9,20-20v-30h192v30c0,11,9,20,20,20s20-9,20-20v-30h40V482z"></path>
-                                                                                                      </g>
-                                                                                                    </svg>
+                                                                                                                          </g>
+                                                                                                                        </svg>
                                                                 </button>
                                                             </div>
                                                         </form>
@@ -1817,7 +398,7 @@
                                                 <div class="card-information">
                                                     <div class="card-information__wrapper">
                                                         <span class="card-information__text h5">
-                                                            <a href="/products/copy-of-duis-sit-amet-massa-1">
+                                                            <a asp-action="ProductDetail" asp-route-id="@item.Name">
                                                                 @item.Name
                                                             </a>
                                                         </span>

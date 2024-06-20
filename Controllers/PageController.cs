@@ -59,10 +59,47 @@ namespace CSE443_FinalProject.Controllers
             return View(await PaginatedList<Blog>.CreateAsync(blogs.AsNoTracking(), pageNumber ?? 1, 6));
         }
 
-        public async Task<IActionResult> Catalog(int? pageNumber)
+        public async Task<IActionResult> Catalog(
+            int? pageNumber,
+            int? availability,
+            int? minPrice,
+            int? maxPrice,
+            string[] brands)
         {
             var products = from b in _context.Coffee select b;
 
+            if (availability == 0)
+            {
+                products = products.Where(p => p.Quantity == 0);
+            }
+            else if (availability == 1)
+            {
+                products = products.Where(p => p.Quantity != 0);
+            }
+
+            if (minPrice != null && maxPrice != null)
+            {
+                products = products.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
+            }
+            else if (minPrice == null && maxPrice != null)
+            {
+                products = products.Where(p => p.Price <= maxPrice);
+            }
+            else if (minPrice != null && maxPrice == null)
+            {
+                products = products.Where(p => p.Price >= minPrice);
+            }
+
+            if (brands.Length != 0)
+            {
+                products = products.Where(p => brands.Contains(p.Brand.Name));
+                ViewBag.SelectedBrands = brands;
+            }
+
+            ViewBag.Brands = await _context.Brand.ToListAsync();
+            ViewBag.Availability = availability;
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
             return View(await PaginatedList<Coffee>.CreateAsync(products.AsNoTracking(), pageNumber ?? 1, 16));
         }
 
