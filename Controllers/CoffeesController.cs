@@ -10,9 +10,11 @@ using CSE443_FinalProject.Models;
 using Azure;
 using CSE443_FinalProject.Services;
 using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CSE443_FinalProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CoffeesController : Controller
     {
         private readonly MVCContext _context;
@@ -148,15 +150,32 @@ namespace CSE443_FinalProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> GetProduct(string? name)
         {
             if (name == null)
-            {
                 return NotFound();
-            }
 
-            return Ok(await _context.Coffee
-                .FirstOrDefaultAsync(c => c.Name.Equals(name)));
+
+            var product = await _context.Coffee
+                .Include(c => c.Brand)
+                .FirstOrDefaultAsync(c => c.Name.Equals(name));
+
+            if (product == null)
+                return NotFound();
+
+            return Ok(new
+            {
+                name = product.Name,
+                brand = product.Brand.Name,
+                image = product.Image,
+                price = product.Price,
+                isDiscount = product.IsDiscounted,
+                discount = product.discount,
+                finalPrice = product.finalPrice,
+                availability = product.isAvailability
+            });
         }
 
 

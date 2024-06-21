@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Compare";
+}
+<partial name="_BreadcrumbsPartial" />
+<link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/component-card.css?v=47224029539093769131691997330" rel="stylesheet" type="text/css" media="all">
+<main class="main-content" id="MainContent" role="main" tabindex="-1">
+    <div class="page-width contents">
+        <div class="main-container">
+            <section id="compare" class="compare">
+                <div id="shopify-section-template--16631469244709__main" class="shopify-section">
+                    <div class="compare__grid grid flex container loaded" grid-compare="">
+                    </div>
+                    <div class="comp-info" style="display: none;">
+                        <h3 class="no_products_data comp_msg">No products available for compare.</h3>
+                        <a asp-action="Catalog" class="link">
+                            Continue shopping
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+@section Scripts {
+    <script>
+        let arr = localStorage.getItem("shopify-compare").split(',');
+        for (const ele of arr) {
+            $.get(`/Coffees/GetProduct?name=${ele}`, (data) => {
+                let textHtml = `
+                                        <ul class="product-card-compare card-wrapper underline-links-hover">
+                                            <li>
+                                                <div class="card card--card--text">
+                                                    <div class="card__inner">
+                                                        <a href="/Page/ProductDetail/${data.name}" class="full-unstyled-link">
+                                                            <div class="card__media1">
+                                                                <div class="media--transparent media--hover-effect">
+                                                                    <img src="${data.image}">
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <div class="product-hover">
+                                                            <button type="button" aria-label="Add to compare" class="cm-link btn--status active remove-compare" button-compare="" data-product-handle="${data.name}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 18 17">
+                                                                    <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                        <div class="card-information">
+                                                                    <span class="card-information__text h5"><a href="/Page/ProductDetail/${data.name}" class="full-unstyled-link">${data.name}</a></span>
+                                                                        <div class="price ${data.isDiscount ? "price--on-sale" : ""} ">
+                                                                <dl>
+                                                                    <div class="price__regular">
+                                                                        <dt>
+                                                                            <span class="visually-hidden visually-hidden--inline">Regular price</span>
+                                                                        </dt>
+                                                                        <dd>
+                                                                            <span class="price-item price-item--regular">
+                                                                                $${data.price}
+                                                                            </span>
+                                                                        </dd>
+                                                                    </div>
+                                                                    <div class="price__sale">
+                                                                        <dt>
+                                                                            <span class="visually-hidden visually-hidden--inline">Sale price</span>
+                                                                        </dt>
+                                                                        <dd>
+                                                                            <span class="price-item price-item--sale">
+                                                                                        $${data.finalPrice}
+                                                                            </span>
+                                                                        </dd>
+                                                                        <dt class="price__compare">
+                                                                            <span class="visually-hidden visually-hidden--inline">Regular price</span>
+                                                                        </dt>
+                                                                        <dd class="price__compare">
+                                                                            <s class="price-item price-item--regular">
+                                                                                    $${data.price}
+                                                                            </s>
+                                                                        </dd>
+                                                                    </div>
+                                                                    <small class="unit-price caption hidden">
+                                                                    <dt class="visually-hidden">Unit price</dt>
+                                                                    <dd>
+                                                                        <span></span>
+                                                                        <span aria-hidden="true">/</span>
+                                                                        <span class="visually-hidden">&nbsp;per&nbsp;</span>
+                                                                        <span>
+                                                                        </span>
+                                                                    </dd>
+                                                                    </small>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li><span class="form__label">Brand:</span><span>${data.brand}</span></li>
+                                                    <li><span class="form__label">Availability</span><span class="js-variant-availability">${data.availability ? "In Stock" : "Out Of Stock"}</span></li>
+                                        </ul>
+                                        `;
+                $(".compare__grid").append(textHtml)
+            });
+        };
+    </script>
+}

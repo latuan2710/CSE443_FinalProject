@@ -11,6 +11,28 @@ namespace CSE443_FinalProject.Models
         public double Price { get; set; }
         [Required]
         public int Quantity { get; set; }
+        public int discount { get; set; }
+        public bool IsDiscounted
+        {
+            get
+            {
+                return discount > 0;
+            }
+        }
+        public double finalPrice
+        {
+            get
+            {
+                return discount * Price;
+            }
+        }
+        public bool isAvailability
+        {
+            get
+            {
+                return Quantity > 0;
+            }
+        }
         public Brand Brand { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }
