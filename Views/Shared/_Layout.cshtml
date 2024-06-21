@@ -154,7 +154,7 @@
     </style>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    
 
     <script src="~/js/global.js" defer="defer"></script>
     <script src="~/js/jquery-ui.min.js"></script>
@@ -485,11 +485,11 @@
 
                                         foreach (var item in brands)
                                         {
-                                            <li>
-                                                <a asp-action="Catalog" asp-route-brands="@item.Name" class="site-cat__link site-cat__link--main">
-                                                    Cafe @item.Name
-                                                </a>
-                                            </li>
+                                                <li>
+                                                    <a asp-action="Catalog" asp-route-brands="@item.Name" class="site-cat__link site-cat__link--main">
+                                                        Cafe @item.Name
+                                                    </a>
+                                                </li>
                                         }
                                     }
                                 </ul>
@@ -983,6 +983,7 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
                   transform="translate(-80.93 -236.76)"></path>
         </svg>
     </a>
+    @await RenderSectionAsync("Scripts", required: false)
     <script>
         window.addEventListener('load', function () {
             const scrollPosition = JSON.parse(sessionStorage.getItem('scrollPosition'));
@@ -991,10 +992,8 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
                 sessionStorage.removeItem('scrollPosition'); // Clear the stored position
             }
         });
-
-        $("product-form form").submit((e) => {
+        function addToCart(e) {
             e.preventDefault();
-
             let productId = +$(e.target).find("input[name='productId']").val();
             var form = new FormData();
             form.append("productId", productId);
@@ -1022,7 +1021,8 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
                     console.error("Failed to add product to cart:", xhr.status, error);
                 }
             });
-        })
+        };
+        //$("product-form form").submit(addToCart)
     </script>
 </body>
 

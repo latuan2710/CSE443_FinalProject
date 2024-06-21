@@ -379,7 +379,9 @@
                                                         </svg>
                                                     </button>
                                                     <product-form class="product-form">
-                                                        <form method="post" id="ProductDrop" accept-charset="UTF-8" class="form" enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
+                                                        <form method="post" id="ProductDrop" accept-charset="UTF-8" class="form"
+                                                        onsubmit="addToCart(event)"
+                                                        enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
                                                             <div class="product-form__buttons">
                                                                 <button type="submit" name="add" class="product-form__submit button">
                                                                     Add to cart
@@ -423,7 +425,9 @@
                                                             </dl>
                                                         </div>
                                                         <product-form class="product-form">
-                                                            <form method="post" action="/cart/add" id="ProductDrop" accept-charset="UTF-8" class="form" enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
+                                                            <form method="post" action="/cart/add" id="ProductDrop" accept-charset="UTF-8"
+                                                                  onsubmit="addToCart(event)"
+                                                            class="form" enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
                                                                 <div class="product-form__buttons">
                                                                     <a asp-action="ProductDetail" asp-route-id="@item.Name"
                                                                        class="product-form__submit button select-button" title="Select option">

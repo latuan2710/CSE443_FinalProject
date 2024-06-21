@@ -11,19 +11,19 @@ namespace CSE443_FinalProject.Models
         public double Price { get; set; }
         [Required]
         public int Quantity { get; set; }
-        public int discount { get; set; }
+        public int Discount { get; set; }
         public bool IsDiscounted
         {
             get
             {
-                return discount > 0;
+                return Discount > 0;
             }
         }
         public double finalPrice
         {
             get
             {
-                return discount * Price;
+                return Discount * Price;
             }
         }
         public bool isAvailability

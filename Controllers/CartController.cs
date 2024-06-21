@@ -39,6 +39,8 @@ namespace CSE443_FinalProject.Controllers
                 .Include(u => u.Cart).ThenInclude(c => c.CartItems).ThenInclude(c => c.Coffee)
                 .FirstOrDefault(u => u.Email.Equals(User.Identity.Name));
 
+            quantity = quantity ?? 1;
+
             if (product.Quantity < quantity)
             {
                 return NotFound();

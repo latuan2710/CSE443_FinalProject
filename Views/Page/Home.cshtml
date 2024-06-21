@@ -160,7 +160,7 @@
                                                     </svg>
                                                 </button>
                                                 <product-form class="product-form">
-                                                    <form method="post" id="ProductDrop"
+                                                    <form method="post" id="ProductDrop" onsubmit="addToCart(event)"
                                                           accept-charset="UTF-8" class="form" enctype="multipart/form-data" novalidate="novalidate"
                                                           data-type="add-to-cart-form">
                                                         <input type="hidden" name="productId" value="@item.Id" />
@@ -396,7 +396,7 @@
                                                     </a>
                                                 </div>
                                                 <product-form class="product-form">
-                                                    <form method="post" action="https://cafebrew-codezeel.myshopify.com/cart/add" id="ProductDrop"
+                                                    <form method="post" onsubmit="addToCart(event)" id="ProductDrop"
                                                           accept-charset="UTF-8" class="form" enctype="multipart/form-data" novalidate="novalidate"
                                                           data-type="add-to-cart-form">
                                                         <input type="hidden" name="productId" value="@item.Id" />

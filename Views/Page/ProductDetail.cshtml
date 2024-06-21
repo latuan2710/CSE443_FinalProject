@@ -373,11 +373,11 @@
                                     </quantity-input>
                                 </div>
                                 <product-form class="product-form">
-                                    <form method="post" action="/cart/add"
+                                    <form method="post" onsubmit="addToCart(event)"
                                           id="product-form-template--16631469441317__main" accept-charset="UTF-8"
                                           class="form" enctype="multipart/form-data" novalidate="novalidate"
                                           data-type="add-to-cart-form">
-                                        <input type="hidden" name="id" value="43643342881061" />
+                                        <input type="hidden" name="productId" value="@Model.Id" />
                                         <div class="product-form__buttons">
                                             <button type="submit" name="add"
                                                     class="product-form__submit button button--secondary">
@@ -394,7 +394,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="product-id" value="7962875887909" />
                                     </form>
                                 </product-form>
                                 <div class="product-com-wish">

@@ -57,6 +57,11 @@ namespace CSE443_FinalProject.Controllers
             return View();
         }
 
+        public IActionResult Wishlist()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> BlogAsync(int? pageNumber)
         {
             var blogs = from b in _context.Blog select b;

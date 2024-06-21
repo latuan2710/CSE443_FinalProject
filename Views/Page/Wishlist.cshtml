@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Wishlist";
+}
+<partial name="_BreadcrumbsPartial" />
+<link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/component-loading-overlay.css?v=135534932159979988391666256837" rel="stylesheet" type="text/css" media="all">
+<link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/component-card.css?v=47224029539093769131691997330" rel="stylesheet" type="text/css" media="all">
+<main class="main-content" id="MainContent" role="main" tabindex="-1">
+    <div class="page-width contents">
+        <div class="main-container">
+            <section id="wishlist" class="wishlist">
+                <div id="shopify-section-template--16631469343013__main" class="shopify-section">
+                    <div class="wishlist__grid grid flex container loaded" grid-wishlist="">
+                    </div>
+                    <div class="wish-info" style="display: none;">
+                        <h3 class="no_products_data wish_msg">No products were added to your wishlist.</h3>
+                        <a asp-action="Catalog" class="link">
+                            Continue shopping
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+@section Scripts {
+    <script>
+        let arr = localStorage.getItem("shopify-wishlist").split(',');
+        for (const ele of arr) {
+            $.get(`/Coffees/GetProduct?name=${ele}`, (data) => {
+                let textHtml = `
+                                <div class="product-card card-wrapper underline-links-hover">
+                                                 <a href="/Page/ProductDetail/${data.name}" class="full-unstyled-link">
+                                                <div class="card card--card--text">
+                                                    <div class="card__inner">
+                                                        <div class="card__media1">
+                                                            <div class="media--transparent media--hover-effect">
+                                                                        <img src="${data.image}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="product-hover">
+                                                <button type="button" aria-label="Add to wishlist" class="cm-link btn--status active" button-wishlist="" data-product-handle="${data.name}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 18 17">
+                                                        <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div class="card-information">
+                                                <div class="card-information__wrapper">
+                                                    <div class="caption-with-letter-spacing light">${data.brand}</div>
+                                                    <span class="card-information__text h5">
+                                                                <a href="/Page/ProductDetail/${data.name}" role="link" aria-disabled="true" class="full-unstyled-link">
+                                                                    ${data.name}
+                                                        </a>
+                                                    </span>
+                                                    <product-form class="product-form">
+                                                        <form method="post" accept-charset="UTF-8" class="form"
+                                                                 onsubmit="addToCart(event)"
+                                                        enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
+                                                            <input type="hidden" name="productId" value="${data.id}" />
+                                                            <div class="product-form__buttons">
+                                                                <button type="submit" name="add" class="product-form__submit button button--primary">
+                                                                    Add to cart
+                                                                </button>
+                                                            </div>
+                                                            <div class="product-form__buttons_buy"></div>
+                                                        </form>
+                                                    </product-form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                `;
+                $(".wishlist__grid").append(textHtml)
+            });
+        };
+    </script>
+}

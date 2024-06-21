@@ -167,12 +167,13 @@ namespace CSE443_FinalProject.Controllers
 
             return Ok(new
             {
+                id = product.Id,
                 name = product.Name,
                 brand = product.Brand.Name,
                 image = product.Image,
                 price = product.Price,
                 isDiscount = product.IsDiscounted,
-                discount = product.discount,
+                discount = product.Discount,
                 finalPrice = product.finalPrice,
                 availability = product.isAvailability
             });
