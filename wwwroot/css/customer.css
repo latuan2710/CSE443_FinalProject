@@ -675,6 +675,7 @@ li[data-address] > h2 {
 .addresses form > div:nth-of-type(7), .addresses form > div:nth-of-type(7) + div[id] {
     margin-top: 1.5rem
 }
+
 .short-text {
     display: -webkit-box;
     -webkit-box-orient: vertical !important;
@@ -682,5 +683,10 @@ li[data-address] > h2 {
     overflow: hidden !important;
     max-height: 4.5em !important; /* Adjust based on line height */
     line-height: 1.5em !important; /* Line height for 3 lines */
+}
+
+.text-danger {
+    color: red;
+    text-align: left;
 }
 /*# sourceMappingURL=/cdn/shop/t/2/assets/customer.css.map?nonce=1716344638987 */

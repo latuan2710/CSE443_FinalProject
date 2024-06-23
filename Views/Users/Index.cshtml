@@ -11,20 +11,18 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Avatar)
+                Full Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FullName)
+                Create At
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Phone
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
+            <th>Status</th>
             <th></th>
         </tr>
     </thead>
@@ -33,31 +31,31 @@
         {
             <tr>
                 <td>
-                    @if (item == null)
+                    @if (item.Avatar == null)
                     {
-                        <img src="/images/default-avatar.png" />
+                        <img class="img-circle" style="width: 50px;height: 50px;" src="/images/default-avatar.png" />
                     }
                     else
                     {
-                        <img src="@item.Avatar" />
+                        <img class="img-circle" style="width: 50px;height: 50px;" src="@item.Avatar" />
                     }
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.FullName)
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td style="vertical-align: middle;">
+                    <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <button class="btn btn-outline-danger" onclick="Delete(@item.Id,'Users')" @(item.Email.Equals(User.Identity.Name) ? "disabled" : null)>Delete</button>
                 </td>
             </tr>
         }

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using CSE443_FinalProject.Models.AppViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using CSE443_FinalProject.Services;
+using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CSE443_FinalProject.Controllers
 {
@@ -15,21 +18,21 @@ namespace CSE443_FinalProject.Controllers
         private readonly MVCContext _context;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly FileService _fileService;
 
         public AccountController(
             SignInManager<AppUser> signInManager,
             MVCContext context,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager,
+            FileService fileService)
         {
             _signInManager = signInManager;
             _context = context;
             _userManager = userManager;
+            _fileService = fileService;
         }
 
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
+
 
         public async Task<IActionResult> Logout(string returnUrl = "")
         {
@@ -37,10 +40,7 @@ namespace CSE443_FinalProject.Controllers
             return LocalRedirect(returnUrl);
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -53,7 +53,8 @@ namespace CSE443_FinalProject.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
-                    LastName = model.LastName
+                    LastName = model.LastName,
+                    CreatedAt = DateTime.Now,
                 };
                 user.Role = Role.User;
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -73,10 +74,7 @@ namespace CSE443_FinalProject.Controllers
             return View();
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,7 +84,7 @@ namespace CSE443_FinalProject.Controllers
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "Invalid Login Attemp");
-                return View();
+                return RedirectToAction(controllerName: "Page", actionName: "Login");
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
@@ -115,13 +113,35 @@ namespace CSE443_FinalProject.Controllers
                 return RedirectToAction(controllerName: "Page", actionName: "Home");
             }
             ModelState.AddModelError("", "Email or Password was incorrect!");
-            return View();
+            return RedirectToAction(controllerName: "Page", actionName: "Login");
         }
 
-        public IActionResult ForgotPassword()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateProfile([Bind("FirstName,LastName,Id,PhoneNumber")] AppUser user, IFormFile formFile)
         {
-            return View();
-        }
+            if (ModelState.IsValid)
+            {
+                var name = Guid.NewGuid().ToString();
+                var mainUser = await _context.Users.FindAsync(user.Id);
 
+                if (formFile != null)
+                {
+                    if (mainUser.Avatar != null)
+                        _fileService.RemoveImage(mainUser.Avatar);
+
+                    mainUser.Avatar = "/upload/users/" + name + ".png";
+                    _fileService.SaveImage(formFile, "users", name);
+                }
+                mainUser.FirstName = user.FirstName;
+                mainUser.LastName = user.LastName;
+                mainUser.PhoneNumber = user.PhoneNumber;
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(controllerName: "Page", actionName: "Profile");
+            }
+            return RedirectToAction(controllerName: "Page", actionName: "Profile");
+        }
     }
 }

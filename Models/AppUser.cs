@@ -15,6 +15,7 @@ namespace CSE443_FinalProject.Models
         }
         public DateTime CreatedAt { get; set; }
         public string Avatar { get; set; }
+        public ICollection<Address> Addresses { get; set; }
         public Role Role { get; set; }
         public Cart Cart { get; set; }
         public ICollection<Order> Orders { get; set; }

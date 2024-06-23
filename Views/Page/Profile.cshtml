@@ -1,0 +1,143 @@
+﻿@model AppUser
+
+@inject UserManager<AppUser> UserManager
+
+@{
+    ViewData["Title"] = "Profile";
+}
+<link href="/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+<link href="/bootstrap-extra/css/bootstrap.css" rel="stylesheet" />
+<partial name="_BreadcrumbsPartial" />
+<main class="main-content" id="MainContent" role="main" tabindex="-1">
+    <div class="page-width contents">
+        <div class="main-container medium-up--three-quarters without-sidebar-main-container">
+            <link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/customer.css?v=150459491451913359031666256839" rel="stylesheet" type="text/css" media="all">
+            <div class="customer account">
+                <div></div>
+                <div>
+                    <div style="width: 50%;">
+                        <h2>Account details</h2>
+                        <form asp-action="UpdateProfile" asp-controller="Account" method="post" enctype="multipart/form-data">
+                            <input type="hidden" asp-for="Id" />
+                            <div class="form-group">
+                                <label for="formFile">Avatar</label>
+                                @{
+                                    var user = UserManager.FindByEmailAsync(User.Identity.Name);
+                                    var image = user?.Result?.Avatar;
+                                }
+                                <input id="formFile" type="file" class="dropify" name="formFile" data-height="100"
+                                       data-default-file="@(image ?? "/images/default-avatar.png")">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email">Email address</label>
+                                <input asp-for="Email" class="form-control" id="exampleInputEmail1" placeholder="Email" disabled>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="FirstName"></label>
+                                <input asp-for="FirstName" placeholder="Firs tName" class="form-control">
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="LastName"></label>
+                                <input asp-for="LastName" placeholder="Last Name" class="form-control">
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PhoneNumber"></label>
+                                <input asp-for="PhoneNumber" placeholder="Phone Number" class="form-control">
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Addresses"></label>
+                                <select class="form-control" asp-items="@(new SelectList(Model.Addresses, "FullAddress", "FullAddress"))">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="newAddress">New Address</label>
+                                <div class="align-items-center d-flex" style="margin-top: -20px;">
+                                    <input id="newAddress" name="newAddress" placeholder="New Address" class="form-control">
+                                    <button type="button" class="btn btn-primary" onclick="addAddress(@Model.Id);">Add</button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary m-0" style="width:100%;">Update</button>
+                        </form>
+                    </div>
+                    <div style="width: 50%;">
+                        <h2>Order history</h2>
+                        @if (Model.Orders.Count == 0)
+                        {
+                            <p>You haven't placed any orders yet.</p>
+                        }
+                        else
+                        {
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Order Id</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var orders = Model.Orders.ToArray();
+                                        for (int i = 0; i < orders.Length; i++)
+                                        {
+                                            var quanity = 0;
+                                            double price = 0;
+                                            foreach (var item in orders[i].OrderItems)
+                                            {
+                                                quanity += item.Quantity;
+                                                price += item.Price * item.Quantity;
+                                            }
+                                            <tr>
+                                                <td style="vertical-align: middle;" scope="row">
+                                                    @(i + 1)
+                                                </td>
+                                                <td style="vertical-align: middle;">@(orders[i].Id)</td>
+                                                <td style="vertical-align: middle;">@quanity</td>
+                                                <td style="vertical-align: middle;">$@price</td>
+                                                <td><a asp-action="OrderDetail" asp-route-id="@(orders[i].Id)" class="btn btn-info">Detail</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <link href="/admin/css/dropify.min.css" rel="stylesheet">
+    <script src="/admin/js/dropify.min.js"></script>
+    <script>
+        $('.dropify').dropify();
+        if (localStorage.getItem("success") === "true") {
+            Swal.fire({
+                title: "Success!",
+                icon: "success"
+            });
+            localStorage.removeItem("success");
+        }
+        function addAddress(id) {
+            let newAddress = $("input#newAddress").val();
+            $.post(`/Addresses/Create/${id}?newAddress=${newAddress}`, (data) => {
+                if (data.success) {
+                    localStorage.setItem("success", data.success);
+                }
+                location.reload();
+            });
+        };
+    </script>
+}

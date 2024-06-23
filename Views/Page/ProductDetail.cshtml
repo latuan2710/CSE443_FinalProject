@@ -331,7 +331,7 @@
                                 </div>
                                 <div class="product__type">
                                     <span class="availability">Availability</span>:
-                                    <span class="js-variant-availability instock">
+                                    <span class="js-variant-availability @(Model.IsAvailability?"instock":"outstock")">
                                         <span class="in_stock">In stock</span>
                                         <span class="out_of_stock">Out of stock</span>
                                     </span>
@@ -354,7 +354,7 @@
                                                       fill="currentColor"></path>
                                             </svg>
                                         </button>
-                                        <input class="quantity__input" type="number" name="quantity"
+                                        <input class="quantity__input" type="number" 
                                                id="Quantity-template--16631469441317__main" min="1" value="1"
                                                form="product-form-template--16631469441317__main" />
                                         <button class="quantity__button no-js-hidden" name="plus" type="button">
@@ -378,8 +378,9 @@
                                           class="form" enctype="multipart/form-data" novalidate="novalidate"
                                           data-type="add-to-cart-form">
                                         <input type="hidden" name="productId" value="@Model.Id" />
+                                        <input type="hidden" name="quantity" value="1" id="quantityDetail" />
                                         <div class="product-form__buttons">
-                                            <button type="submit" name="add"
+                                            <button type="submit" name="add" @(Model.IsAvailability ? null : "disabled")
                                                     class="product-form__submit button button--secondary">
                                                 Add to cart
                                             </button>
@@ -387,7 +388,7 @@
                                         <div class="product-form__buttons_buy">
                                             <div data-shopify="payment-button" class="shopify-payment-button">
                                                 <div class="wallet-button-fade-in">
-                                                    <button tabindex="0" type="button" role="button"
+                                                    <button tabindex="0" type="button" role="button" @(Model.IsAvailability ? null : "disabled")
                                                             class="shopify-payment-button__button shopify-payment-button__button--unbranded">
                                                         Buy it now
                                                     </button>
@@ -689,4 +690,3 @@
         })
     </script>
 }
-     

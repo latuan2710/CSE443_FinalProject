@@ -17,7 +17,7 @@
                         {
                             <div class="blog-articles__article article">
                                 <article class="article-card" aria-labelledby="Article-604293660965">
-                                    <a href="/blogs/news/coffee-beans-delivered-was-started-by-a-reformed-coffee-hater-1" class="article-content motion-reduce">
+                                    <a asp-action="BlogDetail" asp-route-id="@blog.Id" class="article-content motion-reduce">
                                         <div class="article-card__image-wrapper">
                                             <div class="article-card__image media media--landscape">
                                                 <img src="@blog.Image" alt="@blog.Title" width="900" height="692" loading="lazy" class="motion-reduce">
@@ -32,7 +32,7 @@
                                             <div class="article-card__footer">
                                             </div>
                                             <h2 class="article-card__title" id="Article-604293660965">
-                                                <a href="/blogs/news/coffee-beans-delivered-was-started-by-a-reformed-coffee-hater-1">
+                                                <a asp-action="BlogDetail" asp-route-id="@blog.Id">
                                                     @blog.Title
                                                 </a>
                                             </h2>
@@ -50,52 +50,55 @@
                             </div>
                         }
                     </div>
-                    <div class="pagination-wrapper">
-                        <nav class="pagination" role="navigation" aria-label="Pagination">
-                            <ul class="pagination__list list-unstyled" role="list">
-                                @if (Model.HasPreviousPage)
-                                {
-                                    <li>
-                                        <a asp-action="Blog" asp-route-pageNumber="@(Model.PageIndex-1)"
-                                           class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce" aria-label="Previous page">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lag" viewBox="0 0 24 24">
-                                                <path d="M24 24H0V0h24v24z" fill="none" opacity=".87"></path>
-                                                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                }
-                                @for (int i = 1; i <= Model.TotalPages; i++)
-                                {
+                    @if (Model.PageIndex != Model.TotalPages)
+                    {
+                        <div class="pagination-wrapper">
+                            <nav class="pagination" role="navigation" aria-label="Pagination">
+                                <ul class="pagination__list list-unstyled" role="list">
+                                    @if (Model.HasPreviousPage)
+                                    {
+                                        <li>
+                                            <a asp-action="Blog" asp-route-pageNumber="@(Model.PageIndex-1)"
+                                               class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce" aria-label="Previous page">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lag" viewBox="0 0 24 24">
+                                                    <path d="M24 24H0V0h24v24z" fill="none" opacity=".87"></path>
+                                                    <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    }
+                                    @for (int i = 1; i <= Model.TotalPages; i++)
+                                    {
 
-                                    if (i == Model.PageIndex)
+                                        if (i == Model.PageIndex)
+                                        {
+                                            <li>
+                                                <span class="pagination__item pagination__item--current" aria-current="page" aria-label="Page @i">@i</span>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a asp-action="Blog" asp-route-pageNumber="@i" class="pagination__item link" aria-label="Page @i">@i</a>
+                                            </li>
+                                        }
+                                    }
+                                    @if (Model.HasNextPage)
                                     {
                                         <li>
-                                            <span class="pagination__item pagination__item--current" aria-current="page" aria-label="Page @i">@i</span>
+                                            <a asp-action="Blog" asp-route-pageNumber="@(Model.PageIndex+1)"
+                                               class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce" aria-label="Next page">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lag" viewBox="0 0 24 24">
+                                                    <path d="M24 24H0V0h24v24z" fill="none" opacity=".87"></path>
+                                                    <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path>
+                                                </svg>
+                                            </a>
                                         </li>
                                     }
-                                    else
-                                    {
-                                        <li>
-                                            <a asp-action="Blog" asp-route-pageNumber="@i" class="pagination__item link" aria-label="Page @i">@i</a>
-                                        </li>
-                                    }
-                                }
-                                @if (Model.HasNextPage)
-                                {
-                                    <li>
-                                        <a asp-action="Blog" asp-route-pageNumber="@(Model.PageIndex+1)"
-                                           class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce" aria-label="Next page">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-lag" viewBox="0 0 24 24">
-                                                <path d="M24 24H0V0h24v24z" fill="none" opacity=".87"></path>
-                                                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </nav>
-                    </div>
+                                </ul>
+                            </nav>
+                        </div>
+                    }
                 </div>
             </section>
         </div>

@@ -17,16 +17,16 @@
                 <link href="//cafebrew-codezeel.myshopify.com/cdn/shop/t/2/assets/component-loading-overlay.css?v=135534932159979988391666256837" rel="stylesheet" type="text/css" media="all">
                 @{
                     var itemCount = Model?.Count() ?? 0;
-                    var cssClass = itemCount == 0 ? "page-width is-empty" : "page-width";
                 }
+                @if (itemCount != 0)
+                {
+                    <cart-items class="page-width">
+                        <div class="cart__warnings">
+                            <div class="cart_empty_icon">
+                                <svg class="icon icon-empty-cart" version="1.0" xmlns="http://www.w3.org/2000/svg" width="320.000000pt" height="258.000000pt" viewBox="0 0 320.000000 258.000000" preserveAspectRatio="xMidYMid meet">
 
-                <cart-items class="@cssClass">
-                    <div class="cart__warnings">
-                        <div class="cart_empty_icon">
-                            <svg class="icon icon-empty-cart" version="1.0" xmlns="http://www.w3.org/2000/svg" width="320.000000pt" height="258.000000pt" viewBox="0 0 320.000000 258.000000" preserveAspectRatio="xMidYMid meet">
-
-                                <g transform="translate(0.000000,258.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                                    <path d="M58 2568 c-25 -21 -28 -46 -9 -69 16 -20 39 -25 207 -46 103 -12 191
+                                    <g transform="translate(0.000000,258.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                                        <path d="M58 2568 c-25 -21 -28 -46 -9 -69 16 -20 39 -25 207 -46 103 -12 191
 -26 195 -30 4 -5 57 -298 119 -653 62 -355 134 -773 162 -930 27 -156 54 -290
 60 -297 7 -9 56 -13 161 -15 127 -3 152 -5 155 -18 2 -10 -10 -20 -31 -28 -63
 -23 -113 -68 -142 -126 -24 -48 -27 -65 -23 -125 5 -88 42 -152 112 -196 42
@@ -44,151 +44,212 @@
 -118 3 -41 -1 -58 -20 -86 -61 -90 -185 -91 -245 -1 -43 64 -23 158 42 201 37
 24 116 27 153 4z m1449 -4 c47 -28 66 -72 61 -137 -9 -106 -113 -164 -207
 -115 -47 23 -72 61 -78 114 -6 53 12 93 57 132 40 33 118 36 167 6z"></path>
-                                    <path d="M1550 1730 c-30 -30 -27 -83 6 -109 43 -34 86 -24 112 26 18 32 15
+                                        <path d="M1550 1730 c-30 -30 -27 -83 6 -109 43 -34 86 -24 112 26 18 32 15
 51 -13 78 -30 31 -77 33 -105 5z"></path>
-                                    <path d="M2050 1730 c-33 -33 -30 -75 6 -107 34 -31 60 -29 96 7 24 25 29 36
+                                        <path d="M2050 1730 c-33 -33 -30 -75 6 -107 34 -31 60 -29 96 7 24 25 29 36
 24 58 -14 58 -86 82 -126 42z"></path>
-                                    <path d="M1735 1450 c-125 -50 -232 -204 -165 -240 27 -14 44 -3 79 52 103
+                                        <path d="M1735 1450 c-125 -50 -232 -204 -165 -240 27 -14 44 -3 79 52 103
 162 326 155 411 -13 11 -20 27 -39 36 -43 21 -8 64 19 64 40 0 48 -90 153
 -165 192 -69 35 -188 41 -260 12z"></path>
-                                </g>
-                            </svg>
-                        </div>
-                        <h2 class="cart__empty-text">Your cart is empty</h2>
-                        <a href="/" class="link">Continue shopping</a>
-                    </div>
-                    <form asp-action="Update" asp-controller="Cart" class="cart__contents critical-hidden" method="post" id="cart">
-                        <div class="cart__items" id="main-cart-items" data-id="template--16631469113637__cart-items">
-                            <div class="js-contents">
-                                <table class="cart-items">
-                                    <thead>
-                                        <tr>
-                                            <th class="caption-with-letter-spacing" colspan="2" scope="col">Product</th>
-                                            <th class="right caption-with-letter-spacing" colspan="1" scope="col">Price</th>
-                                            <th class="cart-items__heading--wide medium-up caption-with-letter-spacing" colspan="1" scope="col">Quantity</th>
-                                            <th class="medium-up right caption-with-letter-spacing" colspan="1" scope="col">Total</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        @{
-                                            double subtotal = 0;
-                                        }
-                                        @foreach (var item in Model)
-                                        {
-                                            subtotal += (item.Price * item.Quantity);
-                                            <tr class="cart-item" id="CartItem-1">
-                                                <td class="cart-item__media">
-                                                    <img class="cart-item__image" src="@item.Coffee.Image" alt="Countrybean Refresh Coffee" loading="lazy" width="75" height="80">
-                                                </td>
-                                                <td class="cart-item__details">
-                                                    <a href="/products/copy-of-dapibus-in-viverra-2" class="cart-item__name break">Countrybean Refresh Coffee</a><dl></dl>
-                                                    <p class="cart-item__error" id="Line-item-error-1">
-                                                        <span class="cart-item__error-text"></span>
-                                                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
-                                                            <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"></circle>
-                                                            <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"></circle>
-                                                            <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"></path>
-                                                            <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
-                                                            </path>
-                                                        </svg>
-                                                    </p>
-                                                </td>
-                                                <td class="cart-item__prices right">
-                                                    <div class="cart-item__price-wrapper">
-                                                        <span class="price price--end">
-                                                            $@item.Price
-                                                        </span>
-                                                    </div>
-                                                </td>
-                                                <td class="cart-item__quantity">
-                                                    <label class="medium-down" for="Quantity-1">
-                                                        Quantity
-                                                    </label>
-                                                    <input type="hidden" name="cartItemId" value="@item.Id" />
-                                                    <quantity-input class="quantity" style="width: auto;">
-                                                        <button class="quantity__button no-js-hidden" name="minus" type="button">
-                                                            <span class="visually-hidden">Decrease quantity for Countrybean Refresh Coffee</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" fill="none" viewBox="0 0 10 2">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z" fill="currentColor">
-                                                                </path>
-                                                            </svg>
-                                                        </button>
-                                                        <input class="quantity__input" type="number" name="quantities" style="width: 50px;"
-                                                               value="@item.Quantity" min="0" aria-label="Quantity for Countrybean Refresh Coffee">
-                                                        <button class="quantity__button no-js-hidden" name="plus" type="button">
-                                                            <span class="visually-hidden">Increase quantity for Countrybean Refresh Coffee</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" fill="none" viewBox="0 0 10 10">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z" fill="currentColor">
-                                                                </path>
-                                                            </svg>
-                                                        </button>
-                                                    </quantity-input>
-                                                    <cart-remove-button id="Remove-1" data-index="1">
-                                                        <a asp-action="Delete" asp-controller="Cart" asp-route-id="@item.Id"
-                                                           class="button button--tertiary" aria-label="Remove Countrybean Refresh Coffee">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="presentation" class="icon icon-remove">
-                                                                <path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="currentColor"></path>
-                                                                <path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="currentColor"></path>
-                                                            </svg>
-                                                        </a>
-                                                    </cart-remove-button>
-                                                </td>
-                                                <td class="cart-item__totals right">
-                                                    <div class="loading-overlay hidden">
-                                                        <div class="loading-overlay__spinner">
-                                                            <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                                                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="cart-item__price-wrapper medium-up">
-                                                        <span class="price price--end">
-                                                            $@(item.Price * item.Quantity)
-                                                        </span>
-                                                    </div>
-                                                    <cart-remove-button id="Remove-1" data-index="1">
-                                                        <a asp-action="Delete" asp-controller="Cart" asp-route-id="@item.Id"
-                                                           class="button button--tertiary" aria-label="Remove Countrybean Refresh Coffee">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="presentation" class="icon icon-remove">
-                                                                <path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="currentColor"></path>
-                                                                <path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="currentColor"></path>
-                                                            </svg>
-                                                        </a>
-                                                    </cart-remove-button>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
+                                    </g>
+                                </svg>
                             </div>
+                            <h2 class="cart__empty-text">Your cart is empty</h2>
+                            <a href="/" class="link">Continue shopping</a>
                         </div>
-                        <div style="text-align: right;">
-                            <button type="submit" class="underlined-link button">Update</button>
-                        </div>
-                        <div class="cart__footer">
-                            <div>
+                        <form asp-action="Update" asp-controller="Cart" class="cart__contents critical-hidden" method="post" id="cart">
+                            <div class="cart__items" id="main-cart-items" data-id="template--16631469113637__cart-items">
                                 <div class="js-contents">
-                                    <div class="totals">
-                                        <h3 class="totals__subtotal">Subtotal</h3>
-                                        <p class="totals__subtotal-value">$@subtotal</p>
-                                    </div>
-                                    <small class="tax-note caption-large rte">
-                                        Taxes and shipping calculated at checkout
-                                    </small>
+                                    <table class="cart-items">
+                                        <thead>
+                                            <tr>
+                                                <th class="caption-with-letter-spacing" colspan="2" scope="col">Product</th>
+                                                <th class="right caption-with-letter-spacing" colspan="1" scope="col">Price</th>
+                                                <th class="cart-items__heading--wide medium-up caption-with-letter-spacing" colspan="1" scope="col">Quantity</th>
+                                                <th class="medium-up right caption-with-letter-spacing" colspan="1" scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @{
+                                                double subtotal = 0;
+                                            }
+                                            @foreach (var item in Model)
+                                            {
+                                                subtotal += (item.Price * item.Quantity);
+                                                <tr class="cart-item" id="CartItem-1">
+                                                    <td class="cart-item__media">
+                                                        <img class="cart-item__image" src="@item.Coffee.Image" alt="Countrybean Refresh Coffee" loading="lazy" width="75" height="80">
+                                                    </td>
+                                                    <td class="cart-item__details">
+                                                        <a asp-action="ProductDetail" asp-route-id="@item.Coffee.Name" class="cart-item__name break">@item.Coffee.Name</a><dl></dl>
+                                                        <p class="cart-item__error" id="Line-item-error-1">
+                                                            <span class="cart-item__error-text"></span>
+                                                            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+                                                                <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"></circle>
+                                                                <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"></circle>
+                                                                <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"></path>
+                                                                <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                                                                </path>
+                                                            </svg>
+                                                        </p>
+                                                    </td>
+                                                    <td class="cart-item__prices right">
+                                                        <div class="cart-item__price-wrapper">
+                                                            <span class="price price--end">
+                                                                $@item.Price
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="cart-item__quantity">
+                                                        <label class="medium-down" for="Quantity-1">
+                                                            Quantity
+                                                        </label>
+                                                        <input type="hidden" name="cartItemId" value="@item.Id" />
+                                                        <quantity-input class="quantity" style="width: auto;">
+                                                            <button class="quantity__button no-js-hidden" name="minus" type="button">
+                                                                <span class="visually-hidden">Decrease quantity for Countrybean Refresh Coffee</span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" fill="none" viewBox="0 0 10 2">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z" fill="currentColor">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                            <input class="quantity__input" type="number" name="quantities" style="width: 50px;"
+                                                                   value="@item.Quantity" min="0" aria-label="Quantity for Countrybean Refresh Coffee">
+                                                            <button class="quantity__button no-js-hidden" name="plus" type="button">
+                                                                <span class="visually-hidden">Increase quantity for Countrybean Refresh Coffee</span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" fill="none" viewBox="0 0 10 10">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z" fill="currentColor">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        </quantity-input>
+                                                        <cart-remove-button id="Remove-1" data-index="1">
+                                                            <a asp-action="Delete" asp-controller="Cart" asp-route-id="@item.Id"
+                                                               class="button button--tertiary" aria-label="Remove Countrybean Refresh Coffee">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="presentation" class="icon icon-remove">
+                                                                    <path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="currentColor"></path>
+                                                                    <path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="currentColor"></path>
+                                                                </svg>
+                                                            </a>
+                                                        </cart-remove-button>
+                                                    </td>
+                                                    <td class="cart-item__totals right">
+                                                        <div class="loading-overlay hidden">
+                                                            <div class="loading-overlay__spinner">
+                                                                <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                                                    <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="cart-item__price-wrapper medium-up">
+                                                            <span class="price price--end">
+                                                                $@(item.Price * item.Quantity)
+                                                            </span>
+                                                        </div>
+                                                        <cart-remove-button id="Remove-1" data-index="1">
+                                                            <a asp-action="Delete" asp-controller="Cart" asp-route-id="@item.Id"
+                                                               class="button button--tertiary" aria-label="Remove Countrybean Refresh Coffee">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="presentation" class="icon icon-remove">
+                                                                    <path d="M14 3h-3.53a3.07 3.07 0 00-.6-1.65C9.44.82 8.8.5 8 .5s-1.44.32-1.87.85A3.06 3.06 0 005.53 3H2a.5.5 0 000 1h1.25v10c0 .28.22.5.5.5h8.5a.5.5 0 00.5-.5V4H14a.5.5 0 000-1zM6.91 1.98c.23-.29.58-.48 1.09-.48s.85.19 1.09.48c.2.24.3.6.36 1.02h-2.9c.05-.42.17-.78.36-1.02zm4.84 11.52h-7.5V4h7.5v9.5z" fill="currentColor"></path>
+                                                                    <path d="M6.55 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5zM9.45 5.25a.5.5 0 00-.5.5v6a.5.5 0 001 0v-6a.5.5 0 00-.5-.5z" fill="currentColor"></path>
+                                                                </svg>
+                                                            </a>
+                                                        </cart-remove-button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="cart__ctas" style="justify-content: space-between;">
-                                    <a asp-action="Catalog" class="underlined-link button" style="text-wrap: nowrap;">Continue shopping</a>
-                                    <a asp-action="Checkout" type="submit" class="cart__checkout-button button" name="checkout" form="cart" style="margin-top: 0 !important;">
-                                        Check out
-                                    </a>
-                                </div>
-                                <div id="cart-errors"></div>
                             </div>
+                            <div style="text-align: right;">
+                                <button type="submit" class="underlined-link button">Update</button>
+                            </div>
+                            <div class="cart__footer">
+                                <div>
+                                    <div class="js-contents">
+                                        <div class="totals">
+                                            <h3 class="totals__subtotal">Subtotal</h3>
+                                            <p class="totals__subtotal-value">$@subtotal</p>
+                                        </div>
+                                        <small class="tax-note caption-large rte">
+                                            Taxes and shipping calculated at checkout
+                                        </small>
+                                    </div>
+                                    <div class="cart__ctas" style="justify-content: space-between;">
+                                        <a asp-action="Catalog" class="underlined-link button" style="text-wrap: nowrap;">Continue shopping</a>
+                                        <a asp-action="Checkout" type="submit" class="cart__checkout-button button" name="checkout" form="cart" style="margin-top: 0 !important;">
+                                            Check out
+                                        </a>
+                                    </div>
+                                    <div id="cart-errors"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </cart-items>
+                }
+                else
+                {
+                    <cart-items class="page-width is-empty">
+                        <div class="title-wrapper-with-link">
+                            <!--     <h1 class="title title--primary">Your cart</h1> -->
                         </div>
-                    </form>
-                </cart-items>
+
+                        <div class="cart__warnings">
+                            <div class="cart_empty_icon">
+                                <svg class="icon icon-empty-cart" version="1.0" xmlns="http://www.w3.org/2000/svg" width="320.000000pt" height="258.000000pt" viewBox="0 0 320.000000 258.000000" preserveAspectRatio="xMidYMid meet">
+
+                                    <g transform="translate(0.000000,258.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                                        <path d="M58 2568 c-25 -21 -28 -46 -9 -69 16 -20 39 -25 207 -46 103 -12 191
+-26 195 -30 4 -5 57 -298 119 -653 62 -355 134 -773 162 -930 27 -156 54 -290
+60 -297 7 -9 56 -13 161 -15 127 -3 152 -5 155 -18 2 -10 -10 -20 -31 -28 -63
+-23 -113 -68 -142 -126 -24 -48 -27 -65 -23 -125 5 -88 42 -152 112 -196 42
+-25 61 -30 125 -33 67 -2 82 1 126 25 98 55 148 164 125 269 -19 84 -82 158
+-158 185 -21 7 -32 18 -32 30 0 18 18 19 670 19 596 0 670 -2 670 -15 0 -9
+-19 -24 -43 -34 -125 -54 -184 -180 -146 -315 15 -53 100 -138 155 -154 218
+-64 405 150 304 348 -24 47 -88 104 -134 121 -23 8 -36 19 -36 31 0 16 12 18
+133 18 117 0 136 2 150 18 21 23 22 46 1 66 -14 14 -122 16 -1039 16 l-1023 0
+-11 68 c-7 37 -14 75 -17 85 -5 16 50 17 1060 17 954 0 1066 2 1080 16 9 8 16
+17 16 20 0 2 43 295 95 650 52 355 95 656 95 669 0 13 -6 27 -12 32 -7 4 -591
+10 -1297 13 l-1284 5 -28 149 c-15 82 -32 153 -38 159 -8 8 -362 60 -452 67
+-3 0 -12 -6 -21 -12z m3027 -490 c-2 -13 -41 -270 -85 -573 -44 -302 -83 -562
+-86 -577 l-6 -28 -1044 0 -1044 0 -5 23 c-2 12 -48 270 -100 572 -52 303 -98
+562 -101 578 l-6 27 1241 0 1241 0 -5 -22z m-1857 -1704 c43 -25 65 -63 70
+-118 3 -41 -1 -58 -20 -86 -61 -90 -185 -91 -245 -1 -43 64 -23 158 42 201 37
+24 116 27 153 4z m1449 -4 c47 -28 66 -72 61 -137 -9 -106 -113 -164 -207
+-115 -47 23 -72 61 -78 114 -6 53 12 93 57 132 40 33 118 36 167 6z"></path>
+                                        <path d="M1550 1730 c-30 -30 -27 -83 6 -109 43 -34 86 -24 112 26 18 32 15
+51 -13 78 -30 31 -77 33 -105 5z"></path>
+                                        <path d="M2050 1730 c-33 -33 -30 -75 6 -107 34 -31 60 -29 96 7 24 25 29 36
+24 58 -14 58 -86 82 -126 42z"></path>
+                                        <path d="M1735 1450 c-125 -50 -232 -204 -165 -240 27 -14 44 -3 79 52 103
+162 326 155 411 -13 11 -20 27 -39 36 -43 21 -8 64 19 64 40 0 48 -90 153
+-165 192 -69 35 -188 41 -260 12z"></path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <h2 class="cart__empty-text">Your cart is empty</h2>
+                            <a href="/collections/all" class="link">
+                                Continue shopping
+                            </a>
+                        </div>
+
+                        <form action="/cart" class="cart__contents critical-hidden" method="post" id="cart">
+                            <div class="cart__items" id="main-cart-items" data-id="template--16631469113637__cart-items">
+                                <div class="js-contents"></div>
+                            </div>
+
+                            <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status" aria-hidden="true">
+                                New subtotal: $0.00 USD
+                            </p>
+                            <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">Loading...</p>
+                            <a href="/collections/all" class="underlined-link button">Continue shopping</a>
+                        </form>
+
+                    </cart-items>
+                }
             </div>
         </div>
     </div>

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSE443_FinalProject.Data;
 using CSE443_FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CSE443_FinalProject.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class ContactsController : Controller
     {
         private readonly MVCContext _context;
@@ -26,8 +28,7 @@ namespace CSE443_FinalProject.Controllers
         }
 
         // POST: Contacts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Email,Phone,Message")] Contact contact)

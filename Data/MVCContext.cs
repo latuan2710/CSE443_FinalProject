@@ -26,5 +26,8 @@ public class MVCContext : IdentityDbContext<AppUser, IdentityRole<int>, int>
     public DbSet<Contact> Contact { get; set; }
     public DbSet<Cart> Cart { get; set; }
     public DbSet<CartItem> CartItem { get; set; }
+    public DbSet<Order> Order { get; set; }
+    public DbSet<OrderItem> OrderItem { get; set; }
+    public DbSet<Address> Address { get; set; }
 
 }

@@ -1,6 +1,13 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@inject UserManager<AppUser> UserManager
 
+@{
+    var user = UserManager.FindByEmailAsync(User.Identity.Name);
+    var avatar = user?.Result?.Avatar;
+    var username = user.Result.FullName;
+}
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -16,8 +23,10 @@
     <link href="/admin/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="/admin/css/sidebar-nav.min.css" rel="stylesheet">
     <link href="/admin/css/animate.css" rel="stylesheet">
-    <link href="/admin/css/style.css" rel="stylesheet"> 
+    <link href="/admin/css/style.css" rel="stylesheet">
     <link href="/admin/css/blue-dark.css" id="theme" rel="stylesheet">
+    <link href="/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+    <script src="/sweetalert2/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -54,18 +63,14 @@
                 <div class="user-profile">
                     <div class="dropdown user-pro-body">
                         <div>
-                            <img src="/admin/images/varun.jpg" alt="user-img" class="img-circle">
+                            <img style="height:50px" src="@(avatar??"/images/default-avatar.png")" alt="user-img" class="img-circle">
                         </div>
                         <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">
-                            Steave Gection <span class="caret"></span>
+                            @username <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu animated flipInY">
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                            <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+                            <li><a asp-controller="Page" asp-action="Profile"><i class="ti-user"></i> My Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
@@ -94,6 +99,12 @@
                         <a asp-controller="Blogs" asp-action="Index">
                             <i class="fa fa-circle-o text-danger"> </i>
                             <span class="hide-menu">Blogs</span>
+                        </a>
+                    </li>
+                    <li class="@(@ViewData["Title"]as string =="Order"?"selected":"")">
+                        <a asp-controller="Orders" asp-action="Index">
+                            <i class="fa fa-circle-o text-danger"> </i>
+                            <span class="hide-menu">Orders</span>
                         </a>
                     </li>
                     <li class="@(@ViewData["Title"]as string =="Contact"?"selected":"")">
@@ -151,6 +162,32 @@
     <script src="/admin/js/jquery.peity.init.js"></script>
     <!--Style Switcher -->
     <script src="/admin/js/jQuery.style.switcher.js"></script>
+    <script>
+        if (localStorage.getItem('success')) {
+            Swal.fire({
+                title: "Success!",
+                icon: "success"
+            });
+            localStorage.removeItem("success");
+        }
+        function Delete(id, controllers) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6 ",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.setItem("success", true)
+                    location.href = `/${controllers}/Delete/${id}`;
+                }
+            });
+
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

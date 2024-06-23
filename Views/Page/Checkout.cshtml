@@ -1,0 +1,114 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+<link href="/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+<partial name="_BreadcrumbsPartial" />
+<main class="main-content" id="MainContent" role="main" tabindex="-1">
+    <div class="page-width contents">
+        <div class="main-container medium-up--three-quarters without-sidebar-main-container">
+            <div class="row">
+                <div class="col-md-6 container">
+                    <div class="customer">
+                        <form method="post" asp-controller="Orders" asp-action="Checkout">
+                            <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
+                            <div class="field">
+                                <input id="FullName" name="FullName" placeholder="FullName" required>
+                                <label for="FullName">FullName</label>
+                            </div>
+                            <div class="field">
+                                <input asp-for="Phone" placeholder="Phone" value="@ViewBag.Phone" required>
+                                <label asp-for="Phone">Phone</label>
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="field">
+                                <select asp-for="Address">
+                                    @foreach (var item in ViewBag.Addresses)
+                                    {
+                                        <option value="@item.FullAddress">@item.FullAddress</option>
+                                    }
+                                    @if (ViewBag.Addresses.Count == 0)
+                                    {
+                                        <option>---NoAddress---</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="field">
+                                <input name="newAddress" id="newAddress" placeholder="New Address" @(ViewBag.Addresses.Count == 0 ? "required" : null)>
+                                <label for="newAddress">New Address</label>
+                            </div>
+                            <button type="submit" style="width: 100%;margin:0;" class="mt-5">Checkout</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6" style="border-left: 1px solid #5d5d5d;">
+                    <div style="margin: 6rem 9rem;color: #000 !important;">
+                        <div aria-labelledby="MoneyLine-Heading0">
+                            @{
+                                var cartItems = ViewBag.Cart.CartItems;
+                                double total = 0;
+                            }
+                            @foreach (var item in cartItems)
+                            {
+                                total += (item.Quantity * item.Price);
+                                <div role="row" class="align-items-center mb-3 row">
+                                    <div class="col-md-4">
+                                        <div class="image" style="width: 100px;position:relative;padding: 5px;border: 1px solid #80808066;border-radius: 5px;">
+                                            <img src="@item.Coffee.Image" alt="@item.Coffee.Name" />
+                                            <span style="position: absolute;
+                                                    background-color: gray;
+                                                    border-radius: 50%;
+                                                    width: 20px;
+                                                    height: 20px;
+                                                    text-align: center;
+                                                    top: 0;
+                                                    right: 0;
+                                                    color: white;
+                                                    font-weight: bold;">
+                                                @item.Quantity
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="name">
+                                            @item.Coffee.Name
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="text-align: right;">
+                                        <span translate="yes"> $@(item.Price * item.Quantity)</span>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                        <div aria-labelledby="MoneyLine-Heading0" class="mt-5">
+                            <div role="row" class="row">
+                                <div class="col-md-8">
+                                    <span>Subtotal</span>
+                                </div>
+                                <div class="col-md-4" style="text-align: right;">
+                                    <span translate="yes">$@total</span>
+                                </div>
+                            </div>
+                            <div role="row" class="row">
+                                <div class="col-md-8">
+                                    <span>Total</span>
+                                </div>
+                                <div class="col-md-4" style="text-align: right;">
+                                    <span translate="yes">$@total</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

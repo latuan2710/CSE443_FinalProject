@@ -13,6 +13,7 @@
             <th>Image</th>
             <th>Name</th>
             <th>Brand</th>
+            <th>Discount(%)</th>
             <th>Price</th>
             <th>Quantity</th>
             <th></th>
@@ -32,7 +33,10 @@
                     @Html.DisplayFor(modelItem => item.Brand.Name)
                 </td>
                 <td class="align-middle">
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => item.Discount)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.FinalPrice)
                 </td>
                 <td class="align-middle">
                     @Html.DisplayFor(modelItem => item.Quantity)

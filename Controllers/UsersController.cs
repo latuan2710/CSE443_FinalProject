@@ -7,16 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CSE443_FinalProject.Data;
 using CSE443_FinalProject.Models;
+using CSE443_FinalProject.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Authorization;
+using CSE443_FinalProject.Models.AppViewModels;
 
 namespace CSE443_FinalProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly MVCContext _context;
+        private readonly FileService _fileService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public UsersController(MVCContext context)
+        public UsersController(MVCContext context, FileService fileService, UserManager<AppUser> userManager)
         {
             _context = context;
+            _fileService = fileService;
+            _userManager = userManager;
         }
 
         // GET: Users
@@ -25,44 +36,50 @@ namespace CSE443_FinalProject.Controllers
             return View(await _context.Users.ToListAsync());
         }
 
-        // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
-        }
-
         // GET: Users/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,CreatedAt,Avatar,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] AppUser user)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,Password")] RegisterViewModel model, Role role, IFormFile Avatar)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var name = Guid.NewGuid().ToString();
+                var user = new AppUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Role = role,
+                    CreatedAt = DateTime.Now,
+                };
+                if (Avatar == null)
+                {
+                    user.Avatar = "/images/default-avatar.png";
+                }
+                else
+                {
+                    user.Avatar = "/upload/users/" + name + ".png";
+                }
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    if (Avatar != null)
+                        _fileService.SaveImage(Avatar, "users", name);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View(user);
+                }
+
             }
-            return View(user);
+            return View(model);
         }
 
         // GET: Users/Edit/5
@@ -78,6 +95,7 @@ namespace CSE443_FinalProject.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Avatar = user.Avatar;
             return View(user);
         }
 
@@ -86,19 +104,36 @@ namespace CSE443_FinalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FirstName,LastName,CreatedAt,Avatar,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] AppUser user)
+        public async Task<IActionResult> Edit(int id, [Bind("FirstName,LastName,PhoneNumber,Role,Id")] AppUser user, IFormFile Avatar)
         {
             if (id != user.Id)
             {
                 return NotFound();
             }
 
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(user);
+                    var name = Guid.NewGuid().ToString();
+                    var mainUser = await _context.Users.FindAsync(user.Id);
+
+                    if (Avatar != null)
+                    {
+                        if (mainUser.Avatar != null)
+                            _fileService.RemoveImage(mainUser.Avatar);
+
+                        mainUser.Avatar = "/upload/users/" + name + ".png";
+                    }
+                    mainUser.FirstName = user.FirstName;
+                    mainUser.LastName = user.LastName;
+                    mainUser.PhoneNumber = user.PhoneNumber;
+                    mainUser.Role = user.Role;
+
                     await _context.SaveChangesAsync();
+                    if (Avatar != null)
+                        _fileService.SaveImage(Avatar, "users", name);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -130,22 +165,13 @@ namespace CSE443_FinalProject.Controllers
             {
                 return NotFound();
             }
-
-            return View(user);
-        }
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user != null)
+            else
             {
                 _context.Users.Remove(user);
+
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

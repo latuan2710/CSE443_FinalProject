@@ -89,9 +89,12 @@
                                                                          height="1000" />
                                                                 </div>
                                                             </div>
-                                                            <div class="grid-product__on-sale card__badge">
-                                                                <span class="badge badge--bottom-left" aria-hidden="true">-13%</span>
-                                                            </div>
+                                                            @if (item.IsDiscounted)
+                                                            {
+                                                                <div class="grid-product__on-sale card__badge">
+                                                                    <span class="badge badge--bottom-left" aria-hidden="true">-@item.Discount%</span>
+                                                                </div>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </a>
@@ -115,16 +118,16 @@
 			c1.901,1.754,3.73,3.583,5.484,5.484l20.804,21.948c6.856,6.812,17.925,6.812,24.781,0l20.804-21.931
 			c36.125-39.154,97.152-41.609,136.306-5.484c1.901,1.754,3.73,3.583,5.484,5.484C453.913,125.078,454.207,191.516,413.787,234.226
 			z"></path>
-                                                                                                  </g>
-                                                                                                </g>
-                                                                                              </svg>
+                                                                                                      </g>
+                                                                                                    </g>
+                                                                                                  </svg>
                                                     <svg class="icon added icon-solidheart" version="1.1" id="Capa_1"
                                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
                                                          y="0px" width="510px" height="510px" viewBox="0 0 512 512"
                                                          style="enable-background: new 0 0 510 510" xml:space="preserve">
                                                     <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z">
-                                                                                                </path>
-                                                                                              </svg>
+                                                                                                    </path>
+                                                                                                  </svg>
                                                 </button>
                                                 <button type="button" aria-label="Add to compare" class="cm-link btn--status" button-compare=""
                                                         data-product-handle="@(item.Name)">
@@ -139,8 +142,8 @@
                               C102.07,86.523,174.397,40,256,40c74.377,0,141.499,38.731,179.953,99.408l-28.517-20.367c-8.989-6.419-21.48-4.337-27.899,4.651
                               c-6.419,8.989-4.337,21.479,4.651,27.899l86.475,61.761c12.674,9.035,30.155,0.764,31.541-14.459l9.711-106.53
                               C512.919,81.362,504.815,71.632,493.815,70.629z"></path>
-                                                                                                  </g>
-                                                                                                </g>
+                                                                                                      </g>
+                                                                                                    </g>
                                                     <g>
                                                     <g>
                                                     <path d="M472.855,346.238c-9.838-5.023-21.884-1.122-26.908,8.715C409.93,425.477,337.603,472,256,472
@@ -148,10 +151,10 @@
                               c6.419-8.989,4.337-21.479-4.651-27.899l-86.475-61.761c-12.519-8.944-30.141-0.921-31.541,14.459l-9.711,106.53
                               c-1.003,11,7.102,20.73,18.101,21.733c11.014,1.001,20.731-7.112,21.733-18.102l2.65-29.069C87.527,464.806,165.571,512,256,512
                               c97.281,0,183.012-55.522,225.57-138.854C486.594,363.309,482.692,351.262,472.855,346.238z">
-                                                                                                    </path>
-                                                                                                  </g>
-                                                                                                </g>
-                                                                                              </svg>
+                                                                                                        </path>
+                                                                                                      </g>
+                                                                                                    </g>
+                                                                                                  </svg>
                                                     <svg class="icon added icon-checked" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                                          viewBox="0 0 26 26" xmlns:xlink="http://www.w3.org/1999/xlink"
                                                          enable-background="new 0 0 26 26">
@@ -165,7 +168,7 @@
                                                           data-type="add-to-cart-form">
                                                         <input type="hidden" name="productId" value="@item.Id" />
                                                         <div class="product-form__buttons">
-                                                            <button type="submit" name="add" class="product-form__submit button">
+                                                            <button type="submit" name="add" class="product-form__submit button" @(item.IsAvailability ? null : "disabled")>
                                                                 Add to cart
                                                                 <svg class="icon" id="i-cart" version="1.1"
                                                                      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
@@ -175,8 +178,8 @@
                                                                 <path d="M412,130h-60.9C343.1,62.5,285.6,0,216,0S88.9,62.5,80.9,130H20c-11,0-20,9-20,20v352c0,11,9,20,20,20h392c11,0,20-9,20-20
 		V150C432,139,423,130,412,130z M216,40c47.5,0,87,44.7,94.7,90H121.3C129,84.7,168.5,40,216,40z M392,482H40V170h40v30
 		c0,11,9,20,20,20s20-9,20-20v-30h192v30c0,11,9,20,20,20s20-9,20-20v-30h40V482z"></path>
-                                                                                                      </g>
-                                                                                                    </svg>
+                                                                                                          </g>
+                                                                                                        </svg>
                                                             </button>
                                                         </div>
                                                     </form>
@@ -198,7 +201,7 @@
                                                         various ethnic dresses with cap sleeve sleeve
                                                         designs to give a flawless...
                                                     </span>
-                                                    <div class="price">
+                                                    <div class="price @(item.IsDiscounted?"price--on-sale":null)">
                                                         <dl>
                                                             <div class="price__regular">
                                                                 <dt>
@@ -209,21 +212,26 @@
                                                                 </dt>
                                                                 <dd>
                                                                     <span class="price-item price-item--regular">
-                                                                        $250.00
+                                                                        $@item.FinalPrice
                                                                     </span>
                                                                 </dd>
                                                             </div>
                                                             <div class="price__sale">
                                                                 <dt>
-                                                                    <span class="visually-hidden visually-hidden--inline">
-                                                                        Sale
-                                                                        price
-                                                                    </span>
+                                                                    <span class="visually-hidden visually-hidden--inline">Sale price</span>
                                                                 </dt>
                                                                 <dd>
                                                                     <span class="price-item price-item--sale">
-                                                                        $250.00
+                                                                        $@item.FinalPrice
                                                                     </span>
+                                                                </dd>
+                                                                <dt class="price__compare">
+                                                                    <span class="visually-hidden visually-hidden--inline">Regular price</span>
+                                                                </dt>
+                                                                <dd class="price__compare">
+                                                                    <s class="price-item price-item--regular">
+                                                                        $@item.Price
+                                                                    </s>
                                                                 </dd>
                                                             </div>
                                                         </dl>
@@ -284,7 +292,7 @@
                                     <span class="products">
                                         <div class="card-wrapper">
                                             <div class="card-img">
-                                                <a href="https://cafebrew-codezeel.myshopify.com/products/et-harum-quidem"
+                                                <a asp-controller="Page" asp-action="ProductDetail" asp-route-id="@item.Name"
                                                    class="full-unstyled-link">
                                                     <span class="visually-hidden">@(item.Name)</span>
                                                     <div class="card card--product" tabindex="-1">
@@ -297,9 +305,12 @@
                                                                          height="1000" />
                                                                 </div>
                                                             </div>
-                                                            <div class="grid-product__on-sale card__badge">
-                                                                <span class="badge badge--bottom-left" aria-hidden="true">-13%</span>
-                                                            </div>
+                                                            @if (item.IsDiscounted)
+                                                            {
+                                                                <div class="grid-product__on-sale card__badge">
+                                                                    <span class="badge badge--bottom-left" aria-hidden="true">-@item.Discount%</span>
+                                                                </div>
+                                                            }
                                                         </div>
                                                     </div>
                                                 </a>
@@ -323,16 +334,16 @@
 			c1.901,1.754,3.73,3.583,5.484,5.484l20.804,21.948c6.856,6.812,17.925,6.812,24.781,0l20.804-21.931
 			c36.125-39.154,97.152-41.609,136.306-5.484c1.901,1.754,3.73,3.583,5.484,5.484C453.913,125.078,454.207,191.516,413.787,234.226
 			z"></path>
-                                                                                              </g>
-                                                                                            </g>
-                                                                                          </svg>
+                                                                                                          </g>
+                                                                                                        </g>
+                                                                                                      </svg>
                                                     <svg class="icon added icon-solidheart" version="1.1" id="Capa_1"
                                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
                                                          y="0px" width="510px" height="510px" viewBox="0 0 512 512"
                                                          style="enable-background: new 0 0 510 510" xml:space="preserve">
                                                     <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z">
-                                                                                            </path>
-                                                                                          </svg>
+                                                                                                        </path>
+                                                                                                      </svg>
                                                 </button>
                                                 <button type="button" aria-label="Add to compare" class="cm-link btn--status" button-compare=""
                                                         data-product-handle="@(item.Name)">
@@ -347,8 +358,8 @@
                               C102.07,86.523,174.397,40,256,40c74.377,0,141.499,38.731,179.953,99.408l-28.517-20.367c-8.989-6.419-21.48-4.337-27.899,4.651
                               c-6.419,8.989-4.337,21.479,4.651,27.899l86.475,61.761c12.674,9.035,30.155,0.764,31.541-14.459l9.711-106.53
                               C512.919,81.362,504.815,71.632,493.815,70.629z"></path>
-                                                                                              </g>
-                                                                                            </g>
+                                                                                                          </g>
+                                                                                                        </g>
                                                     <g>
                                                     <g>
                                                     <path d="M472.855,346.238c-9.838-5.023-21.884-1.122-26.908,8.715C409.93,425.477,337.603,472,256,472
@@ -356,10 +367,10 @@
                               c6.419-8.989,4.337-21.479-4.651-27.899l-86.475-61.761c-12.519-8.944-30.141-0.921-31.541,14.459l-9.711,106.53
                               c-1.003,11,7.102,20.73,18.101,21.733c11.014,1.001,20.731-7.112,21.733-18.102l2.65-29.069C87.527,464.806,165.571,512,256,512
                               c97.281,0,183.012-55.522,225.57-138.854C486.594,363.309,482.692,351.262,472.855,346.238z">
-                                                                                                </path>
-                                                                                              </g>
-                                                                                            </g>
-                                                                                          </svg>
+                                                                                                            </path>
+                                                                                                          </g>
+                                                                                                        </g>
+                                                                                                      </svg>
                                                     <svg class="icon added icon-checked" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                                          viewBox="0 0 26 26" xmlns:xlink="http://www.w3.org/1999/xlink"
                                                          enable-background="new 0 0 26 26">
@@ -367,41 +378,13 @@
                                                         </path>
                                                     </svg>
                                                 </button>
-                                                <div class="quick-view-button">
-                                                    <a class="quick-view cm-link btn--status" data-handle="@(item.Name)"
-                                                       href="javascript:void(0);">
-                                                        <svg class="icon fa-eye fa-w-18" fill="#000" width="50px"
-                                                             height="50px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                                                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 511.999 511.999"
-                                                             style="
-                                  enable-background: new 0 0 511.999 511.999;
-                                                                                                " xml:space="preserve">
-                                                        <g>
-                                                        <g>
-                                                        <path d="M508.745,246.041c-4.574-6.257-113.557-153.206-252.748-153.206S7.818,239.784,3.249,246.035
-			c-4.332,5.936-4.332,13.987,0,19.923c4.569,6.257,113.557,153.206,252.748,153.206s248.174-146.95,252.748-153.201
-			C513.083,260.028,513.083,251.971,508.745,246.041z M255.997,385.406c-102.529,0-191.33-97.533-217.617-129.418
-			c26.253-31.913,114.868-129.395,217.617-129.395c102.524,0,191.319,97.516,217.617,129.418
-			C447.361,287.923,358.746,385.406,255.997,385.406z"></path>
-                                                                                                </g>
-                                                                                              </g>
-                                                        <g>
-                                                        <g>
-                                                        <path d="M255.997,154.725c-55.842,0-101.275,45.433-101.275,101.275s45.433,101.275,101.275,101.275
-			s101.275-45.433,101.275-101.275S311.839,154.725,255.997,154.725z M255.997,323.516c-37.23,0-67.516-30.287-67.516-67.516
-			s30.287-67.516,67.516-67.516s67.516,30.287,67.516,67.516S293.227,323.516,255.997,323.516z"></path>
-                                                                                                </g>
-                                                                                              </g>
-                                                                                            </svg>
-                                                    </a>
-                                                </div>
                                                 <product-form class="product-form">
-                                                    <form method="post" onsubmit="addToCart(event)" id="ProductDrop"
+                                                    <form method="post" id="ProductDrop" onsubmit="addToCart(event)"
                                                           accept-charset="UTF-8" class="form" enctype="multipart/form-data" novalidate="novalidate"
                                                           data-type="add-to-cart-form">
                                                         <input type="hidden" name="productId" value="@item.Id" />
                                                         <div class="product-form__buttons">
-                                                            <button type="submit" name="add" class="product-form__submit button">
+                                                            <button type="submit" name="add" class="product-form__submit button" @(item.IsAvailability ? null : "disabled")>
                                                                 Add to cart
                                                                 <svg class="icon" id="i-cart" version="1.1"
                                                                      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
@@ -411,8 +394,8 @@
                                                                 <path d="M412,130h-60.9C343.1,62.5,285.6,0,216,0S88.9,62.5,80.9,130H20c-11,0-20,9-20,20v352c0,11,9,20,20,20h392c11,0,20-9,20-20
 		V150C432,139,423,130,412,130z M216,40c47.5,0,87,44.7,94.7,90H121.3C129,84.7,168.5,40,216,40z M392,482H40V170h40v30
 		c0,11,9,20,20,20s20-9,20-20v-30h192v30c0,11,9,20,20,20s20-9,20-20v-30h40V482z"></path>
-                                                                                                  </g>
-                                                                                                </svg>
+                                                                                                              </g>
+                                                                                                            </svg>
                                                             </button>
                                                         </div>
                                                     </form>
@@ -434,7 +417,7 @@
                                                         various ethnic dresses with cap sleeve sleeve
                                                         designs to give a flawless...
                                                     </span>
-                                                    <div class="price">
+                                                    <div class="price @(item.IsDiscounted?"price--on-sale":null)">
                                                         <dl>
                                                             <div class="price__regular">
                                                                 <dt>
@@ -445,21 +428,26 @@
                                                                 </dt>
                                                                 <dd>
                                                                     <span class="price-item price-item--regular">
-                                                                        $250.00
+                                                                        $@item.FinalPrice
                                                                     </span>
                                                                 </dd>
                                                             </div>
                                                             <div class="price__sale">
                                                                 <dt>
-                                                                    <span class="visually-hidden visually-hidden--inline">
-                                                                        Sale
-                                                                        price
-                                                                    </span>
+                                                                    <span class="visually-hidden visually-hidden--inline">Sale price</span>
                                                                 </dt>
                                                                 <dd>
                                                                     <span class="price-item price-item--sale">
-                                                                        $250.00
+                                                                        $@item.FinalPrice
                                                                     </span>
+                                                                </dd>
+                                                                <dt class="price__compare">
+                                                                    <span class="visually-hidden visually-hidden--inline">Regular price</span>
+                                                                </dt>
+                                                                <dd class="price__compare">
+                                                                    <s class="price-item price-item--regular">
+                                                                        $@item.Price
+                                                                    </s>
                                                                 </dd>
                                                             </div>
                                                         </dl>
@@ -505,7 +493,7 @@
                                 {
                                     <li class="blog__post grid__item article slider__slide slider__slide--full-width">
                                         <article class="article-card" aria-labelledby="Article-604293660965">
-                                            <a href="https://cafebrew-codezeel.myshopify.com/blogs/news/coffee-beans-delivered-was-started-by-a-reformed-coffee-hater-1"
+                                            <a asp-action="BlogDetail" asp-route-id="@blog.Id"
                                                class="article-content motion-reduce">
                                                 <div class="article-card__image-wrapper">
                                                     <div class="article-card__image media media--landscape">
@@ -519,12 +507,12 @@
                                                 <header class="article-card__header">
                                                     <span class="circle-divider caption-with-letter-spacing">
                                                         <time datetime="@blog.CreatedAt">
-                                                            21 Oct, 2022
+                                                            @blog.CreatedAt
                                                         </time>
                                                     </span>
                                                     <div class="article-card__footer"></div>
                                                     <h2 class="article-card__title" id="Article-604293660965">
-                                                        <a href="https://cafebrew-codezeel.myshopify.com/blogs/news/coffee-beans-delivered-was-started-by-a-reformed-coffee-hater-1">
+                                                        <a asp-action="BlogDetail" asp-route-id="@blog.Id">
                                                             @blog.Title
                                                         </a>
                                                     </h2>

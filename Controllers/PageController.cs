@@ -1,9 +1,9 @@
 using CSE443_FinalProject.Data;
 using CSE443_FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using System.Drawing.Printing;
 
 namespace CSE443_FinalProject.Controllers
 {
@@ -62,11 +62,53 @@ namespace CSE443_FinalProject.Controllers
             return View();
         }
 
-        public async Task<IActionResult> BlogAsync(int? pageNumber)
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            return View(await _context.Users
+                .Include(u => u.Orders).ThenInclude(u => u.OrderItems).ThenInclude(u => u.Coffee)
+                .Include(u => u.Addresses)
+                .FirstOrDefaultAsync(u => u.Email.Equals(User.Identity.Name)));
+        }
+
+        public async Task<IActionResult> OrderDetail(int? id)
+        {
+            return View(await _context.OrderItem
+                .Include(o=>o.Coffee)
+                .Where(o => o.OrderId == id)
+                .ToListAsync());
+        }
+
+        public async Task<IActionResult> Blog(int? pageNumber)
         {
             var blogs = from b in _context.Blog select b;
 
             return View(await PaginatedList<Blog>.CreateAsync(blogs.AsNoTracking(), pageNumber ?? 1, 6));
+        }
+
+        public async Task<IActionResult> BlogDetail(int? id)
+        {
+            return View(await _context.Blog.FindAsync(id));
         }
 
         public async Task<IActionResult> Catalog(
@@ -74,9 +116,16 @@ namespace CSE443_FinalProject.Controllers
             int? availability,
             int? minPrice,
             int? maxPrice,
+            string? q,
             string[] brands)
         {
             var products = from b in _context.Coffee select b;
+
+            if (q != null)
+            {
+                products = products.Where(p => p.Name.Contains(q));
+                ViewBag.SearchString = q;
+            }
 
             if (availability == 0)
             {
@@ -124,6 +173,7 @@ namespace CSE443_FinalProject.Controllers
             return View(product);
         }
 
+        [Authorize]
         public async Task<IActionResult> Cart()
         {
             if (User.Identity.IsAuthenticated)
@@ -131,6 +181,8 @@ namespace CSE443_FinalProject.Controllers
                 var cart = await _context.Cart
                 .Include(c => c.CartItems).ThenInclude(c => c.Coffee)
                 .FirstOrDefaultAsync(c => c.User.Email.Equals(User.Identity.Name));
+                if (cart == null)
+                    return View();
                 return View(cart.CartItems);
             }
             else
@@ -138,6 +190,22 @@ namespace CSE443_FinalProject.Controllers
                 return View();
             }
         }
+
+        [Authorize]
+        public async Task<IActionResult> Checkout()
+        {
+            var user = await _context.Users
+                .AsNoTracking()
+                .Include(c => c.Cart).ThenInclude(c => c.CartItems).ThenInclude(c => c.Coffee)
+                .Include(u => u.Addresses)
+                .FirstOrDefaultAsync(u => u.Email.Equals(User.Identity.Name));
+            ViewBag.UserId = user.Id;
+            ViewBag.Addresses = user.Addresses;
+            ViewBag.Cart = user.Cart;
+            ViewBag.Phone = user.PhoneNumber;
+            return View();
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

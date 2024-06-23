@@ -144,6 +144,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="q" value="@ViewBag.SearchString" />
                             </form>
                         </facet-filters-form>
                     </div>
@@ -168,6 +169,12 @@
                           rel="stylesheet" type="text/css" media="all" />
                     <script src="/js/facets.js"
                             defer="defer"></script>
+                    @if (ViewBag.SearchString != null)
+                    {
+                        <h1 style="float: left;margin-left: 0;">
+                            Search: @(Model?.Count ?? 0) Results Found For "@ViewBag.SearchString"
+                        </h1>
+                    }
                     <div class="collection-btn">
                         <div class="btn-group">
                             <a href="#" id="col_4" class="btn btn-default btn-sm active">
@@ -302,6 +309,12 @@
                                                                              height="1000" />
                                                                     </div>
                                                                 </div>
+                                                                @if (item.IsDiscounted)
+                                                                {
+                                                                    <div class="grid-product__on-sale card__badge">
+                                                                        <span class="badge badge--bottom-left" aria-hidden="true">-@item.Discount%</span>
+                                                                    </div>
+                                                                }
                                                             </div>
                                                         </div>
                                                     </a>
@@ -330,17 +343,17 @@
                 c1.901,1.754,3.73,3.583,5.484,5.484l20.804,21.948c6.856,6.812,17.925,6.812,24.781,0l20.804-21.931
                 c36.125-39.154,97.152-41.609,136.306-5.484c1.901,1.754,3.73,3.583,5.484,5.484C453.913,125.078,454.207,191.516,413.787,234.226
                 z"></path>
-                                                                                                                    </g>
-                                                                                                                </g>
-                                                                                                            </svg>
+                                                                                                                                    </g>
+                                                                                                                                </g>
+                                                                                                                            </svg>
                                                         <svg class="icon added icon-solidheart" version="1.1" id="Capa_1"
                                                              xmlns="http://www.w3.org/2000/svg"
                                                              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                              width="510px" height="510px" viewBox="0 0 512 512"
                                                              style="enable-background: new 0 0 510 510" xml:space="preserve">
                                                         <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z">
-                                                                                                                </path>
-                                                                                                            </svg>
+                                                                                                                                </path>
+                                                                                                                            </svg>
                                                     </button>
                                                     <button type="button" aria-label="Add to compare"
                                                             class="cm-link btn--status" button-compare=""
@@ -358,8 +371,8 @@
                 C102.07,86.523,174.397,40,256,40c74.377,0,141.499,38.731,179.953,99.408l-28.517-20.367c-8.989-6.419-21.48-4.337-27.899,4.651
                 c-6.419,8.989-4.337,21.479,4.651,27.899l86.475,61.761c12.674,9.035,30.155,0.764,31.541-14.459l9.711-106.53
                 C512.919,81.362,504.815,71.632,493.815,70.629z"></path>
-                                                                                                                    </g>
-                                                                                                                </g>
+                                                                                                                                    </g>
+                                                                                                                                </g>
                                                         <g>
                                                         <g>
                                                         <path d="M472.855,346.238c-9.838-5.023-21.884-1.122-26.908,8.715C409.93,425.477,337.603,472,256,472
@@ -367,9 +380,9 @@
                 c6.419-8.989,4.337-21.479-4.651-27.899l-86.475-61.761c-12.519-8.944-30.141-0.921-31.541,14.459l-9.711,106.53
                 c-1.003,11,7.102,20.73,18.101,21.733c11.014,1.001,20.731-7.112,21.733-18.102l2.65-29.069C87.527,464.806,165.571,512,256,512
                 c97.281,0,183.012-55.522,225.57-138.854C486.594,363.309,482.692,351.262,472.855,346.238z"></path>
-                                                                                                                    </g>
-                                                                                                                </g>
-                                                                                                            </svg>
+                                                                                                                                    </g>
+                                                                                                                                </g>
+                                                                                                                            </svg>
                                                         <svg class="icon added icon-checked" version="1.1"
                                                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"
                                                              xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -380,20 +393,21 @@
                                                     </button>
                                                     <product-form class="product-form">
                                                         <form method="post" id="ProductDrop" accept-charset="UTF-8" class="form"
-                                                        onsubmit="addToCart(event)"
-                                                        enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
+                                                              onsubmit="addToCart(event)"
+                                                              enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
                                                             <div class="product-form__buttons">
-                                                                <button type="submit" name="add" class="product-form__submit button">
+                                                                <button type="submit" name="add" class="product-form__submit button" @(item.IsAvailability ? null : "disabled")>
                                                                     Add to cart
                                                                     <svg class="icon" id="i-cart" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 432 522" style="enable-background: new 0 0 432 522" xml:space="preserve">
                                                                     <g>
                                                                     <path d="M412,130h-60.9C343.1,62.5,285.6,0,216,0S88.9,62.5,80.9,130H20c-11,0-20,9-20,20v352c0,11,9,20,20,20h392c11,0,20-9,20-20
 		V150C432,139,423,130,412,130z M216,40c47.5,0,87,44.7,94.7,90H121.3C129,84.7,168.5,40,216,40z M392,482H40V170h40v30
 		c0,11,9,20,20,20s20-9,20-20v-30h192v30c0,11,9,20,20,20s20-9,20-20v-30h40V482z"></path>
-                                                                                                                                          </g>
-                                                                                                                                        </svg>
+                                                                                                                                                          </g>
+                                                                                                                                                        </svg>
                                                                 </button>
                                                             </div>
+                                                            <input type="hidden" name="productId" value="@item.Id" />
                                                         </form>
                                                     </product-form>
                                                 </div>
@@ -407,7 +421,7 @@
                                                         <span class="caption-large short-text">
                                                             @item.Description
                                                         </span>
-                                                        <div class="price">
+                                                        <div class="price @(item.IsDiscounted?"price--on-sale":null)">
                                                             <dl>
                                                                 <div class="price__regular">
                                                                     <dt>
@@ -418,16 +432,35 @@
                                                                     </dt>
                                                                     <dd>
                                                                         <span class="price-item price-item--regular">
-                                                                            $@item.Price
+                                                                            $@item.FinalPrice
                                                                         </span>
                                                                     </dd>
                                                                 </div>
+                                                                <div class="price__sale">
+                                                                    <dt>
+                                                                        <span class="visually-hidden visually-hidden--inline">Sale price</span>
+                                                                    </dt>
+                                                                    <dd>
+                                                                        <span class="price-item price-item--sale">
+                                                                            $@item.FinalPrice
+                                                                        </span>
+                                                                    </dd>
+                                                                    <dt class="price__compare">
+                                                                        <span class="visually-hidden visually-hidden--inline">Regular price</span>
+                                                                    </dt>
+                                                                    <dd class="price__compare">
+                                                                        <s class="price-item price-item--regular">
+                                                                            $@item.Price
+                                                                        </s>
+                                                                    </dd>
+                                                                </div>
                                                             </dl>
+                                                            <!---->
                                                         </div>
                                                         <product-form class="product-form">
                                                             <form method="post" action="/cart/add" id="ProductDrop" accept-charset="UTF-8"
                                                                   onsubmit="addToCart(event)"
-                                                            class="form" enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
+                                                                  class="form" enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
                                                                 <div class="product-form__buttons">
                                                                     <a asp-action="ProductDetail" asp-route-id="@item.Name"
                                                                        class="product-form__submit button select-button" title="Select option">

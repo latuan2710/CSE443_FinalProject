@@ -11,6 +11,7 @@ using Azure;
 using CSE443_FinalProject.Services;
 using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace CSE443_FinalProject.Controllers
 {
@@ -43,11 +44,9 @@ namespace CSE443_FinalProject.Controllers
         }
 
         // POST: Coffees/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,BrandId,Description,Price,Quantity")] Coffee coffee, IFormFile Image)
+        public async Task<IActionResult> Create([Bind("Id,Name,BrandId,Description,Price,Quantity,Discount")] Coffee coffee, IFormFile Image)
         {
             if (ModelState.IsValid)
             {
@@ -80,11 +79,9 @@ namespace CSE443_FinalProject.Controllers
         }
 
         // POST: Coffees/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BrandId,Image,Price,Quantity")] Coffee coffee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BrandId,Description,Price,Quantity,Discount")] Coffee coffee, IFormFile Image)
         {
             if (id != coffee.Id)
             {
@@ -95,8 +92,25 @@ namespace CSE443_FinalProject.Controllers
             {
                 try
                 {
-                    _context.Update(coffee);
+                    var mainCoffee = await _context.Coffee.FindAsync(coffee.Id);
+                    var name = Guid.NewGuid().ToString();
+                    if (Image != null)
+                    {
+                        _fileService.RemoveImage(mainCoffee.Image);
+
+                        mainCoffee.Image = "/upload/product/" + name + ".png";
+                    }
+                    
+                    mainCoffee.Name = coffee.Name;
+                    mainCoffee.BrandId = coffee.BrandId;
+                    mainCoffee.Description = coffee.Description;
+                    mainCoffee.Price= coffee.Price;
+                    mainCoffee.Quantity = coffee.Quantity;
+                    mainCoffee.Discount = coffee.Discount;
+
                     await _context.SaveChangesAsync();
+                    if (Image != null)
+                        _fileService.SaveImage(Image, "product", name);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -130,23 +144,13 @@ namespace CSE443_FinalProject.Controllers
             {
                 return NotFound();
             }
-
-            return View(coffee);
-        }
-
-        // POST: Coffees/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var coffee = await _context.Coffee.FindAsync(id);
-            if (coffee != null)
+            else
             {
                 _fileService.RemoveImage(coffee.Image);
                 _context.Coffee.Remove(coffee);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -174,8 +178,8 @@ namespace CSE443_FinalProject.Controllers
                 price = product.Price,
                 isDiscount = product.IsDiscounted,
                 discount = product.Discount,
-                finalPrice = product.finalPrice,
-                availability = product.isAvailability
+                finalPrice = product.FinalPrice,
+                availability = product.IsAvailability
             });
         }
 

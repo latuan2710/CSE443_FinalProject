@@ -16,7 +16,7 @@ namespace CSE443_FinalProject.Models
 
         [Required(ErrorMessage = "Phone number is required.")]
         [Phone(ErrorMessage = "Invalid phone number.")]
-        [RegularExpression(@"^\+?[1-9]\d{1,14}$", ErrorMessage = "The phone number is invalid.")]
+        [RegularExpression("^[0-9]+$", ErrorMessage = "The phone number is invalid.")]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Message is required.")]

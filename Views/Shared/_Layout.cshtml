@@ -45,6 +45,8 @@
     <link href="~/css/component-article-card.css" rel="stylesheet" />
     <link href="~/css/component-card.css" rel="stylesheet" />
     <link href="~/css/component-badge.css" rel="stylesheet" />
+    <link href="/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+    <script src="/sweetalert2/sweetalert2.all.min.js"></script>
     <style>
         .avatar {
             vertical-align: middle;
@@ -154,7 +156,7 @@
     </style>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 
     <script src="~/js/global.js" defer="defer"></script>
     <script src="~/js/jquery-ui.min.js"></script>
@@ -338,7 +340,11 @@
                             var fullName = account.FullName;
                             <div class="action">
                                 <div class="profile" onclick="menuToggle();">
-                                    <img class="avatar" src="https://www.w3schools.com/howto/img_avatar.png" />
+                                    @{
+                                        var user = UserManager.FindByEmailAsync(User.Identity.Name);
+                                        var image = user?.Result?.Avatar;
+                                    }
+                                    <img class="avatar" src="@(image??"/images/default-avatar.png")" />
                                     <div class="acc_desc">
                                         <span class="myaccount">
                                             Hi, @fullName
@@ -349,11 +355,14 @@
                                 <div class="menu">
                                     <ul>
                                         <li>
-                                            <a asp-controller="Account" asp-action="Profile">My profile</a>
+                                            <a asp-action="Profile">My profile</a>
                                         </li>
-                                        <li>
-                                            <a asp-controller="Users" asp-action="Index">DashBoard</a>
-                                        </li>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <li>
+                                                <a asp-controller="Users" asp-action="Index">DashBoard</a>
+                                            </li>
+                                        }
                                         <li>
                                             <a asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Home", "Page")">Logout</a>
                                         </li>
@@ -369,7 +378,7 @@
                         }
                         else
                         {
-                            <a asp-controller="Account" asp-action="Login"
+                            <a asp-action="Login"
                                class="menu-drawer__account link link--text focus-inset h5">
                                 <svg class="icon icon-account" viewBox="-42 0 512 512.001" fill="#fff"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -398,7 +407,7 @@
                     </div>
                     <div class="site-header__search">
                         <predictive-search data-loading-text="Loading...">
-                            <form action="https://cafebrew-codezeel.myshopify.com/search" method="get" role="search"
+                            <form asp-action="Catalog" method="get" role="search"
                                   class="search-header search">
                                 <div class="field">
                                     <input class="search-header__input search__input" id="Search-In-Template"
@@ -407,19 +416,6 @@
                                            aria-controls="predictive-search-results-list" aria-haspopup="listbox"
                                            aria-autocomplete="list" autocorrect="off" autocomplete="off"
                                            autocapitalize="off" spellcheck="false" />
-                                    <div class="predictive-search predictive-search--search-template" tabindex="-1"
-                                         data-predictive-search="">
-                                        <div class="predictive-search__loading-state">
-                                            <svg aria-hidden="true" focusable="false" role="presentation"
-                                                 class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33"
-                                                        r="30">
-                                                </circle>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <span class="predictive-search-status visually-hidden" role="status"
-                                          aria-hidden="true"></span>
                                     <button class="search-header__submit button" type="Search">
                                         <span class="icon__fallback-text">Search</span>
                                         <svg class="header-search icon icon-search" aria-hidden="true" focusable="false"
@@ -485,11 +481,11 @@
 
                                         foreach (var item in brands)
                                         {
-                                                <li>
-                                                    <a asp-action="Catalog" asp-route-brands="@item.Name" class="site-cat__link site-cat__link--main">
-                                                        Cafe @item.Name
-                                                    </a>
-                                                </li>
+                                            <li>
+                                                <a asp-action="Catalog" asp-route-brands="@item.Name" class="site-cat__link site-cat__link--main">
+                                                    Cafe @item.Name
+                                                </a>
+                                            </li>
                                         }
                                     }
                                 </ul>
@@ -679,13 +675,20 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     var cart = Context.Cart.FirstOrDefault(c => c.User.Email.Equals(User.Identity.Name));
-                                    var cartItems = Context.CartItem.Where(c => c.CartId == cart.Id).ToList();
-                                    int quantity = 0;
-                                    foreach (var item in cartItems)
+                                    if (cart != null)
                                     {
-                                        quantity += item.Quantity;
+                                        var cartItems = Context.CartItem.Where(c => c.CartId == cart.Id).ToList();
+                                        int quantity = 0;
+                                        foreach (var item in cartItems)
+                                        {
+                                            quantity += item.Quantity;
+                                        }
+                                        <span aria-hidden="true">@quantity</span>
                                     }
-                                    <span aria-hidden="true">@quantity</span>
+                                    else
+                                    {
+                                        <span aria-hidden="true">0</span>
+                                    }
                                 }
                                 else
                                 {
@@ -777,9 +780,6 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
                 <div class="page-width">
                     <div class="grid__item footer-box link-list">
                         <ul class="site-footer__linklist footer-content">
-                            <li class="site-footer__linklist-item">
-                                <a href="https://cafebrew-codezeel.myshopify.com/search">Search</a>
-                            </li>
                             <li class="site-footer__linklist-item">
                                 <a asp-controller="Page" asp-action="Sitemap">Site Map</a>
                             </li>
@@ -995,8 +995,10 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
         function addToCart(e) {
             e.preventDefault();
             let productId = +$(e.target).find("input[name='productId']").val();
+            let quantity = +$(e.target).find("input[name='quantity']").val();
             var form = new FormData();
             form.append("productId", productId);
+            form.append("quantity", quantity ?? 1);
 
             $.ajax({
                 url: "/Cart/AddToCart",
@@ -1016,7 +1018,7 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
                 },
                 error: function (xhr, error) {
                     if (xhr.status === 401) {
-                        location.href = "/Account/Login";
+                        location.href = "/Page/Login";
                     }
                     console.error("Failed to add product to cart:", xhr.status, error);
                 }

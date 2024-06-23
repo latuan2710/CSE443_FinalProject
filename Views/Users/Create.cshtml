@@ -1,14 +1,14 @@
-﻿@model AppUser
+﻿@model RegisterViewModel
 
 @{
     Layout = "_DashboardLayout";
     ViewData["Table"] = "Create User";
     ViewData["Title"] = "User";
-    ViewData["Controller"] = "Users";
+    //ViewData["Controller"] = "Users";
 }
 
 <div class="row">
-    <form asp-action="Create" class="w-100">
+    <form asp-action="Create" class="w-100" enctype="multipart/form-data">
         <div class="col-md-6">
             <input type="file" id="input-file-now" class="dropify" name="Avatar" data-height="500">
         </div>
@@ -16,28 +16,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
+                <input asp-for="FirstName" class="form-control" required/>
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
+                <input asp-for="LastName" class="form-control" required />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" required />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PasswordHash" class="control-label"></label>
-                <input asp-for="PasswordHash" class="form-control" />
-                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                <label asp-for="Password" class="control-label"></label>
+                <input type="password" asp-for="Password" class="form-control" required />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <label for="Role" class="control-label">Role</label>
+                <select class="form-control" id="Role" name="role" asp-items="Html.GetEnumSelectList(typeof(Role))"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-info" />

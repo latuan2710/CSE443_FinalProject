@@ -22,6 +22,27 @@ namespace CSE443_FinalProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CSE443_FinalProject.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FullAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Address");
+                });
+
             modelBuilder.Entity("CSE443_FinalProject.Models.AppUser", b =>
                 {
                     b.Property<int>("Id")
@@ -211,8 +232,8 @@ namespace CSE443_FinalProject.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Discount")
-                        .HasColumnType("int");
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -271,6 +292,14 @@ namespace CSE443_FinalProject.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -454,6 +483,17 @@ namespace CSE443_FinalProject.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CSE443_FinalProject.Models.Address", b =>
+                {
+                    b.HasOne("CSE443_FinalProject.Models.AppUser", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("CSE443_FinalProject.Models.Cart", b =>
                 {
                     b.HasOne("CSE443_FinalProject.Models.AppUser", "User")
@@ -578,6 +618,8 @@ namespace CSE443_FinalProject.Migrations
 
             modelBuilder.Entity("CSE443_FinalProject.Models.AppUser", b =>
                 {
+                    b.Navigation("Addresses");
+
                     b.Navigation("Cart");
 
                     b.Navigation("Orders");

@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using CSE443_FinalProject.Data;
 using CSE443_FinalProject.Models;
 using CSE443_FinalProject.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CSE443_FinalProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BlogsController : Controller
     {
         private readonly MVCContext _context;
@@ -25,26 +27,10 @@ namespace CSE443_FinalProject.Controllers
         // GET: Blogs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Blog.ToListAsync());
+            var blogs = await _context.Blog.OrderByDescending(b => b.CreatedAt).ToListAsync();
+            return View(blogs);
         }
 
-        // GET: Blogs/Details/5
-        public async Task<IActionResult> Details(int? title)
-        {
-            if (title == null)
-            {
-                return NotFound();
-            }
-
-            var blog = await _context.Blog
-                .FirstOrDefaultAsync(m => m.Title.Equals(title));
-            if (blog == null)
-            {
-                return NotFound();
-            }
-
-            return View(blog);
-        }
 
         // GET: Blogs/Create
         public IActionResult Create()
@@ -53,8 +39,6 @@ namespace CSE443_FinalProject.Controllers
         }
 
         // POST: Blogs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description")] Blog blog, IFormFile formFile)
@@ -89,11 +73,9 @@ namespace CSE443_FinalProject.Controllers
         }
 
         // POST: Blogs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Image,CreatedAt")] Blog blog)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Image")] Blog blog, IFormFile formFile)
         {
             if (id != blog.Id)
             {
@@ -104,8 +86,22 @@ namespace CSE443_FinalProject.Controllers
             {
                 try
                 {
-                    _context.Update(blog);
+                    var mainBlog = await _context.Blog.FindAsync(blog.Id);
+                    var name = Guid.NewGuid().ToString();
+                    if (formFile != null)
+                    {
+                        if (mainBlog.Image != null)
+                            _fileService.RemoveImage(mainBlog.Image);
+
+                        mainBlog.Image = "/upload/blogs/" + name + ".png";
+                    }
+                    mainBlog.Title = blog.Title;
+                    mainBlog.Description = blog.Description;
+                    mainBlog.CreatedAt = DateTime.Now;
+
                     await _context.SaveChangesAsync();
+                    if (formFile != null)
+                        _fileService.SaveImage(formFile, "blogs", name);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -137,23 +133,13 @@ namespace CSE443_FinalProject.Controllers
             {
                 return NotFound();
             }
-
-            return View(blog);
-        }
-
-        // POST: Blogs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var blog = await _context.Blog.FindAsync(id);
-            if (blog != null)
+            else
             {
                 _fileService.RemoveImage(blog.Image);
                 _context.Blog.Remove(blog);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

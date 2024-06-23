@@ -24,15 +24,15 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
 {
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-    options.LoginPath = "/Account/Login";
-    options.AccessDeniedPath = "/Account/Login";
+    options.LoginPath = "/Page/Login";
+    options.AccessDeniedPath = "/Page/Login";
     options.SlidingExpiration = true;
 });
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Account/Login";
+    options.LoginPath = "/Page/Login";
     options.LogoutPath = "/Account/Logout";
-    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.AccessDeniedPath = "/Page/AccessDenied";
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromDays(120);
     options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;

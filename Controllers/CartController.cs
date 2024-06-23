@@ -52,7 +52,7 @@ namespace CSE443_FinalProject.Controllers
                 await _context.AddAsync(newCart);
                 await _context.SaveChangesAsync();
 
-                CartItem cartItem = new CartItem { CoffeeId = productId, Price = product.Price, Quantity = quantity ?? 1, CartId = newCart.Id };
+                CartItem cartItem = new CartItem { CoffeeId = productId, Price = product.FinalPrice, Quantity = quantity ?? 1, CartId = newCart.Id };
                 await _context.AddAsync(cartItem);
                 await _context.SaveChangesAsync();
             }
@@ -71,7 +71,7 @@ namespace CSE443_FinalProject.Controllers
 
                 if (!exist)
                 {
-                    CartItem cartItem = new CartItem { CoffeeId = productId, Price = product.Price, Quantity = quantity ?? 1, CartId = user.Cart.Id };
+                    CartItem cartItem = new CartItem { CoffeeId = productId, Price = product.FinalPrice, Quantity = quantity ?? 1, CartId = user.Cart.Id };
                     await _context.AddAsync(cartItem);
                 }
                 await _context.SaveChangesAsync();
