@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CSE443_FinalProject.Data;
 using CSE443_FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace CSE443_FinalProject.Controllers
 {
@@ -220,6 +221,22 @@ namespace CSE443_FinalProject.Controllers
             return RedirectToAction(controllerName: "Page", actionName: "Checkout");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Buynow(int productId, int? quantityBuynow)
+        {
+            var product = await _context.Coffee.FindAsync(productId);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            HttpContext.Session.SetString("ChosenProduct", JsonConvert.SerializeObject(product));
+            HttpContext.Session.SetInt32("ChosenProductQty", quantityBuynow ?? 1);
+
+            return RedirectToAction("CheckoutBuynow", "Page");
+        }
+
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -238,6 +255,8 @@ namespace CSE443_FinalProject.Controllers
                 var product = await _context.Coffee.FindAsync(productId);
                 OrderItem orderItem = new OrderItem { OrderId = order.Id, CoffeeId = product.Id, Price = product.FinalPrice, Quantity = quantityBuynow };
                 await _context.OrderItem.AddAsync(orderItem);
+
+                product.Quantity -= quantityBuynow;
 
                 if (newAddress != null)
                 {

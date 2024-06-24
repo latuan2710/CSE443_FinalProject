@@ -217,7 +217,6 @@ namespace CSE443_FinalProject.Controllers
             return View();
         }
 
-
         [Authorize]
         public async Task<IActionResult> CheckoutBuynow()
         {

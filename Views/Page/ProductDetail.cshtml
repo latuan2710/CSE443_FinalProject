@@ -184,10 +184,9 @@
                                     </form>
 
                                     <!-- Buy Now Form -->
-                                <form method="post" action="@Url.Action("Buynow", "Cart")"
+                                <form method="post" asp-controller="Orders" asp-action="BuyNow" 
                                       id="buy-now-form-@Model.Id" accept-charset="UTF-8"
-                                      class="form" enctype="multipart/form-data" novalidate="novalidate"
-                                      data-type="buy-now-form">
+                                      class="form" enctype="multipart/form-data" data-type="buy-now-form">
                                     <input type="hidden" name="productId" value="@Model.Id" />
                                     <input type="hidden" name="quantityBuynow" value="1" id="quantityDetailBuyNow" />
                                     <div class="product-form__buttons_buy">

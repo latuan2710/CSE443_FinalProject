@@ -85,22 +85,6 @@ namespace CSE443_FinalProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Buynow(int productId, int? quantityBuynow)
-        {
-            var product = await _context.Coffee.FindAsync(productId);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            HttpContext.Session.SetString("ChosenProduct", JsonConvert.SerializeObject(product));  
-            HttpContext.Session.SetInt32("ChosenProductQty", quantityBuynow ?? 1);
-
-            return RedirectToAction("CheckoutBuynow", "Page");
-        }
-
-
-        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int[] cartItemId, int[] quantities)
         {
