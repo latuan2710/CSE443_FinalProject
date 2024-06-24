@@ -23,10 +23,14 @@
     <link href="/admin/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="/admin/css/sidebar-nav.min.css" rel="stylesheet">
     <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/alert.css" rel="stylesheet">
     <link href="/admin/css/style.css" rel="stylesheet">
     <link href="/admin/css/blue-dark.css" id="theme" rel="stylesheet">
+
     <link href="/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+    <script src="/admin/js/alert.js"></script>
     <script src="/sweetalert2/sweetalert2.all.min.js"></script>
+
 </head>
 
 <body>
@@ -72,7 +76,9 @@
                         <ul class="dropdown-menu animated flipInY">
                             <li><a asp-controller="Page" asp-action="Profile"><i class="ti-user"></i> My Profile</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <li>
+                                <a asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Home", "Page")">Logout</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -136,6 +142,19 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             @RenderBody()
+                            @if (TempData["SuccessMessage"] != null)
+                            {
+                                <div class="alert alert-success">
+                                    @TempData["SuccessMessage"]
+                                </div>
+                            }
+
+                            @if (TempData["ErrorMessage"] != null)
+                            {
+                                <div class="alert alert-error">
+                                    @TempData["ErrorMessage"]
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

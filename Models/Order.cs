@@ -4,6 +4,10 @@ namespace CSE443_FinalProject.Models
 {
     public class Order
     {
+        public Order()
+        {
+            Status = OrderStatus.Preparing;
+        }
         public int Id { get; set; }
 
         public int UserId { get; set; }
@@ -12,7 +16,7 @@ namespace CSE443_FinalProject.Models
 
         public double Price { get; set; }
 
-        public string Status { get; set; }
+        public OrderStatus Status { get; set; }
 
         [Required]
         public string Address { get; set; }
@@ -22,5 +26,15 @@ namespace CSE443_FinalProject.Models
         public string Phone { get; set; } // Changed to string to handle phone numbers with leading zeros
 
         public ICollection<OrderItem> OrderItems { get; set; }
+
     }
 }
+
+public enum OrderStatus
+{
+    Preparing,
+    Shipping,
+    Delivered,
+    Canceled
+}
+

@@ -41,7 +41,6 @@ namespace CSE443_FinalProject.Controllers
         }
 
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -61,17 +60,21 @@ namespace CSE443_FinalProject.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(controllerName: "Account", actionName: "Login");
+                    TempData["SuccessMessage"] = "Registration successful. Please log in.";
+
+                    return RedirectToAction(controllerName: "Page", actionName: "Login");
                 }
                 else
                 {
                     foreach (var error in result.Errors)
                     {
+                        TempData["ErrorMessage"] = "Registration failed. Please check your information";
+
                         ModelState.AddModelError("", error.Description);
                     }
                 }
             }
-            return View();
+            return RedirectToAction(controllerName: "Page", actionName: "Register");
         }
 
 
@@ -83,6 +86,8 @@ namespace CSE443_FinalProject.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
+                TempData["ErrorMessage"] = "Email or Password was invalid!";
+
                 ModelState.AddModelError(string.Empty, "Invalid Login Attemp");
                 return RedirectToAction(controllerName: "Page", actionName: "Login");
             }
@@ -91,6 +96,8 @@ namespace CSE443_FinalProject.Controllers
 
             if (result.Succeeded)
             {
+                TempData["SuccessMessage"] = "Login successful.";
+
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name,user.Email),
@@ -111,6 +118,11 @@ namespace CSE443_FinalProject.Controllers
                     authProperties);
 
                 return RedirectToAction(controllerName: "Page", actionName: "Home");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Email or Password was incorrect!";
+
             }
             ModelState.AddModelError("", "Email or Password was incorrect!");
             return RedirectToAction(controllerName: "Page", actionName: "Login");
