@@ -72,7 +72,7 @@ namespace CSE443_FinalProject.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Checkout([Bind("Phone,Address,UserId")] Order order, string FullName, string newAddress)
+        public async Task<IActionResult> Checkout([Bind("Phone,Address,UserId,Receiver")] Order order, string newAddress)
         {
             if (ModelState.IsValid)
             {
@@ -143,7 +143,7 @@ namespace CSE443_FinalProject.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CheckoutBuynow([Bind("Phone,Address,UserId")] Order order, string FullName, string newAddress, int productId, int quantityBuynow)
+        public async Task<IActionResult> CheckoutBuynow([Bind("Phone,Address,UserId,Receiver")] Order order, string newAddress, int productId, int quantityBuynow)
         {
             if (ModelState.IsValid)
             {

@@ -10,7 +10,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                Receiver
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
@@ -32,7 +32,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.FullName)
+                    @Html.DisplayFor(modelItem => item.Receiver)
                 </td>
                 <td>
                     $ @Html.DisplayFor(modelItem => item.Price)
@@ -67,7 +67,8 @@
                     type: 'POST',
                     data: { orderId: orderId, newStatus: newStatus },
                     success: function (response) {
-                        location.reload();                    },
+                        location.reload();
+                    },
                     error: function (xhr, status, error) {
                         console.error('Error updating order status: ' + error);
                     }
@@ -75,6 +76,8 @@
             });
         });
 
-        $('#orders').DataTable();
+        $('#orders').DataTable({
+            "order": []
+        });
     </script>
 }

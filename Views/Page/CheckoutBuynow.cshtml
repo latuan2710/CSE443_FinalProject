@@ -17,8 +17,8 @@
                             <input type="hidden" name="quantityBuynow" value="@ViewBag.ChosenProductQty">
 
                             <div class="field">
-                                <input id="FullName" name="FullName" placeholder="FullName" required>
-                                <label for="FullName">FullName</label>
+                                <input asp-for="Receiver" placeholder="FullName" required>
+                                <label asp-for="Receiver">FullName</label>
                             </div>
                             <div class="field">
                                 <input asp-for="Phone" placeholder="Phone" value="@ViewBag.Phone" required>
