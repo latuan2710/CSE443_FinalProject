@@ -4,6 +4,20 @@
     ViewData["Title"] = "Contact";
 }
 <partial name="_BreadcrumbsPartial" />
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-error">
+        @TempData["ErrorMessage"]
+    </div>
+}
 <main class="main-content" id="MainContent" role="main" tabindex="-1">
     <div class="page-width contents">
         <div class="main-container medium-up--three-quarters without-sidebar-main-container">

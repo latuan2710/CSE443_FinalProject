@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CSE443_FinalProject.Data;
 using CSE443_FinalProject.Models;
 using CSE443_FinalProject.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
-using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Authorization;
 using CSE443_FinalProject.Models.AppViewModels;
 
@@ -33,7 +26,7 @@ namespace CSE443_FinalProject.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Users.OrderByDescending(u => u.Id).ToListAsync());
         }
 
         // GET: Users/Create
@@ -48,6 +41,13 @@ namespace CSE443_FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                var existingUser = await _userManager.FindByEmailAsync(model.Email);
+                if (existingUser != null)
+                {
+                    TempData["ErrorMessage"] = "A user with this email already exists!";
+                    return RedirectToAction(nameof(Index));
+                }
+
                 var name = Guid.NewGuid().ToString();
                 var user = new AppUser
                 {
@@ -69,13 +69,18 @@ namespace CSE443_FinalProject.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    TempData["SuccessMessage"] = "Created new user successful!";
                     if (Avatar != null)
                         _fileService.SaveImage(Avatar, "users", name);
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return View(user);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    TempData["ErrorMessage"] = "Failed to create user!";
                 }
 
             }
@@ -134,6 +139,8 @@ namespace CSE443_FinalProject.Controllers
                     await _context.SaveChangesAsync();
                     if (Avatar != null)
                         _fileService.SaveImage(Avatar, "users", name);
+                    TempData["SuccessMessage"] = "Update user successful!";
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

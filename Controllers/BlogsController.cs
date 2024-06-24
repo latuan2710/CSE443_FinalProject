@@ -45,12 +45,22 @@ namespace CSE443_FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                var existingBlog = await _context.Blog.FirstOrDefaultAsync(b => b.Title == blog.Title);
+
+                if (existingBlog != null)
+                {
+                    TempData["ErrorMessage"] = "A blog with this title already exists!";
+                    ModelState.AddModelError("", "A blog with this title already exists!");
+                    return RedirectToAction(nameof(Index));
+                }
+
                 var name = Guid.NewGuid().ToString();
                 blog.Image = "/upload/blogs/" + name + ".png";
                 blog.CreatedAt = DateTime.Now;
                 _context.Add(blog);
                 await _context.SaveChangesAsync();
                 _fileService.SaveImage(formFile, "blogs", name);
+                TempData["SuccessMessage"] = "Blog post created successfully!";
                 return RedirectToAction(nameof(Index));
             }
             return View(blog);
@@ -102,6 +112,8 @@ namespace CSE443_FinalProject.Controllers
                     await _context.SaveChangesAsync();
                     if (formFile != null)
                         _fileService.SaveImage(formFile, "blogs", name);
+                    TempData["SuccessMessage"] = "Blog updated successfully!";
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

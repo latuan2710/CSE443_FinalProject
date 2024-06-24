@@ -11,6 +11,7 @@
     <title>@ViewData["Title"] - Coffee Store</title>
 
     @* <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" /> *@
+    <link href="/admin/css/alert.css" rel="stylesheet">
 
     <link href="~/css/base.css" rel="stylesheet" />
     <link href="~/css/css2.css" rel="stylesheet" />
@@ -46,6 +47,7 @@
     <link href="~/css/component-card.css" rel="stylesheet" />
     <link href="~/css/component-badge.css" rel="stylesheet" />
     <link href="/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+    <script src="/admin/js/alert.js"></script>
     <script src="/sweetalert2/sweetalert2.all.min.js"></script>
     <style>
         .avatar {
@@ -153,6 +155,41 @@
             span.myaccount:hover {
                 color: #af8a64 !important;
             }
+
+        /* css alert */
+         .alert {
+            position: fixed;
+            top: 20px;
+            right: -300px; 
+            z-index: 1000;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: right 1s ease-out, opacity 1s ease-out;  
+            opacity: 1;
+        }
+
+        .alert-success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+
+        .alert-error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+
+        .alert.show {
+            right: 20px;
+        }
+
+        .alert.hide {
+            right: 100%;  
+            opacity: 0;  
+        }
     </style>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -733,6 +770,20 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
         </cart-notification>
     </div>
     @RenderBody()
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-error">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
     <section id="shopify-section-tm_cms_info"
              class="shopify-section spaced-section cms_info-section spaced-section--full-width">
         <div class="cms_info" data-section-id="tm_cms_info" data-section-type="info-section">
@@ -985,6 +1036,7 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
     </a>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
+
         window.addEventListener('load', function () {
             const scrollPosition = JSON.parse(sessionStorage.getItem('scrollPosition'));
             if (scrollPosition) {
@@ -992,6 +1044,7 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
                 sessionStorage.removeItem('scrollPosition'); // Clear the stored position
             }
         });
+
         function addToCart(e) {
             e.preventDefault();
             let productId = +$(e.target).find("input[name='productId']").val();
@@ -999,7 +1052,6 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
             var form = new FormData();
             form.append("productId", productId);
             form.append("quantity", quantity ?? 1);
-
             $.ajax({
                 url: "/Cart/AddToCart",
                 type: "POST",
@@ -1025,6 +1077,7 @@ c944 -87 1765 -590 2268 -1390 514 -817 595 -1829 217 -2727 -176 -417 -495
             });
         };
         //$("product-form form").submit(addToCart)
+
     </script>
 </body>
 

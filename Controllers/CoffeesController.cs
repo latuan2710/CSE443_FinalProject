@@ -32,7 +32,7 @@ namespace CSE443_FinalProject.Controllers
         {
             var mVCContext = _context.Coffee
                 .AsNoTracking()
-                .Include(c => c.Brand);
+                .Include(c => c.Brand).OrderByDescending(c => c.Id);
             return View(await mVCContext.ToListAsync());
         }
 
@@ -50,11 +50,21 @@ namespace CSE443_FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                 var existingCoffee = await _context.Coffee.FirstOrDefaultAsync(c => c.Name == coffee.Name);
+
+                if (existingCoffee != null)
+                {
+                    TempData["ErrorMessage"] = "A product with this name already exists!";
+                    ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Id", coffee.BrandId);
+                    return RedirectToAction(nameof(Index));
+                }
+
                 var name = Guid.NewGuid().ToString();
                 coffee.Image = "/upload/product/" + name + ".png";
                 _context.Add(coffee);
                 await _context.SaveChangesAsync();
                 _fileService.SaveImage(Image, "product", name);
+                TempData["SuccessMessage"] = "Product created successfully!";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Id", coffee.BrandId);
@@ -111,6 +121,8 @@ namespace CSE443_FinalProject.Controllers
                     await _context.SaveChangesAsync();
                     if (Image != null)
                         _fileService.SaveImage(Image, "product", name);
+                    TempData["SuccessMessage"] = "Product updated successfully!";
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

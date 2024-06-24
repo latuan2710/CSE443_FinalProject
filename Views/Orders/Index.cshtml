@@ -4,7 +4,6 @@
     Layout = "_DashboardLayout";
     ViewData["Title"] = "Order";
     ViewData["Table"] = "Order Table";
-    ViewData["Controller"] = "Orders";
 }
 
 <table class="table table-striped" id="orders">
@@ -36,7 +35,7 @@
                     @Html.DisplayFor(modelItem => item.User.FullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    $ @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Address)
@@ -45,12 +44,12 @@
                     @Html.DisplayFor(modelItem => item.Phone)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @Html.DropDownListFor(modelItem => item.Status,
+                             new SelectList(Enum.GetValues(typeof(OrderStatus))),
+                             new { @class = "form-control order-status", style = "width: auto;", data_order_id = item.Id })
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                 </td>
             </tr>
         }
@@ -58,6 +57,24 @@
 </table>
 @section Scripts {
     <script>
+        $(document).ready(function () {
+            $('.order-status').change(function () {
+                var orderId = $(this).data('order-id');
+                var newStatus = $(this).val();
+
+                $.ajax({
+                    url: '@Url.Action("UpdateOrderStatus", "Orders")',
+                    type: 'POST',
+                    data: { orderId: orderId, newStatus: newStatus },
+                    success: function (response) {
+                        location.reload();                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error updating order status: ' + error);
+                    }
+                });
+            });
+        });
+
         $('#orders').DataTable();
     </script>
 }

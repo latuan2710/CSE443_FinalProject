@@ -39,6 +39,16 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 builder.Services.AddControllersWithViews();
+
+// Add session services
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+
 builder.Services.AddScoped<FileService, FileService>();
 
 var app = builder.Build();
@@ -65,6 +75,8 @@ app.Use(async (context, next) =>
     await next();
 });
 app.UseAuthorization();
+app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",

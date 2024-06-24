@@ -24,8 +24,23 @@ namespace CSE443_FinalProject.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var mVCContext = _context.Order.Include(o => o.User);
-            return View(await mVCContext.ToListAsync());
+            var orders = await _context.Order
+                         .Include(o => o.User)
+                         .Include(o => o.OrderItems)
+                         .OrderByDescending(o => o.Id)
+                         .ToListAsync();
+
+            foreach (var order in orders)
+            {
+                var orderItem = order.OrderItems.FirstOrDefault();
+                if (orderItem != null)
+                {
+                    double total = (orderItem.Price * orderItem.Quantity);
+                    order.Price = total;
+                }
+            }
+
+            return View(orders);
         }
 
         // GET: Orders/Details/5
@@ -173,6 +188,8 @@ namespace CSE443_FinalProject.Controllers
                 var user = _context.Users
                 .Include(u => u.Cart).ThenInclude(u => u.CartItems).ThenInclude(u => u.Coffee)
                 .FirstOrDefault(u => u.Email.Equals(User.Identity.Name));
+                TempData["SuccessMessage"] = "Order successful!";
+
                 await _context.Order.AddAsync(order);
                 await _context.SaveChangesAsync();
 
@@ -201,6 +218,57 @@ namespace CSE443_FinalProject.Controllers
             }
 
             return RedirectToAction(controllerName: "Page", actionName: "Checkout");
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CheckoutBuynow([Bind("Phone,Address,UserId")] Order order, string FullName, string newAddress, int productId, int quantityBuynow)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _context.Users
+                .Include(u => u.Cart).ThenInclude(u => u.CartItems).ThenInclude(u => u.Coffee)
+                .FirstOrDefault(u => u.Email.Equals(User.Identity.Name));
+                TempData["SuccessMessage"] = "Order successful!";
+
+                await _context.Order.AddAsync(order);
+                await _context.SaveChangesAsync();
+
+                var product = await _context.Coffee.FindAsync(productId);
+                OrderItem orderItem = new OrderItem { OrderId = order.Id, CoffeeId = product.Id, Price = product.FinalPrice, Quantity = quantityBuynow };
+                await _context.OrderItem.AddAsync(orderItem);
+
+                if (newAddress != null)
+                {
+                    Address address1 = new Address { UserId = user.Id, FullAddress = newAddress };
+                    order.Address = newAddress;
+                    await _context.Address.AddAsync(address1);
+                }
+
+                await _context.SaveChangesAsync();
+                HttpContext.Session.Clear();
+
+                return RedirectToAction(controllerName: "Page", actionName: "Home");
+            }
+
+            return RedirectToAction(controllerName: "Page", actionName: "Checkout");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateOrderStatus(int orderId, OrderStatus newStatus)
+        {
+            var order = _context.Order.Find(orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            order.Status = newStatus;
+            TempData["SuccessMessage"] = "Order updated successfully!";
+            _context.SaveChanges();
+
+            return Json(new { success = true }); 
         }
     }
 }
