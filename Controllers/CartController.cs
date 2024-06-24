@@ -92,9 +92,17 @@ namespace CSE443_FinalProject.Controllers
             {
                 return NotFound();
             }
+            if (product.Quantity < quantityBuynow)
+            {
+                TempData["ErrorMessage"] = "Insufficient stock for the product.";
+                return RedirectToAction(controllerName: "Page", actionName: "Home");
 
-            HttpContext.Session.SetString("ChosenProduct", JsonConvert.SerializeObject(product));  
-            HttpContext.Session.SetInt32("ChosenProductQty", quantityBuynow ?? 1);
+            }
+            else
+            {
+                HttpContext.Session.SetString("ChosenProduct", JsonConvert.SerializeObject(product));
+                HttpContext.Session.SetInt32("ChosenProductQty", quantityBuynow ?? 1);
+            }
 
             return RedirectToAction("CheckoutBuynow", "Page");
         }

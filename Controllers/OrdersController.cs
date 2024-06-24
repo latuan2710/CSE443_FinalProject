@@ -230,14 +230,17 @@ namespace CSE443_FinalProject.Controllers
                 var user = _context.Users
                 .Include(u => u.Cart).ThenInclude(u => u.CartItems).ThenInclude(u => u.Coffee)
                 .FirstOrDefault(u => u.Email.Equals(User.Identity.Name));
-                TempData["SuccessMessage"] = "Order successful!";
 
                 await _context.Order.AddAsync(order);
                 await _context.SaveChangesAsync();
 
                 var product = await _context.Coffee.FindAsync(productId);
+
                 OrderItem orderItem = new OrderItem { OrderId = order.Id, CoffeeId = product.Id, Price = product.FinalPrice, Quantity = quantityBuynow };
+                product.Quantity -= quantityBuynow;
+                TempData["SuccessMessage"] = "Order successful!";
                 await _context.OrderItem.AddAsync(orderItem);
+
 
                 if (newAddress != null)
                 {
@@ -268,7 +271,7 @@ namespace CSE443_FinalProject.Controllers
             TempData["SuccessMessage"] = "Order updated successfully!";
             _context.SaveChanges();
 
-            return Json(new { success = true }); 
+            return Json(new { success = true });
         }
     }
 }
