@@ -71,7 +71,7 @@ namespace CSE443_FinalProject.Controllers
                     }
                 }
             }
-            return View();
+            return RedirectToAction(controllerName:"Page",actionName:"Register");
         }
 
 
