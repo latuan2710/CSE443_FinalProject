@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace CSE443_FinalProject.Controllers
 {
@@ -43,7 +44,8 @@ namespace CSE443_FinalProject.Controllers
 
             if (product.Quantity < quantity)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Add to cart failed!";
+                return RedirectToAction("ProductDetail", "Page", new { id = productId });
             }
 
             if (user.Cart == null)
@@ -55,6 +57,7 @@ namespace CSE443_FinalProject.Controllers
                 CartItem cartItem = new CartItem { CoffeeId = productId, Price = product.FinalPrice, Quantity = quantity ?? 1, CartId = newCart.Id };
                 await _context.AddAsync(cartItem);
                 await _context.SaveChangesAsync();
+
             }
             else
             {
@@ -76,6 +79,7 @@ namespace CSE443_FinalProject.Controllers
                 }
                 await _context.SaveChangesAsync();
             }
+            TempData["SuccessMessage"] = "Add product to cart successful!";
 
             return Ok();
         }
@@ -97,7 +101,7 @@ namespace CSE443_FinalProject.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var cartItem = await _context.CartItem.FindAsync(id);
-             _context.CartItem.Remove(cartItem);
+            _context.CartItem.Remove(cartItem);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(controllerName: "Page", actionName: "Cart");

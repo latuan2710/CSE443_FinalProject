@@ -3,6 +3,7 @@ using CSE443_FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace CSE443_FinalProject.Controllers
@@ -82,19 +83,29 @@ namespace CSE443_FinalProject.Controllers
             return View();
         }
 
+
         [Authorize]
         public async Task<IActionResult> Profile()
         {
-            return View(await _context.Users
-                .Include(u => u.Orders).ThenInclude(u => u.OrderItems).ThenInclude(u => u.Coffee)
-                .Include(u => u.Addresses)
-                .FirstOrDefaultAsync(u => u.Email.Equals(User.Identity.Name)));
+            var user = await _context.Users
+                        .Include(u => u.Orders).ThenInclude(o => o.OrderItems).ThenInclude(oi => oi.Coffee)
+                        .Include(u => u.Addresses)
+                        .FirstOrDefaultAsync(u => u.Email.Equals(User.Identity.Name));
+
+            if (user == null)
+            {
+                return NotFound();  
+            }
+
+             user.Orders = user.Orders.OrderByDescending(o => o.Id).ToList();
+
+            return View(user);
         }
 
         public async Task<IActionResult> OrderDetail(int? id)
         {
             return View(await _context.OrderItem
-                .Include(o=>o.Coffee)
+                .Include(o => o.Coffee)
                 .Where(o => o.OrderId == id)
                 .ToListAsync());
         }
@@ -204,6 +215,31 @@ namespace CSE443_FinalProject.Controllers
             ViewBag.Cart = user.Cart;
             ViewBag.Phone = user.PhoneNumber;
             return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> CheckoutBuynow()
+        {
+            var productJson = HttpContext.Session.GetString("ChosenProduct");
+            var chosenCoffee = JsonConvert.DeserializeObject<Coffee>(productJson);
+            var chosenCoffeeQty = HttpContext.Session.GetInt32("ChosenProductQty");
+
+            var user = await _context.Users
+               .AsNoTracking()
+               .Include(c => c.Cart).ThenInclude(c => c.CartItems).ThenInclude(c => c.Coffee)
+               .Include(u => u.Addresses)
+               .FirstOrDefaultAsync(u => u.Email.Equals(User.Identity.Name));
+            ViewBag.UserId = user.Id;
+            ViewBag.Addresses = user.Addresses;
+            ViewBag.Cart = user.Cart;
+            ViewBag.Phone = user.PhoneNumber;
+
+            ViewBag.ChosenProduct = chosenCoffee;
+            ViewBag.ChosenProductQty = chosenCoffeeQty;
+
+            ViewBag.Subtotal = ViewBag.Total = chosenCoffee.FinalPrice * chosenCoffeeQty;
+
+            return View("CheckoutBuynow");
         }
 
 

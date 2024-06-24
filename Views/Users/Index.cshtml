@@ -7,6 +7,20 @@
     ViewData["Controller"] = "Users";
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-error">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <table class="table table-striped" id="users">
     <thead>
         <tr>

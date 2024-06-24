@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CSE443_FinalProject.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
     public class BrandsController : Controller
     {
         private readonly MVCContext _context;
@@ -24,9 +24,13 @@ namespace CSE443_FinalProject.Controllers
         // GET: Brands
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Brand.AsNoTracking()
-                .Include(b => b.Coffees)
-                .ToListAsync());
+            var brands = await _context.Brand
+                         .Include(b => b.Coffees)
+                         .OrderByDescending(b => b.Id)
+                         .AsNoTracking()
+                         .ToListAsync();
+
+            return View(brands);
         }
 
         // GET: Brands/Create
@@ -42,8 +46,18 @@ namespace CSE443_FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                var existingBrand = await _context.Brand.FirstOrDefaultAsync(b => b.Name == brand.Name);
+
+                if (existingBrand != null)
+                {
+                    TempData["ErrorMessage"] = "A brand with this name already exists!";
+                    return RedirectToAction(nameof(Index));
+                }
+
                 _context.Add(brand);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Created new brand successful!";
+
                 return RedirectToAction(nameof(Index));
             }
             return View(brand);
@@ -79,6 +93,8 @@ namespace CSE443_FinalProject.Controllers
             {
                 try
                 {
+                    TempData["SuccessMessage"] = "Update brand successful!";
+
                     _context.Update(brand);
                     await _context.SaveChangesAsync();
                 }
