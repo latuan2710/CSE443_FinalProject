@@ -15,6 +15,7 @@ namespace CSE443_FinalProject.Models
         public AppUser User { get; set; }
 
         public double Price { get; set; }
+        public string Receiver { get; set; }
 
         public OrderStatus Status { get; set; }
 

@@ -14,8 +14,8 @@
                         <form method="post" asp-controller="Orders" asp-action="Checkout">
                             <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
                             <div class="field">
-                                <input id="FullName" name="FullName" placeholder="FullName" required>
-                                <label for="FullName">FullName</label>
+                                <input asp-for="Receiver" placeholder="FullName" required>
+                                <label asp-for="Receiver">FullName</label>
                             </div>
                             <div class="field">
                                 <input asp-for="Phone" placeholder="Phone" value="@ViewBag.Phone" required>

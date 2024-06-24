@@ -52,126 +52,16 @@ namespace CSE443_FinalProject.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Order
-                .Include(o => o.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (order == null)
+            var orders = await _context.OrderItem
+                .Include(o => o.Coffee)
+                .Where(o => o.OrderId == id)
+                .ToListAsync();
+            if (orders == null)
             {
                 return NotFound();
             }
 
-            return View(order);
-        }
-
-        // GET: Orders/Create
-        public IActionResult Create()
-        {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
-        }
-
-        // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Price,Status,Address")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
-            return View(order);
-        }
-
-        // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Order.FindAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
-            return View(order);
-        }
-
-        // POST: Orders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Price,Status,Address")] Order order)
-        {
-            if (id != order.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrderExists(order.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", order.UserId);
-            return View(order);
-        }
-
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Order
-                .Include(o => o.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
-        }
-
-        // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var order = await _context.Order.FindAsync(id);
-            if (order != null)
-            {
-                _context.Order.Remove(order);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View(orders);
         }
 
         private bool OrderExists(int id)
@@ -182,7 +72,7 @@ namespace CSE443_FinalProject.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Checkout([Bind("Phone,Address,UserId")] Order order, string FullName, string newAddress)
+        public async Task<IActionResult> Checkout([Bind("Phone,Address,UserId,Receiver")] Order order, string newAddress)
         {
             if (ModelState.IsValid)
             {
@@ -211,7 +101,7 @@ namespace CSE443_FinalProject.Controllers
                     order.Address = newAddress;
                     await _context.Address.AddAsync(address1);
                 }
-
+                order.Price = total;
                 _context.Cart.Remove(user.Cart);
                 await _context.SaveChangesAsync();
 
@@ -231,16 +121,29 @@ namespace CSE443_FinalProject.Controllers
                 return NotFound();
             }
 
-            HttpContext.Session.SetString("ChosenProduct", JsonConvert.SerializeObject(product));
-            HttpContext.Session.SetInt32("ChosenProductQty", quantityBuynow ?? 1);
+            var user = await _context.Users
+               .AsNoTracking()
+               .Include(c => c.Cart).ThenInclude(c => c.CartItems).ThenInclude(c => c.Coffee)
+               .Include(u => u.Addresses)
+               .FirstOrDefaultAsync(u => u.Email.Equals(User.Identity.Name));
 
-            return RedirectToAction("CheckoutBuynow", "Page");
+            ViewBag.UserId = user.Id;
+            ViewBag.Addresses = user.Addresses;
+            ViewBag.Cart = user.Cart;
+            ViewBag.Phone = user.PhoneNumber;
+
+            ViewBag.ChosenProduct = product;
+            ViewBag.ChosenProductQty = quantityBuynow;
+
+            ViewBag.Subtotal = ViewBag.Total = product.FinalPrice * quantityBuynow;
+
+            return View("~/Views/Page/CheckoutBuynow.cshtml");
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CheckoutBuynow([Bind("Phone,Address,UserId")] Order order, string FullName, string newAddress, int productId, int quantityBuynow)
+        public async Task<IActionResult> CheckoutBuynow([Bind("Phone,Address,UserId,Receiver")] Order order, string newAddress, int productId, int quantityBuynow)
         {
             if (ModelState.IsValid)
             {
@@ -254,6 +157,7 @@ namespace CSE443_FinalProject.Controllers
 
                 var product = await _context.Coffee.FindAsync(productId);
                 OrderItem orderItem = new OrderItem { OrderId = order.Id, CoffeeId = product.Id, Price = product.FinalPrice, Quantity = quantityBuynow };
+                order.Price = orderItem.Price * orderItem.Quantity;
                 await _context.OrderItem.AddAsync(orderItem);
 
                 product.Quantity -= quantityBuynow;
@@ -287,7 +191,7 @@ namespace CSE443_FinalProject.Controllers
             TempData["SuccessMessage"] = "Order updated successfully!";
             _context.SaveChanges();
 
-            return Json(new { success = true }); 
+            return Json(new { success = true });
         }
     }
 }

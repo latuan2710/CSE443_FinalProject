@@ -36,8 +36,18 @@ namespace CSE443_FinalProject.Models
         public Brand Brand { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }
-        //public ICollection<CartItem> CartItems { get; set; }
-        //public ICollection<OrderItem> OrderItems { get; set; }
+        public ICollection<CartItem> CartItems { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
+
+        public bool IsOrder
+        {
+            get
+            {
+                if (OrderItems == null)
+                    return false;
+                return OrderItems.Count > 0;
+            }
+        }
     }
 
 

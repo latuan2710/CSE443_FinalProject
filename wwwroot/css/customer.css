@@ -689,4 +689,9 @@ li[data-address] > h2 {
     color: red;
     text-align: left;
 }
+
+quantity-input.quantity {
+    width: 150px;
+}
+
 /*# sourceMappingURL=/cdn/shop/t/2/assets/customer.css.map?nonce=1716344638987 */
