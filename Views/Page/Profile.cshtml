@@ -78,6 +78,7 @@
                                         <th>Order Id</th>
                                         <th>Quantity</th>
                                         <th>Price</th>
+                                        <th>Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -100,6 +101,7 @@
                                                 <td style="vertical-align: middle;">@(orders[i].Id)</td>
                                                 <td style="vertical-align: middle;">@quanity</td>
                                                 <td style="vertical-align: middle;">$@price</td>
+                                                <td style="vertical-align: middle;">@(orders[i].Status)</td>
                                                 <td><a asp-action="OrderDetail" asp-route-id="@(orders[i].Id)" class="btn btn-info">Detail</a></td>
                                             </tr>
                                         }

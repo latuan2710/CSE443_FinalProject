@@ -94,10 +94,10 @@ namespace CSE443_FinalProject.Controllers
 
             if (user == null)
             {
-                return NotFound();  
+                return NotFound();
             }
 
-             user.Orders = user.Orders.OrderByDescending(o => o.Id).ToList();
+            user.Orders = user.Orders.OrderByDescending(o => o.Id).ToList();
 
             return View(user);
         }
@@ -216,32 +216,6 @@ namespace CSE443_FinalProject.Controllers
             ViewBag.Phone = user.PhoneNumber;
             return View();
         }
-
-        [Authorize]
-        public async Task<IActionResult> CheckoutBuynow()
-        {
-            var productJson = HttpContext.Session.GetString("ChosenProduct");
-            var chosenCoffee = JsonConvert.DeserializeObject<Coffee>(productJson);
-            var chosenCoffeeQty = HttpContext.Session.GetInt32("ChosenProductQty");
-
-            var user = await _context.Users
-               .AsNoTracking()
-               .Include(c => c.Cart).ThenInclude(c => c.CartItems).ThenInclude(c => c.Coffee)
-               .Include(u => u.Addresses)
-               .FirstOrDefaultAsync(u => u.Email.Equals(User.Identity.Name));
-            ViewBag.UserId = user.Id;
-            ViewBag.Addresses = user.Addresses;
-            ViewBag.Cart = user.Cart;
-            ViewBag.Phone = user.PhoneNumber;
-
-            ViewBag.ChosenProduct = chosenCoffee;
-            ViewBag.ChosenProductQty = chosenCoffeeQty;
-
-            ViewBag.Subtotal = ViewBag.Total = chosenCoffee.FinalPrice * chosenCoffeeQty;
-
-            return View("CheckoutBuynow");
-        }
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

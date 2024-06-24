@@ -131,14 +131,23 @@ class QuantityInput extends HTMLElement {
     }
     onButtonClick(event2) {
         event2.preventDefault();
-        if (event2.target.name === "plus") {
-            document.querySelector("#quantityDetail").value = +document.querySelector("#quantityDetail").value + 1;
-        } else {
-            document.querySelector("#quantityDetail").value = +document.querySelector("#quantityDetail").value - 1;
+        const previousValue = +this.input.value;
+        const max = +event2.target.dataset.max;
+        try {
+            if (event2.target.name === "plus" && previousValue < max) {
+                document.querySelector("#quantityDetail").value = previousValue + 1;
+            } else if (event2.target.name === "minus" && previousValue > 0) {
+                document.querySelector("#quantityDetail").value = previousValue - 1;
+            }
+        } catch {
+
         }
-        const previousValue = this.input.value;
-        event2.target.name === "plus" ? this.input.stepUp() : this.input.stepDown(),
-            previousValue !== this.input.value &&
+        if (event2.target.name === "plus" && previousValue < max) {
+            this.input.value = previousValue + 1
+        } else if (event2.target.name === "minus" && previousValue > 0) {
+            this.input.value = previousValue - 1
+        }
+        previousValue !== this.input.value &&
             this.input.dispatchEvent(this.changeEvent);
     }
 }

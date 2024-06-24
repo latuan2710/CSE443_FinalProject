@@ -93,7 +93,7 @@
                                 <h1 class="product__title">@Model.Name</h1>
                                 <div class="price-product">
                                     <div class="product-price" id="price-template--16631469441317__main">
-                                        <div class="price price--large">
+                                        <div class="price price--large @(Model.IsDiscounted?"price--on-sale":null)">
                                             <dl>
                                                 <div class="price__regular">
                                                     <dt>
@@ -105,6 +105,24 @@
                                                         <span class="price-item price-item--regular">
                                                            $@Model.FinalPrice
                                                         </span>
+                                                    </dd>
+                                                </div>
+                                                <div class="price__sale">
+                                                    <dt>
+                                                        <span class="visually-hidden visually-hidden--inline">Sale price</span>
+                                                    </dt>
+                                                    <dd>
+                                                        <span class="price-item price-item--sale">
+                                                             $@Model.FinalPrice
+                                                        </span>
+                                                    </dd>
+                                                    <dt class="price__compare">
+                                                        <span class="visually-hidden visually-hidden--inline">Regular price</span>
+                                                    </dt>
+                                                    <dd class="price__compare">
+                                                        <s class="price-item price-item--regular">
+                                                             $@(Model.Price)
+                                                        </s>
                                                     </dd>
                                                 </div>
                                             </dl>
@@ -152,7 +170,7 @@
                                         <input class="quantity__input" type="number" 
                                                id="Quantity-template--16631469441317__main" min="1" value="1"
                                                form="product-form-template--16631469441317__main" />
-                                        <button class="quantity__button no-js-hidden" name="plus" type="button">
+                                        <button class="quantity__button no-js-hidden" name="plus" type="button" data-max="@Model.Quantity">
                                             <span class="visually-hidden">
                                                 Increase quantity for Fancy Coffee Travel
                                                 Mug

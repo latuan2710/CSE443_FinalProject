@@ -32,7 +32,9 @@ namespace CSE443_FinalProject.Controllers
         {
             var mVCContext = _context.Coffee
                 .AsNoTracking()
-                .Include(c => c.Brand).OrderByDescending(c => c.Id);
+                .Include(c => c.Brand)
+                .Include(c => c.OrderItems)
+                .OrderByDescending(c => c.Id);
             return View(await mVCContext.ToListAsync());
         }
 
@@ -50,7 +52,7 @@ namespace CSE443_FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                 var existingCoffee = await _context.Coffee.FirstOrDefaultAsync(c => c.Name == coffee.Name);
+                var existingCoffee = await _context.Coffee.FirstOrDefaultAsync(c => c.Name == coffee.Name);
 
                 if (existingCoffee != null)
                 {
@@ -110,11 +112,11 @@ namespace CSE443_FinalProject.Controllers
 
                         mainCoffee.Image = "/upload/product/" + name + ".png";
                     }
-                    
+
                     mainCoffee.Name = coffee.Name;
                     mainCoffee.BrandId = coffee.BrandId;
                     mainCoffee.Description = coffee.Description;
-                    mainCoffee.Price= coffee.Price;
+                    mainCoffee.Price = coffee.Price;
                     mainCoffee.Quantity = coffee.Quantity;
                     mainCoffee.Discount = coffee.Discount;
 
@@ -151,6 +153,7 @@ namespace CSE443_FinalProject.Controllers
 
             var coffee = await _context.Coffee
                 .Include(c => c.Brand)
+                .Include(c => c.OrderItems).ThenInclude(o => o.Order)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (coffee == null)
             {
