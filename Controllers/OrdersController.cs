@@ -12,7 +12,6 @@ using Newtonsoft.Json;
 
 namespace CSE443_FinalProject.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
         private readonly MVCContext _context;
@@ -23,6 +22,7 @@ namespace CSE443_FinalProject.Controllers
         }
 
         // GET: Orders
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var orders = await _context.Order
@@ -45,6 +45,7 @@ namespace CSE443_FinalProject.Controllers
         }
 
         // GET: Orders/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -112,6 +113,7 @@ namespace CSE443_FinalProject.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Buynow(int productId, int? quantityBuynow)
         {
@@ -182,6 +184,7 @@ namespace CSE443_FinalProject.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateOrderStatus(int orderId, OrderStatus newStatus)
         {
             var order = _context.Order.Find(orderId);

@@ -37,7 +37,7 @@ namespace CSE443_FinalProject.Controllers
             {
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Contact sent successfully!";
+                TempData["SuccessMessage"] = "Sent successfully!";
                 return RedirectToAction(controllerName: "Page", actionName: "Contact");
             }
             TempData["Contact"] = contact;

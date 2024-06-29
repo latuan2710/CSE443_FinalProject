@@ -1863,3 +1863,23 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .affix {
   position: fixed;
 }
+.Delivered, .Shipping, .Canceled, .Preparing{
+    font-weight: 600 !important;
+}
+.Delivered {
+    color: #28a745; /* lighter green */
+}
+
+.Shipping {
+    color: #ffc107; /* lighter yellow */
+}
+
+.Canceled {
+    color: #dc3545; /* lighter red */
+}
+
+.Preparing {
+    color: #17a2b8; /* lighter blue */
+}
+
+
