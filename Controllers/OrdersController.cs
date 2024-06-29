@@ -111,76 +111,7 @@ namespace CSE443_FinalProject.Controllers
             return RedirectToAction(controllerName: "Page", actionName: "Checkout");
         }
 
-        [HttpPost]
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Buynow(int productId, int? quantityBuynow)
-        {
-            var product = await _context.Coffee.FindAsync(productId);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.Users
-               .AsNoTracking()
-               .Include(c => c.Cart).ThenInclude(c => c.CartItems).ThenInclude(c => c.Coffee)
-               .Include(u => u.Addresses)
-               .FirstOrDefaultAsync(u => u.Email.Equals(User.Identity.Name));
-
-            ViewBag.UserId = user.Id;
-            ViewBag.Addresses = user.Addresses;
-            ViewBag.Cart = user.Cart;
-            ViewBag.Phone = user.PhoneNumber;
-
-            ViewBag.ChosenProduct = product;
-            ViewBag.ChosenProductQty = quantityBuynow;
-
-            ViewBag.Subtotal = ViewBag.Total = product.FinalPrice * quantityBuynow;
-
-            return View("~/Views/Page/CheckoutBuynow.cshtml");
-        }
-
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CheckoutBuynow([Bind("Phone,Address,UserId,Receiver")] Order order, string newAddress, int productId, int quantityBuynow)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = _context.Users
-                .Include(u => u.Cart).ThenInclude(u => u.CartItems).ThenInclude(u => u.Coffee)
-                .FirstOrDefault(u => u.Email.Equals(User.Identity.Name));
-
-                await _context.Order.AddAsync(order);
-                await _context.SaveChangesAsync();
-
-                var product = await _context.Coffee.FindAsync(productId);
-
-                OrderItem orderItem = new OrderItem { OrderId = order.Id, CoffeeId = product.Id, Price = product.FinalPrice, Quantity = quantityBuynow };
-                order.Price = orderItem.Price * orderItem.Quantity;
-                await _context.OrderItem.AddAsync(orderItem);
-
-                product.Quantity -= quantityBuynow;
-                TempData["SuccessMessage"] = "Order successful!";
-                await _context.OrderItem.AddAsync(orderItem);
-
-
-                if (newAddress != null)
-                {
-                    Address address1 = new Address { UserId = user.Id, FullAddress = newAddress };
-                    order.Address = newAddress;
-                    await _context.Address.AddAsync(address1);
-                }
-
-                await _context.SaveChangesAsync();
-                HttpContext.Session.Clear();
-
-                return RedirectToAction(controllerName: "Page", actionName: "Home");
-            }
-
-            return RedirectToAction(controllerName: "Page", actionName: "Checkout");
-        }
+        
 
         [HttpPost]
         public IActionResult UpdateOrderStatus(int orderId, OrderStatus newStatus)
