@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-6 container">
                     <div class="customer">
-                        <form method="post" asp-controller="Page" asp-action="CheckoutBuynow">
+                        <form method="post" asp-controller="Orders" asp-action="CheckoutBuynow">
                             <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
                             <input type="hidden" name="productId" value="@ViewBag.ChosenProduct.Id">
                             <input type="hidden" name="quantityBuynow" value="@ViewBag.ChosenProductQty">
