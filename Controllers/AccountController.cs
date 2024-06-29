@@ -50,6 +50,7 @@ namespace CSE443_FinalProject.Controllers
             {
                 var user = new AppUser
                 {
+                    Avatar = "/images/default-avatar.png",
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
@@ -61,17 +62,21 @@ namespace CSE443_FinalProject.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(controllerName: "Account", actionName: "Login");
+                    TempData["SuccessMessage"] = "Register successfull. Please log in!";
+                    return RedirectToAction(controllerName: "Page", actionName: "Login");
                 }
                 else
                 {
+                    var message = "";
                     foreach (var error in result.Errors)
                     {
+                        message += error.Description;
                         ModelState.AddModelError("", error.Description);
                     }
+                    TempData["ErrorMessage"] = message;
                 }
             }
-            return RedirectToAction(controllerName:"Page",actionName:"Register");
+            return RedirectToAction(controllerName: "Page", actionName: "Register");
         }
 
 

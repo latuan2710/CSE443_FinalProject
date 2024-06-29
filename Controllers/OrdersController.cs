@@ -112,6 +112,7 @@ namespace CSE443_FinalProject.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Buynow(int productId, int? quantityBuynow)
         {
